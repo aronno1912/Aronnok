@@ -3,13 +3,8 @@ var app = express();
 app.listen(3000, () => {
    console.log('Server listening on 3000');
 })
-// const mongoose = require('mongoose');
-// mongoose.connect("mongodb+srv://aronnok:aronnok@cluster0.yufjo2r.mongodb.net/?retryWrites=true&w=majority", () => {
-//    console.log('Connected to Mongo DB Successfully!!');
-// })
 
-
-
+// ===============================================================
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://aronnok:aronnok@cluster0.yufjo2r.mongodb.net/?retryWrites=true&w=majority";
 
@@ -35,3 +30,10 @@ async function run() {
   }
 }
 run().catch(console.dir);
+// ===========================================================
+const bodyParser = require('body-parser');
+app.use( bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const usersRoute = require('./routes/user.js');
+app.use('/users' , usersRoute);
