@@ -17,12 +17,19 @@ router.post('/user', async (request, response) => {//new endpoint /user, Any POS
           email : request.body.email
        });
         await user.save();
-    
+      //   user.save(function (err) {
+      //     if (err) {
+      //         console.log(err);
+      //     } else {
+      //       response.status(201).json({ message: 'User signed up successfully!' });
+      //     }
+      // });
+      response.status(201).json({ message: 'User signed up successfully!' });
         // You may want to handle the response or redirect to a login page
-        res.status(201).json({ message: 'User signed up successfully!' });
+        
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        response.status(500).json({ error: 'Internal Server Error' });
       }
 });
 module.exports = router;
