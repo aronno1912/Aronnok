@@ -47,5 +47,5 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const usersRoute = require('./routes/user.js');
-app.use('/users', usersRoute);
+const authRoute = require('./routes/auth');
+app.use('/api', authRoute);
