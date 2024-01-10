@@ -35,7 +35,7 @@ exports.signup = async (req, res) => {
 exports.signin = (req, res) => {
     const errors = validationResult(req);
     const { username, email, password } = req.body;
-
+    console.log(username);
     if (!errors.isEmpty()) {
         return res.status(422).json({
             error: errors.array()[0].msg
