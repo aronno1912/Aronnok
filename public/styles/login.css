@@ -1,0 +1,269 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 115.2rem;
+}.log-in-684 {
+  width: 100%;
+  height: 70rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #121414;
+}
+.log-in-684 .rectangle-1-RAL {
+  width: 78.5rem;
+  height: 70rem;
+  position: absolute;
+  left: 40.4rem;
+  top: 0;
+  background-color: #ffffff;
+  border-radius: 3.8rem;
+}
+.log-in-684 .frame-9c8 {
+  width: 96.2rem;
+  height: 59.804rem;
+  position: absolute;
+  left: 3rem;
+  top: 2.2rem;
+  overflow: hidden;
+}
+.log-in-684 .frame-9c8 .full-name-sHE {
+  width: 7.4rem;
+  height: 2.3rem;
+  position: absolute;
+  left: 55.8rem;
+  top: 23.2rem;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #a09f9f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .frame-9c8 .dont-have-an-account-sign-up-ZQx {
+  width: 24.3rem;
+  height: 2.3rem;
+  position: absolute;
+  left: 55.5rem;
+  top: 53.6rem;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #a09f9f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  align-items: baseline;
+}
+.log-in-684 .frame-9c8 .dont-have-an-account-sign-up-ZQx .dont-have-an-account-sign-up-ZQx-sub-0 {
+}
+.log-in-684 .frame-9c8 .dont-have-an-account-sign-up-ZQx .dont-have-an-account-sign-up-ZQx-sub-1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7bd2d6;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.log-in-684 .frame-9c8 .dont-have-an-account-sign-up-ZQx .dont-have-an-account-sign-up-ZQx-sub-2 {
+}
+.log-in-684 .frame-9c8 .line-1-f6c {
+  width: 40.4rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 55.8rem;
+  top: 25.7rem;
+  background-color: #eaeaea;
+}
+.log-in-684 .frame-9c8 .email-PoJ {
+  width: 4.1rem;
+  height: 2.3rem;
+  position: absolute;
+  left: 55.8rem;
+  top: 30.4rem;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #a09f9f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .frame-9c8 .line-4-7UQ {
+  width: 40.4rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 55.8rem;
+  top: 32.9rem;
+  background-color: #eaeaea;
+}
+.log-in-684 .frame-9c8 .password-T2U {
+  width: 7.3rem;
+  height: 2.3rem;
+  position: absolute;
+  left: 55.5rem;
+  top: 37.1rem;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #a09f9f;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .frame-9c8 .line-5-Aha {
+  width: 40.4rem;
+  height: 0.1rem;
+  position: absolute;
+  left: 55.5rem;
+  top: 39.6rem;
+  background-color: #eaeaea;
+}
+.log-in-684 .frame-9c8 .vector-uQG {
+  width: 2.5rem;
+  height: 1.6rem;
+  position: absolute;
+  left: 93.7rem;
+  top: 37.1rem;
+  object-fit: contain;
+  vertical-align: top;
+}
+.log-in-684 .frame-9c8 .frame-1-r4c {
+  width: 30.3rem;
+  height: 4.4rem;
+  position: absolute;
+  left: 57rem;
+  top: 47.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+  background-color: #33814e;
+  border-radius: 0.9rem;
+}
+.log-in-684 .frame-9c8 .plantys-logo-7WL {
+  width: 36.0462rem;
+  height: 8.8612rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.log-in-684 .frame-9c8 .plantys-logo-7WL .vector-3-qx8 {
+  width: 1.6615rem;
+  height: 3.8678rem;
+  position: absolute;
+  left: 5.3538rem;
+  top: 1.0056rem;
+  object-fit: contain;
+  vertical-align: top;
+}
+.log-in-684 .frame-9c8 .plantys-logo-7WL .vector-4-n6g {
+  width: 3.7538rem;
+  height: 4.7603rem;
+  position: absolute;
+  left: 6.8308rem;
+  top: 1.6601rem;
+  object-fit: contain;
+  vertical-align: top;
+}
+.log-in-684 .frame-9c8 .plantys-logo-7WL .vector-5-7Pr {
+  width: 6.4493rem;
+  height: 7.1988rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  object-fit: contain;
+  vertical-align: top;
+}
+.log-in-684 .frame-9c8 .plantys-logo-7WL .aronnok-4K6 {
+  width: 14rem;
+  height: 3.7rem;
+  position: absolute;
+  left: 9.4rem;
+  top: 3.6rem;
+  font-size: 3.2rem;
+  font-weight: 400;
+  line-height: 1.1525;
+  letter-spacing: -0.15rem;
+  color: #ffffff;
+  font-family: Belleza, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .frame-9c8 .jungleplant2-A7E {
+  width: 42.604rem;
+  height: 42.604rem;
+  position: absolute;
+  left: 16.7rem;
+  top: 17.2rem;
+  object-fit: cover;
+  vertical-align: top;
+}
+.log-in-684 .frame-9c8 .find-rare-hybrid-plants-here-VQQ {
+  width: 26.7rem;
+  height: 6.6rem;
+  position: absolute;
+  left: 0;
+  top: 8.85rem;
+  display: flex;
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.088rem;
+  color: #ffffff;
+  font-family: Poppins, 'Source Sans Pro';
+}
+.log-in-684 .frame-9c8 .log-in-PVn {
+  width: 8rem;
+  height: 3.8rem;
+  position: absolute;
+  left: 55.5rem;
+  top: 14.6rem;
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.1rem;
+  color: #000000;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .english-uk-JMr {
+  width: 9rem;
+  height: 2.1rem;
+  position: absolute;
+  left: 100.4rem;
+  top: 3rem;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.056rem;
+  color: #a1a1a1;
+  font-family: Poppins, 'Source Sans Pro';
+  white-space: nowrap;
+}
+.log-in-684 .polygon-1-oZW {
+  width: 1.7rem;
+  height: 1.2rem;
+  position: absolute;
+  left: 109.9rem;
+  top: 3.4rem;
+  object-fit: contain;
+  vertical-align: top;
+}
