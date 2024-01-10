@@ -12,6 +12,15 @@ exports.signup = async (req, res) => {
         });
     }
     try {
+        const {username}=req.body;
+        // Check if the username already exists
+        const existingUser = await User.findOne({ username });
+
+        if (existingUser) {
+            return res.status(400).json({
+                error: 'Username already exists, please choose a different one'
+            });
+        }
         const user = new User(req.body);
         await user.save();
         res.status(201).json({ message: 'User signed up successfully!' });
@@ -36,9 +45,18 @@ exports.signin = (req, res) => {
         .then((user) => {
             if (!user.autheticate(password)) {
                 return res.status(401).json({
-                    error: "Username/email and password do not match"
+                    error: "Username/email or password do not match"
                 });
             }
+            //create token
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+    //put token in cookie
+    console.log(token);
+    res.cookie("token", token, { expire: new Date() + 9999 });
+
+    //send response to front end
+    // const { _id, name, email, role } = user;
+    // return res.json({ token, user: { _id, name, email, role } });
             return res.status(201).json({ message: 'User signed in successfully!' });
         })
         .catch((error) => {
@@ -50,49 +68,50 @@ exports.signin = (req, res) => {
 };
 
 exports.signout = (req, res) => {
-//   res.clearCookie("token");
-  res.json({
-    message: "User signout successfully"
-  });
+      res.clearCookie("token");
+    res.json({
+        message: "User signout successfully"
+    });
 };
 
 //protected routes
 exports.isSignedIn = (req, res, next) => {
     // Check if the token is present in the request headers
     const token = req.headers.authorization;
-  
+
     if (!token) {
-      return res.status(401).json({ error: 'Unauthorized: No token provided' });
+        return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
-  
+
     // Verify the token
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ error: 'Unauthorized: Invalid token' });
-      }
-  
-      // Attach the decoded user information to the request object
-      req.auth = decoded;
-      next();
+        if (err) {
+            return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+        }
+
+        // Attach the decoded user information to the request object
+        req.auth = decoded;
+        next();
     });
-  };
+};
 
-// //custom middlewares
-// exports.isAuthenticated = (req, res, next) => {
-//   let checker = req.profile && req.auth && req.profile._id == req.auth._id;
-//   if (!checker) {
-//     return res.status(403).json({
-//       error: "ACCESS DENIED"
-//     });
-//   }
-//   next();
-// };
+//custom middlewares
+exports.isAuthenticated = (req, res, next) => {
+    //to store authentication-related information in req
+  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+  if (!checker) {
+    return res.status(403).json({
+      error: "ACCESS DENIED"
+    });
+  }
+  next();
+};
 
-// exports.isAdmin = (req, res, next) => {
-//   if (req.profile.role === 0) {
-//     return res.status(403).json({
-//       error: "You are not ADMIN, Access denied"
-//     });
-//   }
-//   next();
-// };
+exports.isAdmin = (req, res, next) => {
+  if (req.profile.role === 0) {
+    return res.status(403).json({
+      error: "You are not ADMIN, Access denied"
+    });
+  }
+  next();
+};

@@ -1,6 +1,7 @@
+require("dotenv").config();
 var express = require('express');
 var app = express();
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server listening on 3000');
 })
 
@@ -32,8 +33,8 @@ app.listen(3000, () => {
 // run().catch(console.dir);
 
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://aronnok:aronnok@cluster0.yufjo2r.mongodb.net/aronnok?retryWrites=true&w=majority";
-mongoose.connect(uri, {
+// const uri = "mongodb+srv://aronnok:aronnok@cluster0.yufjo2r.mongodb.net/aronnok?retryWrites=true&w=majority";
+mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }
@@ -49,3 +50,5 @@ app.use(bodyParser.json());
 
 const authRoute = require('./routes/auth');
 app.use('/api', authRoute);
+const userRoutes = require("./routes/user");
+app.use("/api", userRoutes);
