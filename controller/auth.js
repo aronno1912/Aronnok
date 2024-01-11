@@ -33,10 +33,13 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
+    console.log(req.body);
     const errors = validationResult(req);
+    
     const { username, email, password } = req.body;
     console.log(username);
     if (!errors.isEmpty()) {
+        // console.log("here");
         return res.status(422).json({
             error: errors.array()[0].msg
         });
@@ -51,7 +54,7 @@ exports.signin = (req, res) => {
             //create token
     const token = jwt.sign({ _id: user._id }, process.env.SECRET);
     //put token in cookie
-    console.log(token);
+    // console.log(token);
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     //send response to front end
