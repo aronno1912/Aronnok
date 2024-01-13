@@ -16,19 +16,19 @@
   <div class="rectangle-1-RAL"></div>
   <div class="frame-9c8">
     <form id="loginForm" onsubmit="submitForm(event)">
-      <div class="full-name-sHE">
+      <!-- <div class="full-name-sHE">
         <label for="full-name" class="full-name-sHE">Full Name</label>
         <input type="text" id="full-name" name="full-name" placeholder="Full Name" />
-      </div>
+      </div> -->
       <div class="dont-have-an-account-sign-up-ZQx">
         <span class="dont-have-an-account-sign-up-ZQx-sub-0">Don’t have an account? </span>
         <a href="signup.html" class="dont-have-an-account-sign-up-ZQx-sub-1">Sign up</a>
         <span class="dont-have-an-account-sign-up-ZQx-sub-2"> </span>
       </div>
-      <div class="line-1-f6c"></div>
-      <div class="email-PoJ">
-        <label for="email" class="email-PoJ">Email</label>
-        <input type="text" id="email" name="email" placeholder="Email" />
+      <!-- <div class="line-1-f6c"></div> -->
+      <div class="username-PoJ">
+        <label for="username" class="username-PoJ">username</label>
+        <input type="text" id="username" name="username" placeholder="username" />
       </div>
       <div class="line-4-7UQ"></div>
       <div class="password-T2U">
@@ -53,27 +53,27 @@
   <img class="polygon-1-oZW" src="./assets/polygon-1-9or.png"/>
 </div>
 
-<!-- <script>
+<script>
     function submitForm(event) {
       event.preventDefault(); // Prevent form submission
-      var fullNameValue = document.getElementById("full-name").value;
-      var emailValue = document.getElementById("email").value;
+      //var fullNameValue = document.getElementById("full-name").value;
+      var usernameValue = document.getElementById("username").value;
       var passwordValue = document.getElementById("password").value;
-      alert("Full Name: " + fullNameValue+ "\nEmail: " + emailValue + "\nPassword: " + passwordValue);
+      alert("Full Name: " + fullNameValue+ "\nusername: " + usernameValue + "\nPassword: " + passwordValue);
       // You can perform other actions with the full name value here
     }
-  </script> -->
+  </script>
   <!-- <script>
     function submitForm(event) {
       event.preventDefault(); // Prevent form submission
       var fullNameValue = document.getElementById("full-name").value;
-      var emailValue = document.getElementById("email").value;
+      var usernameValue = document.getElementById("username").value;
       var passwordValue = document.getElementById("password").value;
 
       // Prepare data to send to the server
       var formData = {
         fullName: fullNameValue,
-        email: emailValue,
+        username: usernameValue,
         password: passwordValue
       };
 
@@ -96,6 +96,7 @@
       });
     }
   </script> -->
+<!-- =========================================== refer to backend ======================================= -->
 <script src="js/token.js"></script>
 <script src="js/form.js"></script>
 </body>
