@@ -47,14 +47,20 @@ var userSchema = new mongoose.Schema(
       required: true
     },
     salt: String,
-    // role: {
-    //   type: Number,
-    //   default: 0
-    // },
+    //MERN
+    role: {
+      type: Number,
+      default: 0
+    },
+    photo: {
+      data: Buffer,
+      contentType: String
+    }
     // purchases: {
     //   type: Array,
     //   default: []
-    // }
+    // },
+
   }
   ,
   { timestamps: true }
