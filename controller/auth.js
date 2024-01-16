@@ -54,7 +54,7 @@ exports.signin = (req, res) => {
             //create token
     const token = jwt.sign({ _id: user._id }, process.env.SECRET);
     //put token in cookie
-    // console.log(token);
+    console.log(token);
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     //send response to front end
@@ -116,5 +116,6 @@ exports.isAdmin = (req, res, next) => {
       error: "You are not ADMIN, Access denied"
     });
   }
+  console.log("verified admin");
   next();
 };
