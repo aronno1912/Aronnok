@@ -1,18 +1,20 @@
 var mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
 var cart_products= new mongoose.Schema(
   {
     cart_id: {
-      type: Number,
-      required: true,
-      unique: true,
+        type: ObjectId,
+        ref: "Cart_details",
+        required: true,
     },
 
     product_id: {
-      type: Number,
-      required:true,
-    },
-    
+        type: ObjectId,
+        ref: "Product",
+        required: true,
+      },
+
   }
   ,
   { timestamps: true }

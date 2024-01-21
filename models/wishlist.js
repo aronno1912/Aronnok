@@ -1,16 +1,20 @@
 var mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
 var wishlist = new mongoose.Schema(
   {
     user_id: {
-      type: Number,
-      required: true,
-    },
-    plant_id:
-     {
-      type: Number,
-      required:true,
-    },
+        type: ObjectId,
+        ref: "User",
+        required: true,
+      },
+    
+      product_id: {
+        type: ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      
     bought: {
         type: Number,
         required:true,
