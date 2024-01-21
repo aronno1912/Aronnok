@@ -1,19 +1,14 @@
 var mongoose = require("mongoose");
-
+const { ObjectId } = mongoose.Schema;
 //this is purchase_list after delivery_status becomes true, and when false then it is active order list
 var cart_details = new mongoose.Schema(
   {
-    cart_id: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-
     user_id: {
-      type: Number,
-      required:true,
+      type: ObjectId,
+      ref: "User",
+      required: true
     },
-
+    
     order_date: {
       type: Date,
       required:true,
