@@ -1,0 +1,44 @@
+.container{
+    margin-top: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width:300px;
+    height: 400px;
+}
+
+.plant-details{
+    background: linear-gradient(0deg, rgb(222, 223, 222),rgb(255, 255, 255) 40%)
+}
+.container img{
+    width: 100%;
+    height: 70%;
+}
+.plant-name{
+    font-size: 20px;
+    color: rgb(22, 76, 17);
+}
+
+.description{
+    font-size: 13px;
+}
+
+.price{
+    margin-top: 0px;
+}
+.buy-btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 30px;
+    width: 60px;
+    background-color: rgb(24, 113, 60);
+    color: white;
+}
+
+.star-img{
+    display: flex;
+    height: 30px;
+    width: 30px;
+    background-color: inherit;
+}
