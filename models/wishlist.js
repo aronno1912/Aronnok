@@ -1,29 +1,37 @@
 var mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
-var wishlist = new mongoose.Schema(
+//for the products that are out of stock, or maybe you wish to buy, the cart can do the same thing in the second case
+//we are doing both
+const wishlistSchema = new mongoose.Schema(
   {
-    user_id: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
+    user: {
+      type: ObjectId,
+      ref: "User",
+      required: true,
+    },
+    product: [
+      {
+        product: {
+          type: ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
-    
-      product_id: {
-        type: ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      
+    ],
     bought: {
-        type: Number,
-        required:true,
-      },
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   }
   ,
   { timestamps: true }
 );
 
 
-wishlist.
-module.exports = mongoose.model("Wishlist", wishlist);
+module.exports = mongoose.model("Wishlist", wishlistSchema);

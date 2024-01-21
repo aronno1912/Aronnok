@@ -30,3 +30,5 @@ const productRoutes = require("./routes/product");
 app.use("/api", productRoutes);
 const categoryRoutes = require("./routes/category");
 app.use("/api", categoryRoutes);
+const paymentRoutes = require("./routes/payment");
+app.use("/api", paymentRoutes);

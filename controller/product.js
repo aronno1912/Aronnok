@@ -4,19 +4,19 @@ const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
 const { check, validationResult } = require("express-validator");
-// exports.getProductById = (req, res, next, id) => {
-//   Product.findById(id)
-//     .populate("category")
-//     .exec((err, product) => {
-//       if (err) {
-//         return res.status(400).json({
-//           error: "Product not found",
-//         });
-//       }
-//       req.product = product;
-//       next();
-//     });
-// };
+exports.getProductById = (req, res, next, id) => {
+  Product.findById(id)
+    .populate("category")
+    .exec((err, product) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Product not found",
+        });
+      }
+      req.product = product;
+      next();
+    });
+};
 exports.imageHelper=(req, res,next) => {
   const fs = require('fs');
 
@@ -33,22 +33,6 @@ exports.imageHelper=(req, res,next) => {
 };
 // create product
 exports.addPlant = async (req, res,next) => {
-
-  
-  // Create the JSON entry with the Base64-encoded image data
-  // const productEntry = {
-  //   "name": "Example Product",
-  //   "description": "This is an example product description. It can contain details about the product.",
-  //   "price": 19.99,
-  //   "category": "5f8f182f4e4f7c2d5472bcb6",  // Replace with a valid ObjectId referencing a Category document
-  //   "stock": 50,
-  //   "sold": 10,
-  //   "rating": 4.5,
-  //   "photo": {
-  //     "data": base64Image,
-  //     "contentType": "image/jpeg"
-  //   }
-  // };
   
   // Now you can use the productEntry object in your MongoDB operation
   
@@ -139,20 +123,20 @@ exports.addPlant = async (req, res,next) => {
     }
 };
 
-// // get single product
-// exports.getProduct = (req, res) => {
-//   req.product.photo = undefined;
-//   return res.json(req.product);
-// };
+// get single product
+exports.getProduct = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
 
-// // middleware
-// exports.photo = (req, res, next) => {
-//   if (req.product.photo.data) {
-//     res.set("Content-Type", req.product.photo.contentType);
-//     return res.send(req.product.photo.data);
-//   }
-//   next();
-// };
+// middleware
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};
 
 // // delete product
 // exports.deleteProduct = (req, res) => {
