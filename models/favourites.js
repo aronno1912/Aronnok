@@ -1,21 +1,31 @@
 var mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
-
-var favourites = new mongoose.Schema(
+//just normal favorites list
+var favouritesSchema = new mongoose.Schema(
   {
-    user_id: {
-      type: Number,
+    user: {
+      type: ObjectId,
+      ref: "User",
+    },
+    product: [
+      {
+        product: {
+          type: ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    bought: {
+      type: Boolean,
+      default: false,
       required: true,
     },
-    plant_id:
-     {
-      type: Number,
-      required:true,
-    },
-    bought: {
-        type: Number,
-        required:true,
-      },
      
   }
   ,
@@ -23,5 +33,4 @@ var favourites = new mongoose.Schema(
 );
 
 
-favourites.
-module.exports = mongoose.model("Favourites", favourites);
+module.exports = mongoose.model("Favourites", favouritesSchema);
