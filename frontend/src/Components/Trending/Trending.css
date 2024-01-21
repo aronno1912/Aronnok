@@ -1,0 +1,14 @@
+.trending{
+    display: flexbox;
+    justify-content: space-around;
+    margin-left: 75px;
+}
+
+.tr-products{
+    display: flex;
+    align-content: flex-start;
+    gap: 50px;
+    overflow: hidden;
+    /* width: 300px; 
+    margin: 20px; */
+}

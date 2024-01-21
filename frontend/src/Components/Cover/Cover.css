@@ -1,0 +1,38 @@
+.cover{
+    display: flex;
+    justify-content: center;
+}
+
+ .cover img{
+    position: relative;
+    border-radius: 20px;
+    padding-top: 20px;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+ }
+
+ .cover-text{
+    position: absolute;
+    align-items: center;
+    top: 35%;
+    left: 18%;
+    transform: translate(-50%, -50%);
+    color: rgb(122, 232, 224);
+ }
+
+ .cover-text p{
+    font-size: 50px;
+    text-align: center;
+    color: rgb(122, 232, 224);
+ }
+
+ .cover-text button{
+    align-items: center;
+    width: 145px;
+    height: 40px;
+    font-size: 15px;
+    background-color: black;
+    color: bisque;
+    border-radius: 15px;
+ }
