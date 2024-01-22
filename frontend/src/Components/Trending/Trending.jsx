@@ -4,7 +4,7 @@ import all_plants from '../Assets/all_products'
 import Product from '../Product/Product'
 
 const Trending = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  //const [isHovered, setIsHovered] = useState(false);
   return (
     <div className='trending'>
       <h1> Trending</h1>
