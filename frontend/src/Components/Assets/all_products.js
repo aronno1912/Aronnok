@@ -133,7 +133,8 @@ let all_plants=[
       "$date": "2024-01-16T14:13:27.016Z"
     },
     "__v": 0
-  }
+  },
+
 ]
 
 export default all_plants
