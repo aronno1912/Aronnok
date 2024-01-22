@@ -5,6 +5,7 @@ import Product from '../Product/Product'
 
 const Trending = ({catagory}) => {
 
+const Trending = () => {
   return (
     <div className='trending'>
       <h1>{catagory}</h1>

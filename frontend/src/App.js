@@ -6,6 +6,7 @@ import Favourites from './Pages/Favourites';
 import Product from './Pages/Product';
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
+import ViewProduct from './Pages/ViewProduct';
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 
@@ -16,7 +17,8 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/favourites' element={<Favourites/>}/>
+        {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
+        <Route path='/favourites' element={<ViewProduct/>}/>
         <Route path='/product' element={<Product/>}>
           <Route path=':productId' element={<Product/>}/>
         </Route>

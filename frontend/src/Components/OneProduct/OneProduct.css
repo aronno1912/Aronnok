@@ -1,0 +1,26 @@
+/* OneProduct.css */
+
+.oneproduct {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin: 10px;
+  }
+  
+  .oneproduct__left {
+    flex: 1;
+  }
+  
+  .oneproduct__left__img img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .oneproduct__right {
+    flex: 1;
+    padding: 0 20px;
+  }
+  
+  /* Add additional styling as needed */
+  
