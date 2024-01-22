@@ -7,7 +7,8 @@ const Home = () => {
   return (
     <div>
       <Cover/>
-      <Trending/>
+      <Trending catagory="Trending"/>
+      <Trending catagory="Recommended for you"/>
       <Footer/>
     </div>
   )

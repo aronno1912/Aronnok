@@ -1,13 +1,14 @@
 .container{
     margin-top: 10px;
-    position: relative;
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
-    width:300px;
-    height: 400px;
+    width:270px;
+    height: 350px;
 }
 
 .plant-details{
+    position: relative;
     background: linear-gradient(0deg, rgb(222, 223, 222),rgb(255, 255, 255) 40%)
 }
 .container img{
@@ -27,7 +28,7 @@
     margin-top: 0px;
 }
 .buy-btn{
-    position: absolute;
+    position:absolute;
     bottom: 0;
     right: 0;
     height: 30px;
