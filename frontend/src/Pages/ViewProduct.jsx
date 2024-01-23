@@ -19,6 +19,7 @@
 
 import React from 'react';
 import OneProduct from '../Components/OneProduct/OneProduct';
+import Footer from '../Components/Footer/Footer';
 
 const ViewProduct = () => {
     // Get the product ID from the URL parameters
@@ -29,6 +30,8 @@ const ViewProduct = () => {
         <div>
           
            <OneProduct />
+              <Footer />
+
         </div>
     )
 }
