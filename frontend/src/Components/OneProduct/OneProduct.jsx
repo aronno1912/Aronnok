@@ -22,6 +22,8 @@ import React from 'react';
 import './OneProduct.css';
 import all_plants from '../Assets/all_products';
 import coverImage from '../Assets/bansai.jpg'; 
+import star_icon from '../Assets/star_icon.png';
+import dull_star_icon from '../Assets/star_dull_icon.png';
 
 
 const OneProduct = () => {
@@ -33,6 +35,7 @@ const OneProduct = () => {
   if (!product) {
     return <p>Product not found</p>;
   }
+  const isInStock = product.stock > 0;
 
   return (
     <div className='oneproduct'>
@@ -42,15 +45,36 @@ const OneProduct = () => {
         </div>
       </div>
       <div className="oneproduct__right">
-        {/* <h1>{product.name}</h1>
-        <p>ID: {product._id}</p>
-        <p>Price: {product.price}</p>  */}
+        <h1>{product.name}</h1>
+        <div className="oneproduct__right__rating">
+          <img src={star_icon}alt="" />
+          <img src={star_icon}alt="" />
+          <img src={star_icon}alt="" />
+          <img src={star_icon}alt="" />
+          <img src={dull_star_icon}alt="" />
+          <p>(122)</p>
+          </div>
+
+        <div className="prouctdisplay-right-prices" >
+          <div className="prouctdisplay-right-prices-new">
+            ${product.price}
+          </div>
+          <div className="productdisplay-right-description">
+            {product.description}
+          </div>
+
+
+        </div>
+        {isInStock ? (
+          <p className="in-stock">In Stock</p>
+        ) : (
+          <p className="out-of-stock">Out of Stock</p>
+        )}
+        <button className="productdisplay-right-button">Add to Cart</button>
+        <button className="productdisplay-right-button2">Add to Wishlist</button>
         {/* <p>Description: {product.description}</p>
         {/* Add other details as needed */}
-        <p>hello world</p>
-        <p>hello world</p>
-        <p>hello world</p>
-        <p>hello world</p>
+    
       </div>
     </div>
   )
