@@ -32,3 +32,7 @@ const categoryRoutes = require("./routes/category");
 app.use("/api", categoryRoutes);
 const paymentRoutes = require("./routes/payment");
 app.use("/api", paymentRoutes);
+const favouritesRoutes = require("./routes/favourites");
+app.use("/api", favouritesRoutes);
+const wishlistRoutes = require("./routes/wishlist");
+app.use("/api", wishlistRoutes);
