@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String
     },
-    keyword:
+    tags:
     {
       type:[String],
     }

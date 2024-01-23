@@ -1,3 +1,4 @@
+//works
 const Category = require("../models/category");
 const formidable = require("formidable");
 const { check, validationResult } = require("express-validator");
@@ -5,14 +6,25 @@ const _ = require("lodash");
 const fs = require("fs");
 
 exports.getCategoryById = (req, res, next, id) => {
-  Category.findById(id).exec((err, category) => {
-    if (err) {
+
+  Category.findById(id)
+  .exec()
+  .then((category) => {
+    if (!category) {
       return res.status(400).json({
-        error: "Category not found in DB"
+        error: "Category not found in DB",
       });
     }
     req.category = category;
+    // pass control to the next middleware or route handler in the sequence
     next();
+  })
+  .catch((err) => {
+    // Handle errors here
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
   });
 };
 // create product
@@ -56,41 +68,65 @@ exports.getCategory = (req, res) => {
 };
 
 exports.getAllCategory = (req, res) => {
-  Category.find().exec((err, categories) => {
-    if (err) {
+  Category.find()
+  .exec()
+  .then((categories) => {
+    if (!categories) {
       return res.status(400).json({
-        error: "NO categories found"
+        error: "NO categories found",
       });
     }
     res.json(categories);
+  })
+  .catch((err) => {
+    // Handle errors here
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
   });
 };
 
-exports.updateCategory = (req, res) => {
-  const category = req.category;
-  category.name = req.body.name;
+exports.updateCategory = async (req, res) => {
+  try {
+    const category = await Category.findByIdAndUpdate(
+      { _id: req.category._id },
+      { $set: req.body },
+      { new: true, useFindAndModify: false }
+    );
 
-  category.save((err, updatedCategory) => {
-    if (err) {
+    if (!category) {
       return res.status(400).json({
         error: "Failed to update category"
       });
     }
-    res.json(updatedCategory);
-  });
+    res.json(category);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
 };
 
 exports.removeCategory = (req, res) => {
-  const category = req.category;
+  const id = req.category._id;
 
-  category.remove((err, category) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Failed to delete this category"
+  Category.deleteOne({ _id: id })
+  .then(result => {
+    if (result.deletedCount === 0) {
+      return res.status(404).json({
+        error: "Category not found in DB"
       });
     }
     res.json({
       message: "Successfully deleted"
     });
+  })
+  .catch(err => {
+    return res.status(400).json({
+      error: "Failed to delete this category"
+    });
   });
+
 };
