@@ -1,23 +1,4 @@
-// import React, { useState, useEffect } from 'react'
-// import './OneProduct.css'
-// import all_plants from '../Assets/all_products'
-// import { useParams } from 'react-router-dom';
 
-// const OneProduct = () => {
-//     const { id } = useParams();
-
-//   return (
-//     <div classname='oneproduct'>
-//         <div className="oneproduct__left">
-//             <div className="oneproduct__left__img">
-//                 <img className='main-img' src={product.photo} alt="" />
-//             </div>
-//         </div>
-
-//     </div>
-//   )
-// }
-// export default OneProduct
 import React from 'react';
 import './OneProduct.css';
 import all_plants from '../Assets/all_products';
@@ -70,8 +51,10 @@ const OneProduct = () => {
         ) : (
           <p className="out-of-stock">Out of Stock</p>
         )}
-        <button className="productdisplay-right-button">Add to Cart</button>
-        <button className="productdisplay-right-button2">Add to Wishlist</button>
+        {isInStock?
+        (<button className="productdisplay-right-button">Add to Cart</button>):(<button className="productdisplay-right-button2">Add to Wishlist</button>)}
+        
+        <button className="productdisplay-right-button3">Add to Favourites</button>
         {/* <p>Description: {product.description}</p>
         {/* Add other details as needed */}
     
