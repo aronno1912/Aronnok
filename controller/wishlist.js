@@ -7,7 +7,7 @@ exports.addWishlistPlant = (req, res) => {
   const userId=req.params.userId;
   // Validate user and product IDs
 
-  Wishlist.findOne({ user: userId, "product._id": plantId })
+  Wishlist.findOne({ user: userId, "product.product": plantId })
   .then((wishlist) => {
     if (!wishlist) {
       // If the product doesn't exist, add it
@@ -16,7 +16,7 @@ exports.addWishlistPlant = (req, res) => {
         {
           $push: {
             product: {
-              _id: plantId,
+              product: plantId,
               addedAt: new Date(),
             },
           },
@@ -54,7 +54,7 @@ exports.getwishlistPlant = async (req, res) => {
     }
 
     // Extract the specific product from the array
-    const product = wishlistPlant.product.find((item) => item._id.toString() === productId);
+    const product = wishlistPlant.product.find((item) => item.product.toString() === productId);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found in wishlist 2' });
@@ -90,20 +90,20 @@ exports.removewishlistPlant = (req, res) => {
   // Using Mongoose to update the document
   Wishlist.findOneAndUpdate(
     { user: userId },
-    { $pull: { product: { _id: wishlistPlantId } } },
+    { $pull: { product: { product: wishlistPlantId } } },
     { new: true }
   )
-    .then((favourites) => {
-      if (!favourites) {
+    .then((wishlist) => {
+      if (!wishlist) {
         return res.status(404).json({
-          error: 'Favourites not found for the user',
+          error: 'Wishlist not found for the user',
         });
       }
-      res.json(favourites);
+      res.json(wishlist);
     })
     .catch((err) => {
       res.status(400).json({
-        error: 'Error adding favorite product',
+        error: 'Error adding wishlist product',
       });
     });
 
