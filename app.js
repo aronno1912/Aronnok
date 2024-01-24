@@ -40,3 +40,7 @@ const favouritesRoutes = require("./routes/favourites");
 app.use("/api", favouritesRoutes);
 const wishlistRoutes = require("./routes/wishlist");
 app.use("/api", wishlistRoutes);
+const cartRoutes = require("./routes/cart");
+app.use("/api", cartRoutes);
+const orderRoutes = require("./routes/order");
+app.use("/api", orderRoutes);
