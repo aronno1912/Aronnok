@@ -1,6 +1,23 @@
 var mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const Cart = require('./cart');
+const cartItemSchema = new mongoose.Schema({
+    product: {
+      type: ObjectId,
+      ref: 'Product',
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      default: 1,
+      min: 1,
+    },
+    selected:
+    {
+      type: Boolean,
+      default: false,
+    }
+  });
 const orderSchema = new mongoose.Schema(
     {
         // products: [
@@ -9,14 +26,14 @@ const orderSchema = new mongoose.Schema(
         //         ref: 'Cart',
         //     },
         // ],
-        products: [Cart],
+        products: [cartItemSchema],
         //i don't know which one is better, doesn't depend on favorites or wishlist
         //i am just hoping to God that the order won't be too diverse
-        transactionId: {
-            type: Number,
-            required: true,
-            unique: true,
-        },
+        // transactionId: {
+        //     type: Number,
+        //     required: true,
+        //     unique: true,
+        // },
         amount: {
             type: Number,
             required: true
@@ -36,6 +53,7 @@ const orderSchema = new mongoose.Schema(
         user: {
             type: ObjectId,
             ref: "User",
+            required: true,
         },
         paidBy: {
             type: String,
