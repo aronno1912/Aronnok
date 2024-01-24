@@ -3,9 +3,8 @@ import './Trending.css'
 import all_plants from '../Assets/all_products'
 import Product from '../Product/Product'
 
-const Trending = ({catagory}) => {
 
-const Trending = () => {
+const Trending = ({catagory}) => {
   return (
     <div className='trending'>
       <h1>{catagory}</h1>
@@ -17,5 +16,5 @@ const Trending = () => {
     </div>
   )
 }
-}
+
 export default Trending
