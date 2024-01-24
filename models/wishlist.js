@@ -3,7 +3,7 @@ const { ObjectId } = mongoose.Schema;
 
 //for the products that are out of stock, or maybe you wish to buy, the cart can do the same thing in the second case
 //we are doing both
-const wishlistSchema = new mongoose.Schema(
+var wishlistSchema = new mongoose.Schema(
   {
     user: {
       type: ObjectId,

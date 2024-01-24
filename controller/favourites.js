@@ -4,31 +4,40 @@ const Favourites = require("../models/favourites");
 
 // create product
 exports.addFavourite = (req, res) => {
-    const { userId, productId } = req.body;
+  const { plantId } = req.body;
+  const userId=req.params.userId;
+  // Validate user and product IDs
 
-    // Validate user and product IDs
-
-    Favourites.findOneAndUpdate(
-      { user: userId },
-      {
-          $push: {
-              product: {
-                  product: productId,
-                  addedAt: new Date(),
-              },
-          },
-      },
-      { upsert: true, new: true }
-  )
+  Favourites.findOne({ user: userId, "product._id": plantId })
   .then((favourite) => {
-      res.json(favourite);
+    if (!favourite) {
+      // If the product doesn't exist, add it
+      return Favourites.findOneAndUpdate(
+        { user: userId },
+        {
+          $push: {
+            product: {
+              _id: plantId,
+              addedAt: new Date(),
+            },
+          },
+        },
+        { upsert: true, new: true }
+      );
+    } else {
+      // If the product already exists, return the existing favourite
+      return favourite;
+    }
   })
-  .catch((err) => {
+    .then((favourite) => {
+      res.json(favourite);
+    })
+    .catch((err) => {
       res.status(400).json({
-          error: 'Error adding favorite product',
+        error: 'Error adding favorite product',
       });
-  });
-  
+    });
+
 };
 
 exports.getFavourite = async (req, res) => {
@@ -80,21 +89,24 @@ exports.getAllFavourites = async (req, res) => {
 
 exports.removeFavourite = (req, res) => {
   const userId = req.params.userId;
-const productId = req.params.productId;
-
-// Using Mongoose to update the document
-Favourites.findOneAndUpdate(
-  { user: userId },
-  { $pull: { product: { product: productId } } },
-  { new: true },
-)
-.then((favourite) => {
-  res.json(favourite);
-})
-.catch((err) => {
-  res.status(400).json({
-      error: 'Error adding favorite product',
-  });
-});
+  const favouritePlantId = req.params.favouritePlantId;
+  Favourites.findOneAndUpdate(
+    { user: userId },
+    { $pull: { product: { _id: favouritePlantId } } },
+    { new: true }
+  )
+    .then((favourites) => {
+      if (!favourites) {
+        return res.status(404).json({
+          error: 'Favourites not found for the user',
+        });
+      }
+      res.json(favourites);
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: 'Error adding favorite product',
+      });
+    });
 
 };
