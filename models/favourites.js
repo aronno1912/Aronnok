@@ -2,17 +2,18 @@ var mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
 //just normal favorites list
-var favouritesSchema = new mongoose.Schema(
+const favouritesSchema = new mongoose.Schema(
   {
     user: {
       type: ObjectId,
       ref: "User",
+      required: true,
     },
     product: [
       {
         product: {
           type: ObjectId,
-          ref: 'Product',
+          ref: "Product",
           required: true,
         },
         addedAt: {

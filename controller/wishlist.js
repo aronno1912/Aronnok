@@ -3,39 +3,46 @@
 const Wishlist = require("../models/wishlist");
 // create product
 exports.addWishlistPlant = (req, res) => {
-    const { userId, productId } = req.body;
+  const { plantId } = req.body;
+  const userId=req.params.userId;
+  // Validate user and product IDs
 
-    // Validate user and product IDs
-
-    Wishlist.findOneAndUpdate(
-      { user: userId },
-      {
-          $push: {
-              product: {
-                  product: productId,
-                  addedAt: new Date(),
-              },
-          },
-      },
-      { upsert: true, new: true }
-  )
+  Wishlist.findOne({ user: userId, "product._id": plantId })
   .then((wishlist) => {
-      res.json(wishlist);
+    if (!wishlist) {
+      // If the product doesn't exist, add it
+      return Wishlist.findOneAndUpdate(
+        { user: userId },
+        {
+          $push: {
+            product: {
+              _id: plantId,
+              addedAt: new Date(),
+            },
+          },
+        },
+        { upsert: true, new: true }
+      );
+    } else {
+      // If the product already exists, return the existing favourite
+      return wishlist;
+    }
   })
-  .catch((err) => {
+    .then((wishlist) => {
+      res.json(wishlist);
+    })
+    .catch((err) => {
       res.status(400).json({
-          error: 'Error adding favorite product',
+        error: 'Error adding favorite product',
       });
-  });
-  
+    });
+
 };
 
 exports.getwishlistPlant = async (req, res) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.wishlistPlantId;
-    console.log(userId);
-    console.log(productId);
     // Find the user's favourites with the specified product
     const wishlistPlant = await Wishlist.findOne({
       user: userId,
@@ -79,21 +86,25 @@ exports.getAllwishlistPlants = async (req, res) => {
 
 exports.removewishlistPlant = (req, res) => {
   const userId = req.params.userId;
-const productId = req.params.productId;
-
-// Using Mongoose to update the document
-Wishlist.findOneAndUpdate(
-  { user: userId },
-  { $pull: { product: { product: productId } } },
-  { new: true },
-)
-.then((wishlistPlant) => {
-  res.json(wishlistPlant);
-})
-.catch((err) => {
-  res.status(400).json({
-      error: 'Error adding favorite product',
-  });
-});
+  const wishlistPlantId = req.params.wishlistPlantId;
+  // Using Mongoose to update the document
+  Wishlist.findOneAndUpdate(
+    { user: userId },
+    { $pull: { product: { _id: wishlistPlantId } } },
+    { new: true }
+  )
+    .then((favourites) => {
+      if (!favourites) {
+        return res.status(404).json({
+          error: 'Favourites not found for the user',
+        });
+      }
+      res.json(favourites);
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: 'Error adding favorite product',
+      });
+    });
 
 };
