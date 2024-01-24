@@ -21,6 +21,10 @@
 }
 
 .description{
+    width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
     font-size: 13px;
 }
 
