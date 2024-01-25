@@ -10,7 +10,7 @@ const {
     getOrderById,
     createOrder,
     getAllOrders,
-    getOrderStatus,
+    // getOrderStatus,
     updateStatus,
     //for admin purpose
     listAllOrders,
@@ -32,7 +32,7 @@ router.post(
     createOrder
 );
 
-// read
+// for user to see all his active or previous orders
 router.get(
     "/order/all/:userid",
     //   isSignedIn,
@@ -41,25 +41,26 @@ router.get(
     getAllOrders
 );
 
-// status of order
-router.get(
-    "/order/status/:userId",
-    //   isSignedIn,
-    //   isAuthenticated,
-    //   isAdmin,
-    getOrderStatus
-);
+// // status of order, for user
+// router.get(
+//     "/order/status/:userId",
+//     //   isSignedIn,
+//     //   isAuthenticated,
+//     //   isAdmin,
+//     getOrderStatus
+// );
 
-// update order, maybe u want to cancel it, or change the address
+
+//update order status from admin/user side, both can update using the same api, like a product has gone from processing to shipped
 router.put(
-    "/order/:orderId/status/:userId",
+    "/order/:userId/:orderId",
     //   isSignedIn,
     //   isAuthenticated,
     //   isAdmin,
     updateStatus
 );
 
-// list all orders for admin to see in Manage Orders section
-router.get("/orders", listAllOrders);
+// // list all orders for admin to see in Manage Orders section
+// router.get("/orders", listAllOrders);
 
 module.exports = router;

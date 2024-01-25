@@ -1,74 +1,95 @@
-const { Order, ProductCart } = require("../models/order");
+//works
+const Order = require("../models/order");
 
 exports.getOrderById = (req, res, next, id) => {
   Order.findById(id)
-    .exec((err, order) => {
-      if (err) {
+    .exec()
+    .then((order) => {
+      if (!order) {
         return res.status(400).json({
-          error: "NO order found in DB",
+          error: "No order found in DB",
         });
       }
-      res.order = order;
+      req.order = order;
+      // pass control to the next middleware or route handler in the sequence
       next();
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
     });
 };
 
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
-exports.createOrder = (req, res) => {
-  req.body.order.user = req.profile;
-  const order = new Order(req.body.order);
-  order.save((err, order) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Failed to save your order in DB",
-      });
-    }
-    res.json(order);
-  });
+exports.createOrder = async (req, res) => {
+  try {
+    let order = new Order(req.body);
+    await order.save();
+    res.status(201).json({ message: 'Order created successfully!' });
+    // You may want to handle the response or redirect to a login page
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 // get all orders for ADMIN
-exports.getAllOrders = (req, res) => {
+exports.getAllOrders = (req, res,next) => {
   Order.find()
-    .populate("user", "_id name")
-    .exec((err, order) => {
-      if (err) {
-        return res.status(400).json({
-          error: "No orders found in DB",
-        });
-      }
+    .exec()
+    .then((order) => {
       res.json(order);
+      // pass control to the next middleware or route handler in the sequence
+      next();
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
     });
 };
 
-// get status of order for ADMIN
-exports.getOrderStatus = (req, res) => {
-  res.json(Order.schema.path("status").enumValues);
-};
+// // get status of order for ADMIN
+// exports.getOrderStatus = (req, res) => {
+//   res.json(Order.schema.path("status").enumValues);
+// };
 
-exports.updateStatus = (req, res) => {
-  Order.update(
-    { _id: req.body.orderId },
-    { $set: { status: req.body.status } },
-    (err, order) => {
-      if (err) {
+exports.updateStatus = async (req, res) => {
+    try {
+      const order = await Order.findByIdAndUpdate(
+        { _id: req.params.orderId },
+        { $set: { status: req.body.status }  },
+        { new: true, useFindAndModify: false }
+      );
+  
+      if (!order) {
         return res.status(400).json({
-          error: "Cannot update order status",
+          error: "Failed to update order status"
         });
       }
       res.json(order);
-    }
-  );
-};
-
-// list all orders for Admin to see in Manage Orders section
-exports.listAllOrders = (req, res) => {
-  Order.find().exec((err, orders) => {
-    if (err) {
-      return res.status(400).json({
-        error: "NO orders found",
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error"
       });
     }
-    res.json(orders);
-  });
 };
+
+// // list all orders for Admin to see in Manage Orders section
+// exports.listAllOrders = (req, res) => {
+//   Order.find().exec((err, orders) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: "NO orders found",
+//       });
+//     }
+//     res.json(orders);
+//   });
+// };

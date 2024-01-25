@@ -272,21 +272,27 @@ exports.getAllProducts = (req, res) => {
 
 // update stock middleware
 exports.updateStock = (req, res, next) => {
-  let myOperations = req.body.order.products.map((prod) => {
+  
+  let myOperations = req.body.products.map((prod) => {
+    // console.log(prod.quantity);
     return {
       updateOne: {
-        filter: { _id: prod._id },
-        update: { $inc: { stock: -prod.count, sold: +prod.count } },
+        filter: { product: prod._id },
+        update: { $inc: { stock: -prod.quantity, sold: +prod.quantity } },
       },
     };
   });
 
-  Product.bulkWrite(myOperations, {}, (err, products) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Bulk operation failed",
-      });
-    }
+  Product.bulkWrite(myOperations, {})
+  .then((products) => {
+    // Handle the result
     next();
+  })
+  .catch((err) => {
+    // Handle the error
+    return res.status(400).json({
+      error: "Bulk operation failed",
+    });
   });
+
 };

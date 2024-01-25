@@ -6,7 +6,7 @@ var app = express();
 app.use(cors());
 
 app.listen(process.env.PORT, () => {
-  console.log('Server listening on 3000');
+  console.log(`Server listening on ${process.env.PORT}`);
 })
 
 
