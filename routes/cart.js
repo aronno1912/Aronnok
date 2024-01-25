@@ -21,7 +21,7 @@ router.get('/cart/checkout/:userId',
 router.put('/cart/update/:userId/:productId',
     // isSignedIn, 
     updateCartItem);
-router.delete('/cart/:userId/:productId',
+router.delete('/cart/deleteItem/:userId/:productId',
     // isSignedIn, 
     deleteCartItem);
 router.delete('/cart/clear/:userId',

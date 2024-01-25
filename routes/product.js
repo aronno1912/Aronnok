@@ -31,7 +31,7 @@ router.post(
 );
 
 // // read routes
-router.get("/product/:productId", getProduct);
+router.get("/product/:userId/:productId", getProduct);
 router.get("/product/photo/:productId", photo);
 
 // delete route

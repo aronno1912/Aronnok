@@ -155,21 +155,24 @@ exports.deleteCartItem = async (req, res) => {
 exports.removeCart = async (req, res) => {
     // Clear cart logic
     // ...
-    console.log("whae");
-    const userId = req.params.userId;
-    console.log(userId);
-    Cart.findOneAndDelete({ user: userId })
-        .then(deletedCart => {
-            if (!deletedCart) {
-                return res.status(404).json({ error: "Cart not found" });
-            }
-            // Handle the deleted cart
-            res.json({ message: "Cart deleted successfully" });
-        })
-        .catch(error => {
-            // Handle the error
-            res.status(500).json({ error: "Internal Server Error" });
-        });
+    try {
+        const userId = req.params.userId; // Assuming you have the user ID in the request parameters
+        console.log(userId);
+        const updatedCart = await Cart.findOneAndUpdate(
+          { user: userId },
+          { $set: { items: [], total: 0 } },
+          { new: true }
+        );
+    
+        if (!updatedCart) {
+          return res.status(404).json({ error: 'Cart not found' });
+        }
+    
+        res.json(updatedCart);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
     // res.redirect('/cart/checkout');
 };
 //buyNow is not done
