@@ -59,7 +59,7 @@
 }
 
 .productdisplay-right-button {
-  background-color: #4CAF50;
+  background-color: #028a06;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -91,7 +91,7 @@
 
 /* Add additional styling as needed */
 .in-stock {
-  color: green;
+  color: rgb(0, 120, 0);
   font-weight: bold;
 }
 
