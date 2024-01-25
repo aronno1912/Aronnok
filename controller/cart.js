@@ -152,25 +152,25 @@ exports.deleteCartItem = async (req, res) => {
         });
     // res.redirect('/cart/checkout');
 };
-exports.removeCart= async (req, res) => {
-        // Clear cart logic
-        // ...
-        console.log("whae");
-        const userId = req.params.userId;
-        console.log(userId);
-        Cart.findOneAndDelete({ user: userId })
-    .then(deletedCart => {
-        if (!deletedCart) {
-            return res.status(404).json({ error: "Cart not found" });
-        }
-        // Handle the deleted cart
-        res.json({ message: "Cart deleted successfully" });
-    })
-    .catch(error => {
-        // Handle the error
-        res.status(500).json({ error: "Internal Server Error" });
-    });
-        // res.redirect('/cart/checkout');
+exports.removeCart = async (req, res) => {
+    // Clear cart logic
+    // ...
+    console.log("whae");
+    const userId = req.params.userId;
+    console.log(userId);
+    Cart.findOneAndDelete({ user: userId })
+        .then(deletedCart => {
+            if (!deletedCart) {
+                return res.status(404).json({ error: "Cart not found" });
+            }
+            // Handle the deleted cart
+            res.json({ message: "Cart deleted successfully" });
+        })
+        .catch(error => {
+            // Handle the error
+            res.status(500).json({ error: "Internal Server Error" });
+        });
+    // res.redirect('/cart/checkout');
 };
 //buyNow is not done
 exports.buyNow = async (req, res) => {
@@ -178,6 +178,15 @@ exports.buyNow = async (req, res) => {
         // Update cart item logic
         // ...
         //goto create order, but how? after processing
+        const hasSelectedItems = req.cart.items.filter(item => item.selected);
+        if (hasSelectedItems) {
+            res.status(200).json({ message: 'Checkout successful'});
+            // res.redirect('/order/create/:userId');
+            // console.log('At least one item is selected.');
+        } else {
+            res.status(400).json({ message: 'Checkout not successful'});
+            // console.log('No selected items in the cart.');
+        }
         // res.redirect('/cart/checkout');
     } catch (error) {
         console.error(error);

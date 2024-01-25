@@ -30,6 +30,7 @@ router.delete('/cart/clear/:userId',
     );
 router.put('/cart/buynow/:userId',
     // isSignedIn,
-    buyNow);
+    buyNow
+    );
 
 module.exports = router;

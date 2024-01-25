@@ -52,8 +52,8 @@ router.put(
   updateProduct
 );
 
-// listing route
-router.get("/products", getAllProducts);
+// listing route for user
+router.get("/products/:userId", getAllProducts);
 
 // router.get("/products/categories", getAllUniqueCategories);
 
