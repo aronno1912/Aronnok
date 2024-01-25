@@ -1,0 +1,16 @@
+.FavouriteItem{
+    display: flexbox;
+    justify-content: space-around;
+    margin-left: 75px;
+}
+
+.fr-products {
+    display: flex;
+    flex-direction: column; /* Change to column */
+    align-content: flex-start;
+    gap: 40px;
+    overflow-x: auto;
+    width: 100%;
+    height: 420px;
+    margin: 20px;
+  }

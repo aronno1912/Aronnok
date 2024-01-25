@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
-        <Route path='/favourites' element={<ViewProduct/>}/>
+        <Route path='/favourites' element={<Favourites/>}/>
         <Route path='/product' element={<Product/>}>
           {/* <Route path=':productId' element={<Product/>}/> */}
         </Route>

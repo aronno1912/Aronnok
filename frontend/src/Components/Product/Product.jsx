@@ -15,13 +15,9 @@ const Product = (prod) => {
       };
 
   return (
-    <Link to={`/product/${prod.id}`}className='container-link'>
+    <Link to={`/product/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='container'> 
-    
       <img src={prod.photo} alt="" />
-      
-      {/* <img src={plant_img} alt="" /> */}
-      
       <div className="plant-details">
         <p className='plant-name'>{prod.name}</p>
         <div className="description">
