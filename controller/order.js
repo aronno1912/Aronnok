@@ -26,6 +26,7 @@ exports.getOrderById = (req, res, next, id) => {
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
 exports.createOrder = async (req, res) => {
   try {
+    console.log(req.body);
     let order = new Order(req.body);
     await order.save();
     res.status(201).json({ message: 'Order created successfully!' });
@@ -93,3 +94,21 @@ exports.updateStatus = async (req, res) => {
 //     res.json(orders);
 //   });
 // };
+
+exports.getReceivedOrders = (req, res,next) => {
+  Order.find({ status: 'Received' })
+    .exec()
+    .then((orders) => {
+        res.json(orders);
+        // pass control to the next middleware or route handler in the sequence
+        next();
+    })
+    .catch((err) => {
+        // Handle errors here
+        console.error(err);
+        res.status(500).json({
+            error: "Internal Server Error",
+        });
+    });
+
+};

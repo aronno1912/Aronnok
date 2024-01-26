@@ -13,7 +13,7 @@ const {
     // getOrderStatus,
     updateStatus,
     //for admin purpose
-    listAllOrders,
+    getReceivedOrders,
 } = require("../controller/order");
 
 // params, path e userId thaklei 2nd param er sathe associated hoye jabe
@@ -34,7 +34,7 @@ router.post(
 
 // for user to see all his active or previous orders
 router.get(
-    "/order/all/:userid",
+    "/order/all",
     //   isSignedIn,
     //   isAuthenticated,
     //   isAdmin,
@@ -59,7 +59,14 @@ router.put(
     //   isAdmin,
     updateStatus
 );
-
+//get all the received orders for any user, admin perspective
+router.get(
+    "/order/history",
+    //   isSignedIn,
+    //   isAuthenticated,
+    //   isAdmin,
+    getReceivedOrders
+);
 // // list all orders for admin to see in Manage Orders section
 // router.get("/orders", listAllOrders);
 
