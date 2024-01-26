@@ -138,7 +138,7 @@ exports.addPlant = async (req, res, next) => {
 // get single product
 exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
-  console.log(req.product);
+  // console.log(req.product);
   return res.json(req.product);
 };
 
@@ -356,6 +356,18 @@ exports.trending = async (req, res) => {
           count: { $sum: '$products.quantity' }, // Count occurrences of each product
         },
       },
+      { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
+  { $unwind: '$productDetails' }, // Unwind the productDetails array
+  {
+    $project: {
+      _id: '$_id',
+      count: '$count',
+      productName: '$productDetails.name',
+      productPrice: '$productDetails.price',
+      productPhoto: '$productDetails.photo',
+      // Add other fields you want to include
+    },
+  },
       { $sort: { count: -1 } }, // Sort in descending order based on count
       { $limit: 10 }, // Take only the top 10
     ]);
