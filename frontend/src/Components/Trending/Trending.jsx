@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Trending.css'
 // import all_plants from '../Assets/all_products'
 import Product from '../Product/Product'
 import axios from 'axios';
+import { CartContext } from '../../Context/CartContext';
 
 
 const Trending = ({catagory}) => {
   const [all_plants, setProducts] = useState([]);
  
-  // useEffect(()=>{
-  //   fetch('http://localhost:3000/api/products')
-  //   .then((response)=>response.json())
-  //   .then((data)=>setProducts(data))
-  //   .catch((error) => console.error('Error fetching data:', error));
-  // },[])
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch('http://localhost:8000/api/products');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
