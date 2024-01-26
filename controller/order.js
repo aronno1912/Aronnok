@@ -133,6 +133,7 @@ exports.getParticularOrder = async (req, res, next) => {
           ...item.toObject(),
           productName: productDetails.name,
           productPrice: productDetails.price,
+          productPhoto:productDetails.photo,
           subtotal,
         };
       }

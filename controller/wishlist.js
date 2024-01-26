@@ -48,18 +48,24 @@ exports.getwishlistPlant = async (req, res) => {
       user: userId,
       // 'product.product._id': productId,
     });
-    console.log(wishlistPlant);
+    // console.log(wishlistPlant);
     if (!wishlistPlant) {
       return res.status(404).json({ error: 'Product not found in wishlist 1' });
     }
 
     // Extract the specific product from the array
-    const product = wishlistPlant.product.find((item) => item.product.toString() === productId);
+    var product = wishlistPlant.product.find((item) => item.product.toString() === productId);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found in wishlist 2' });
     }
-
+      // const productDetails = await Product.findById(product.product);
+      // product = {
+      //   ...product.toObject(), // Convert Mongoose document to plain JavaScript object
+      //   productName: productDetails.name,
+      //   productPrice: productDetails.price,
+      //   productPhoto: productDetails.photo,
+      // };
     res.json(product);
   } catch (error) {
     console.error(error);
@@ -77,6 +83,25 @@ exports.getAllwishlistPlants = async (req, res) => {
     if (!wishlistPlant) {
       return res.status(404).json({ error: 'Product not found in wishlist 1' });
     }
+    // const updatedProducts = await Promise.all(favourite.product.map(async (item) => {
+    //   // console.log(item.product);
+    //   const productDetails = await Product.findById(item.product);
+
+    //       if (productDetails) {
+    //           return {
+    //               ...item.toObject(),
+    //               productName: productDetails.name,
+    //               productPrice: productDetails.price,
+    //               productPhoto:productDetails.photo,
+    //           };
+    //       }
+  
+    //       return item;
+    //   }));
+    //   favourite = {
+    //     ...favourite.toObject(), // Convert Mongoose document to plain JavaScript object
+    //     product: updatedProducts,
+    //   };
     res.json(wishlistPlant);
   } catch (error) {
     console.error(error);
