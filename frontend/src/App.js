@@ -8,8 +8,10 @@ import ViewCart from './Pages/ViewCart';
 import Login from './Pages/Login';
 import ViewProduct from './Pages/ViewProduct';
 import OrderlistAdmin from './Pages/OrderlistAdmin';
+import OrderDetailsAdmin from './Pages/OrderDetailsAdmin';
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path='/product/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/admin/orderlist' element={<OrderlistAdmin/>}/>
+        <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
       </Routes>
       </BrowserRouter>
     </div>

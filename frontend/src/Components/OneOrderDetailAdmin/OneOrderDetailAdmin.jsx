@@ -1,7 +1,10 @@
 // OneOrderDetail.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './OneOrderDetail.css';
+
+import './OneOrderDetailAdmin.css';
+
+
 
 const OneOrderDetailAdmin = ({ orderId }) => {
   const [orderDetails, setOrderDetails] = useState(null);
@@ -9,7 +12,10 @@ const OneOrderDetailAdmin = ({ orderId }) => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/order/details/${orderId}`);
+
+        const response = await axios.get(`http://localhost:8000/api/order/particularOrder/${orderId}`);
+
+
         setOrderDetails(response.data);
       } catch (error) {
         console.error('Error fetching order details:', error);
@@ -28,23 +34,30 @@ const OneOrderDetailAdmin = ({ orderId }) => {
       {/* Customer Information */}
       <div className='info-box'>
         <h2>Customer Information</h2>
-        <p>Name: {orderDetails.buyerName}</p>
-        <p>Email: {orderDetails.buyerEmail}</p>
+
+        <p>Name: {orderDetails.username}</p>
+        {/* <p>Email: {orderDetails.buyerEmail}</p> */}
+
         {/* Add more customer information as needed */}
       </div>
 
       {/* Order Status */}
       <div className='info-box'>
         <h2>Order Status</h2>
-        <p>Status: {orderDetails.orderStatus}</p>
+
+        <p>Status: {orderDetails.status}</p>
+
         {/* Add more order status information as needed */}
       </div>
 
       {/* Delivery Information */}
       <div className='info-box'>
         <h2>Delivery Information</h2>
-        <p>Address: {orderDetails.deliveryAddress}</p>
-        <p>Estimated Delivery Date: {orderDetails.estimatedDeliveryDate}</p>
+
+        <p>Address: {orderDetails.address}</p>
+        <p>Placed On : {orderDetails.placedOn}</p>
+        <p>Delivery Fee: {orderDetails.deliveryFee}</p>
+
         {/* Add more delivery information as needed */}
       </div>
 
@@ -55,18 +68,22 @@ const OneOrderDetailAdmin = ({ orderId }) => {
           <thead>
             <tr>
               <th>Product</th>
+
+              <th></th>
               <th>Quantity</th>
-              <th>Price</th>
-              <th>Total</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody>
-            {orderDetails.items.map((item) => (
-              <tr key={item.productId}>
-                <td>{item.productName}</td>
-                <td>{item.quantity}</td>
-                <td>${item.price}</td>
-                <td>${item.total}</td>
+            {orderDetails.products.map((product) => (
+              <tr key={product.productId}>
+                <td>
+                <img src='/bansai.jpg' alt='' style={{ width: '50px', height: '50px' }} />
+                </td>
+                <td>{product.productName}</td>
+                <td>{product.quantity}</td>
+                <td>${product.subtotal}</td>
+
               </tr>
             ))}
           </tbody>
