@@ -10,17 +10,17 @@ const Sidebar = () => {
     <div className="sidebar">
       
       <ul>
-        <li>
-          <Link to="/admin/dashboard">Dashboard</Link>
+        <li className='eta1'>
+          <Link to="/admin/dashboard" className={location.pathname === '/admin/dashboard' ? 'active' : ''}>Dashboard</Link>
         </li>
-        <li>
-          <Link to="/admin/all-products">All Products</Link>
+        <li className='eta2'>
+          <Link to="/admin/all-products" className={location.pathname === '/admin/all-products' ? 'active' : ''}>All Products</Link>
         </li>
-        <li>
-          <Link to="/admin/orderlist" className={location.pathname === '/admin/orderlist' ? 'active' : ''}>Order List</Link>
+        <li className='eta3'>
+          <Link to="/admin/orderlist" className={location.pathname.startsWith('/admin/orderlist') ? 'active' : ''}>Order List</Link>
         </li>
-        <li>
-          <Link to="/admin/sell-requests">Sell Requests</Link>
+        <li className='eta4'>
+          <Link to="/admin/sell-requests" className={location.pathname === '/admin/sellrequest' ? 'active' : ''}>Sell Requests</Link>
         </li>
       </ul>
     </div>

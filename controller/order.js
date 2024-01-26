@@ -42,7 +42,7 @@ exports.createOrder = async (req, res) => {
 // get all orders for ADMIN
 exports.getAllOrders = (req, res, next) => {
   Order.find()
-    .sort({ createdAt: -1 })
+    .sort({ placedOn: -1 })
     .exec()
     .then((order) => {
       res.json(order);

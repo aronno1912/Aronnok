@@ -20,22 +20,80 @@
     padding: 0;
   }
   
-  li {
+  .eta1 {
     padding: 15px;
     text-align: center;
   }
   
-  li a {
+  .eta1 a {
     text-decoration: none;
     color: white;
     font-size: 18px;
     display: block;
   }
   
-  li a:hover {
+  .eta1 a:hover {
     background-color: #555;
   }
-  .sidebar a.active {
+  .sidebar  .eta1 a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
+  }
+  .eta2 {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .eta2 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta2 a:hover {
+    background-color: #555;
+  }
+  .sidebar  .eta2 a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
+  }
+  .eta3 {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .eta3 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta3 a:hover {
+    background-color: #555;
+  }
+  .sidebar  .eta3 a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
+  }
+
+  .eta4 {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .eta4 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta4 a:hover {
+    background-color: #555;
+  }
+  .sidebar  .eta4 a.active {
     background-color: #4CAF50; /* Active page color */
     color: white;
   }

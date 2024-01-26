@@ -24,7 +24,7 @@ const Table = ({ data }) => {
             <tr key={item._id}>
               
               <td>
-              <Link to={`/order-details/${item._id}`} className='container-link' style={{ textDecoration: 'none', color:'black'}}>
+              <Link to={`/admin/orderlist/order-details/${item._id}`} className='container-link' style={{ textDecoration: 'none', color:'black'}}>
               {item._id}
               </Link>
               </td>
