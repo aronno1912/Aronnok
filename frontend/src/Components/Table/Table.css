@@ -2,12 +2,15 @@
 
 .table-container {
     overflow-x: auto;
-    margin-top: 20px;
+    margin-top: 0px;
+    margin-left:200px;
+    
   }
   
   table {
     width: 100%;
     border-collapse: collapse;
+   
   }
   
   th, td {

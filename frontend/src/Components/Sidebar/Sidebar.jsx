@@ -1,10 +1,11 @@
 // Sidebar.jsx
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useLocation  } from 'react-router-dom';
 import './Sidebar.css';
 
 const Sidebar = () => {
+    const location = useLocation();
   return (
     <div className="sidebar">
       
@@ -16,7 +17,7 @@ const Sidebar = () => {
           <Link to="/admin/all-products">All Products</Link>
         </li>
         <li>
-          <Link to="/admin/order-list">Order List</Link>
+          <Link to="/admin/orderlist" className={location.pathname === '/admin/orderlist' ? 'active' : ''}>Order List</Link>
         </li>
         <li>
           <Link to="/admin/sell-requests">Sell Requests</Link>

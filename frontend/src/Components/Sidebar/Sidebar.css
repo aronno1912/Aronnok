@@ -4,7 +4,7 @@
     height: 100%;
     width: 200px;
     position: fixed;
-    top: 10;
+    top: 2;
     left: 0;
     background-color: #084219;
     padding-top: 20px;
@@ -34,5 +34,9 @@
   
   li a:hover {
     background-color: #555;
+  }
+  .sidebar a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
   }
   

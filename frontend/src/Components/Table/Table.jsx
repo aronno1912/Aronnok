@@ -2,6 +2,7 @@
 
 import React from 'react';
 import './Table.css';
+import { Link } from 'react-router-dom';
 
 const Table = ({ data }) => {
   return (
@@ -9,7 +10,7 @@ const Table = ({ data }) => {
       <table>
         <thead>
           <tr>
-            <th>Product</th>
+            
             <th>Order Id</th>
             <th>Date</th>
             <th>Payment Method</th>
@@ -18,19 +19,23 @@ const Table = ({ data }) => {
             <th>Amount</th>
           </tr>
         </thead>
-        {/* <tbody>
+        <tbody>
           {data.map((item) => (
-            <tr key={item.orderId}>
-              <td>{item.product}</td>
-              <td>{item.orderId}</td>
-              <td>{item.date}</td>
-              <td>{item.paymentMethod}</td>
-              <td>{item.customerName}</td>
+            <tr key={item._id}>
+              
+              <td>
+              <Link to={`/order-details/${item._id}`} className='container-link' style={{ textDecoration: 'none', color:'black'}}>
+              {item._id}
+              </Link>
+              </td>
+              <td>{item.placedOn}</td>
+              <td>{item.paidBy}</td>
+              <td>{item.user}</td>
               <td>{item.status}</td>
-              <td>{item.amount}</td>
+              <td>{item.amount}$</td>
             </tr>
           ))}
-        </tbody> */}
+        </tbody>
       </table>
     </div>
   );
