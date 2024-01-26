@@ -1,0 +1,35 @@
+.cart-all{
+    width: 100%;
+}
+
+.cart-items{
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    position: relative;
+    left: 20%;
+    margin-top: 20px;
+}
+
+.cart-items hr{
+    border: 1px solid black;
+    margin-left: 0;
+    margin-bottom: 30px;
+    width: 30px;
+}
+
+.cart-items-header{
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    justify-content: space-between;
+}
+
+cart-items-header p{
+    color: black;
+}
+
+.cart-all hr{
+    margin-top: 30px;
+    width: 75%;
+}

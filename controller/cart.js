@@ -67,17 +67,55 @@ exports.addToCart = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
+// const calculateTotalsAndAddToCart = async (order, cart) => {
+//     try {
+//       for (const item of order.products) {
+//         const productDetails = await Product.findById(item.product);
+//         const subtotal = productDetails.price * item.quantity;
+  
+//         const newItem = {
+//           product: item.product,
+//           quantity: item.quantity,
+//           selected: item.selected,
+//           subtotal: subtotal,
+//         };
+  
+//         cart.items.push(newItem);
+//       }
+  
+//       cart.total = cart.items.reduce((total, item) => total + item.subtotal, 0);
+  
+//       await cart.save();
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
 exports.viewCart = async (req, res) => {
     try {
         // Checkout logic
         // ...
+      
+        // // Assuming req.cart is already available
+        // await calculateTotalsAndAddToCart(req.order, req.cart);
+      
+        // // Assuming you have User model to fetch username
+        // const user = await User.findOne({ _id: req.cart.user });
+        // const username = user.username;
+      
+        // // Update req.cart with the username
+        // req.cart = {
+        //   ...req.cart.toObject(),
+        //   username,
+        // };
+      
+        // Send the updated cart as JSON response
         res.json(req.cart);
-        // res.render('checkout', { title: 'CheckOut', cart: /* your cart data */ });
-    } catch (error) {
+        // Or, if you are rendering a page
+        // res.render('checkout', { title: 'CheckOut', cart: req.cart });
+      } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
-    }
+      }
 };
 
 exports.updateCartItem = async (req, res) => {
@@ -159,20 +197,20 @@ exports.removeCart = async (req, res) => {
         const userId = req.params.userId; // Assuming you have the user ID in the request parameters
         console.log(userId);
         const updatedCart = await Cart.findOneAndUpdate(
-          { user: userId },
-          { $set: { items: [], total: 0 } },
-          { new: true }
+            { user: userId },
+            { $set: { items: [], total: 0 } },
+            { new: true }
         );
-    
+
         if (!updatedCart) {
-          return res.status(404).json({ error: 'Cart not found' });
+            return res.status(404).json({ error: 'Cart not found' });
         }
-    
+
         res.json(updatedCart);
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
-      }
+    }
     // res.redirect('/cart/checkout');
 };
 //buyNow is not done
@@ -184,20 +222,20 @@ exports.buyNow = async (req, res, next) => {
         const hasSelectedItems = req.cart.items.filter(item => item.selected);
         // console.log(hasSelectedItems);
         if (hasSelectedItems) {
-            const order=new Order({
+            const order = new Order({
                 products: hasSelectedItems,
                 amount: req.cart.total, // Replace with the actual amount
                 address: 'Sample Address',
                 user: req.cart.user, // Replace with the actual user ID
                 // Other fields of the order
-              });
-            req.body=order;
+            });
+            req.body = order;
             // res.status(200).json({ message: 'Checkout successful'});
             next();
             // res.redirect('/order/create/:userId');
             // console.log('At least one item is selected.');
         } else {
-            res.status(400).json({ message: 'Checkout not successful'});
+            res.status(400).json({ message: 'Checkout not successful' });
             // console.log('No selected items in the cart.');
         }
         // res.redirect('/cart/checkout');

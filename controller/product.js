@@ -1,5 +1,9 @@
 //works
 const Product = require("../models/product");
+const User = require('../models/user');
+const Cart = require('../models/cart');
+const Favourites = require('../models/favourites');
+const Order = require('../models/order');
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
@@ -152,21 +156,21 @@ exports.deleteProduct = (req, res) => {
   const id = req.product._id;
 
   Product.deleteOne({ _id: id })
-  .then(result => {
-    if (result.deletedCount === 0) {
-      return res.status(404).json({
-        error: `Failed to delete ${req.product.name} product`,
+    .then(result => {
+      if (result.deletedCount === 0) {
+        return res.status(404).json({
+          error: `Failed to delete ${req.product.name} product`,
+        });
+      }
+      res.json({
+        message: "Successfully deleted"
       });
-    }
-    res.json({
-      message: "Successfully deleted"
+    })
+    .catch(err => {
+      return res.status(400).json({
+        error: "Failed to delete this plant"
+      });
     });
-  })
-  .catch(err => {
-    return res.status(400).json({
-      error: "Failed to delete this plant"
-    });
-  });
 };
 
 // update product
@@ -272,7 +276,7 @@ exports.getAllProducts = (req, res) => {
 
 // update stock middleware
 exports.updateStock = (req, res, next) => {
-  
+
   let myOperations = req.body.products.map((prod) => {
     // console.log(prod.quantity);
     return {
@@ -284,15 +288,88 @@ exports.updateStock = (req, res, next) => {
   });
 
   Product.bulkWrite(myOperations, {})
-  .then((products) => {
-    // Handle the result
-    next();
-  })
-  .catch((err) => {
-    // Handle the error
-    return res.status(400).json({
-      error: "Bulk operation failed",
+    .then((products) => {
+      // Handle the result
+      next();
+    })
+    .catch((err) => {
+      // Handle the error
+      return res.status(400).json({
+        error: "Bulk operation failed",
+      });
     });
-  });
 
+};
+
+exports.search = async (req, res, next) => {
+  try {
+    const searchTerm = req.query.q;
+    const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.recommendations =async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Fetch user data
+    const user = await User.findById(userId);
+
+    // Fetch user's cart items
+    const cartItems = await Cart.findOne({ user: userId });
+
+    // Fetch user's favorite products
+    const favouriteProducts = await Favourites.find({ user: userId });
+
+    // Fetch user's order history
+    const orderHistory = await Order.find({ user: userId });
+
+    // Extract product IDs from various sources
+    const cartProductIds = cartItems ? cartItems.items.map(item => item.product._id) : [];
+    const favoriteProductIds = favouriteProducts ? favouriteProducts.map(favorite => favorite.product._id) : [];
+    const orderProductIds = orderHistory ? orderHistory.map(order => order.products.map(item => item.product._id)).flat() : [];
+
+    // Combine all product IDs and remove duplicates
+    const allProductIds = [...new Set([...cartProductIds, ...favoriteProductIds, ...orderProductIds])];
+
+    // Fetch product details based on combined product IDs
+    const recommendedProducts = await Product.find({ _id: { $in: allProductIds } });
+
+    res.json({ recommendations: recommendedProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.trending = async (req, res) => {
+  try {
+    const trendingProducts = await Order.aggregate([
+      { $unwind: '$products' }, // Split the array of products into separate documents
+      {
+        $group: {
+          _id: '$products.product', // Group by the product
+          count: { $sum: '$products.quantity' }, // Count occurrences of each product
+        },
+      },
+      { $sort: { count: -1 } }, // Sort in descending order based on count
+      { $limit: 10 }, // Take only the top 10
+    ]);
+
+    // The result will be an array of objects, each containing _id (product ID) and count
+    // You can populate additional product details if needed
+    // Example: { productId: '...', count: 20 }
+
+    // Now you can fetch the actual product details using the IDs in trendingProducts
+    // ...
+
+    res.json({ trendingProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
