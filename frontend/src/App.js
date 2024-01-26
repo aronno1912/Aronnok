@@ -7,6 +7,7 @@ import Product from './Pages/Product';
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
 import ViewProduct from './Pages/ViewProduct';
+import OrderlistAdmin from './Pages/OrderlistAdmin';
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/product/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
+        <Route path='/admin/orderlist' element={<OrderlistAdmin/>}/>
       </Routes>
       </BrowserRouter>
     </div>
