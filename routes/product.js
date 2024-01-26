@@ -31,7 +31,7 @@ router.post(
 );
 
 // // read routes
-router.get("/product/:productId", getProduct);
+router.get("/product/:userId/:productId", getProduct);
 router.get("/product/photo/:productId", photo);
 
 // delete route
@@ -52,8 +52,8 @@ router.put(
   updateProduct
 );
 
-// listing route
-router.get("/products", getAllProducts);
+// listing route for user
+router.get("/products/:userId", getAllProducts);
 
 // router.get("/products/categories", getAllUniqueCategories);
 

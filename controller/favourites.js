@@ -8,7 +8,7 @@ exports.addFavourite = (req, res) => {
   const userId=req.params.userId;
   // Validate user and product IDs
 
-  Favourites.findOne({ user: userId, "product._id": plantId })
+  Favourites.findOne({ user: userId, "product.product": plantId })
   .then((favourite) => {
     if (!favourite) {
       // If the product doesn't exist, add it
@@ -17,7 +17,7 @@ exports.addFavourite = (req, res) => {
         {
           $push: {
             product: {
-              _id: plantId,
+              product: plantId,
               addedAt: new Date(),
             },
           },
@@ -57,7 +57,7 @@ exports.getFavourite = async (req, res) => {
     }
 
     // Extract the specific product from the array
-    const product = favourite.product.find((item) => item._id.toString() === productId);
+    const product = favourite.product.find((item) => item.product.toString() === productId);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found in favourites 2' });
@@ -92,7 +92,7 @@ exports.removeFavourite = (req, res) => {
   const favouritePlantId = req.params.favouritePlantId;
   Favourites.findOneAndUpdate(
     { user: userId },
-    { $pull: { product: { _id: favouritePlantId } } },
+    { $pull: { product: { product: favouritePlantId } } },
     { new: true }
   )
     .then((favourites) => {

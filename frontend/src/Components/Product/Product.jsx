@@ -1,5 +1,8 @@
 import React, { useContext, useState } from 'react'
 import './Product.css'
+import plant_img from '../Assets/bansai.jpg'
+import star from '../Assets/rating_star.jpg'
+import { Link } from 'react-router-dom';
 import star_dull from '../Assets/star_dull_icon.png'
 
 import star from '../Assets/star_icon.png'
@@ -7,7 +10,10 @@ import { CartContext } from '../../Context/CartContext'
 
 const Product = (prod) => {
 
-  const{print,cartItems,cartTotalPrice,addToCart,removeFromCart}=useContext(CartContext);
+  const{cartItems,cartTotalPrice,addToCart,removeFromCart}=useContext(CartContext);
+
+const Product = (prod) => {
+  
     const ratingStars = () => {
         const result = [];
         for (let i = 0; i < prod.rating; i++) {
@@ -27,6 +33,8 @@ const Product = (prod) => {
 
   return (
     <div className='product-container'> 
+    <Link to={`/product/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+    <div className='container'> 
       <img src={prod.photo} alt="" />
       <div className="plant-details">
         <p className='plant-name'>{prod.name}</p>
@@ -47,6 +55,8 @@ const Product = (prod) => {
         </div>
       </div>
     </div>
+    </Link>
+   
   )
 }
 
