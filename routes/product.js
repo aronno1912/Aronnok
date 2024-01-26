@@ -3,14 +3,17 @@ const router = express.Router();
 
 const {
   getProductById,
-imageHelper,
+  imageHelper,
   addPlant,
   getProduct,
   photo,
   deleteProduct,
   updateProduct,
   getAllProducts,
-//   getAllUniqueCategories,
+  search,
+  recommendations,
+  trending
+  //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
 const { getUserById } = require("../controller/user");
@@ -56,5 +59,19 @@ router.put(
 router.get("/products/:userId", getAllProducts);
 
 // router.get("/products/categories", getAllUniqueCategories);
+
+// Search route
+router.get('/search',
+  search,
+);
+//recommended for you
+router.get('/recommend/:userId',
+recommendations,
+);
+//trending
+router.get('/trending',
+trending,
+);
+
 
 module.exports = router;

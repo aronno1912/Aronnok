@@ -17,7 +17,7 @@ router.param("userId", getCartById);
 router.post('/cart/add/:userId/:productId',
     // isSignedIn, 
     addToCart);
-router.get('/cart/checkout/:userId',
+router.get('/cart/viewCart/:userId',
     // isSignedIn, 
     viewCart);
 router.put('/cart/update/:userId/:productId',
