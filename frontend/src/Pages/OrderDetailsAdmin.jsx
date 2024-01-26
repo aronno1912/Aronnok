@@ -11,6 +11,7 @@ const OrderDetailsAdmin = () => {
         <div>
             <Sidebar/>
             <OneOrderDetailAdmin orderId={orderId} />
+
         </div>
     );
 };

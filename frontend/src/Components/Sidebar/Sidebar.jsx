@@ -16,8 +16,10 @@ const Sidebar = () => {
         <li className='eta2'>
           <Link to="/admin/all-products" className={location.pathname === '/admin/all-products' ? 'active' : ''}>All Products</Link>
         </li>
+
         <li className='eta3'>
           <Link to="/admin/orderlist" className={location.pathname.startsWith('/admin/orderlist') ? 'active' : ''}>Order List</Link>
+
         </li>
         <li className='eta4'>
           <Link to="/admin/sell-requests" className={location.pathname === '/admin/sellrequest' ? 'active' : ''}>Sell Requests</Link>

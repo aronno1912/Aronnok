@@ -35,6 +35,7 @@
   .eta1 a:hover {
     background-color: #555;
   }
+
   .sidebar  .eta1 a.active {
     background-color: #4CAF50; /* Active page color */
     color: white;
