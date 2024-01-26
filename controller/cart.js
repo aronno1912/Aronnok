@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
-
+const Order = require("../models/order");
 exports.getCartById = (req, res, next, id) => {
     Cart.findOne({ user: id })
         .exec()
@@ -176,14 +176,24 @@ exports.removeCart = async (req, res) => {
     // res.redirect('/cart/checkout');
 };
 //buyNow is not done
-exports.buyNow = async (req, res) => {
+exports.buyNow = async (req, res, next) => {
     try {
         // Update cart item logic
         // ...
         //goto create order, but how? after processing
         const hasSelectedItems = req.cart.items.filter(item => item.selected);
+        // console.log(hasSelectedItems);
         if (hasSelectedItems) {
-            res.status(200).json({ message: 'Checkout successful'});
+            const order=new Order({
+                products: hasSelectedItems,
+                amount: req.cart.total, // Replace with the actual amount
+                address: 'Sample Address',
+                user: req.cart.user, // Replace with the actual user ID
+                // Other fields of the order
+              });
+            req.body=order;
+            // res.status(200).json({ message: 'Checkout successful'});
+            next();
             // res.redirect('/order/create/:userId');
             // console.log('At least one item is selected.');
         } else {

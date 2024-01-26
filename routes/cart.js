@@ -9,7 +9,9 @@ const {
     removeCart,
     buyNow
 } = require('../controller/cart');
-
+const {
+    createOrder
+} = require("../controller/order");
 const { isSignedIn, isAuthenticated } = require("../controller/auth");
 router.param("userId", getCartById);
 router.post('/cart/add/:userId/:productId',
@@ -30,7 +32,8 @@ router.delete('/cart/clear/:userId',
     );
 router.put('/cart/buynow/:userId',
     // isSignedIn,
-    buyNow
+    buyNow,
+    createOrder
     );
 
 module.exports = router;
