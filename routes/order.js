@@ -14,6 +14,7 @@ const {
     updateStatus,
     //for admin purpose
     getReceivedOrders,
+    getParticularOrder
 } = require("../controller/order");
 
 // params, path e userId thaklei 2nd param er sathe associated hoye jabe
@@ -23,6 +24,13 @@ router.param("orderId", getOrderById);
 // actual routes
 
 // create
+router.get(
+    "/order/particularOrder/:orderId",
+    //   isSignedIn,
+    //   isAuthenticated,
+    //   pushOrderInPurchaseList,
+    getParticularOrder
+);
 router.post(
     "/order/create/:userId",
     //   isSignedIn,
