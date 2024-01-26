@@ -9,10 +9,6 @@ import star from '../Assets/star_icon.png'
 import { CartContext } from '../../Context/CartContext'
 
 const Product = (prod) => {
-
-  const{cartItems,cartTotalPrice,addToCart,removeFromCart}=useContext(CartContext);
-
-const Product = (prod) => {
   
     const ratingStars = () => {
         const result = [];
@@ -56,7 +52,7 @@ const Product = (prod) => {
       </div>
     </div>
     </Link>
-   
+    </div>
   )
 }
 
