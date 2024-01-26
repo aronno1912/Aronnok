@@ -1,0 +1,31 @@
+/* OneOrderDetail.css */
+.one-order-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .order-summary {
+    margin-top: 20px;
+  }
+  
+  .buyer-info,
+  .order-items {
+    margin-bottom: 30px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
