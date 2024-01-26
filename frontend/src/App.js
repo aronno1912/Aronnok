@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Home from './Pages/Home';
 import Favourites from './Pages/Favourites';
 import Product from './Pages/Product';
-import Cart from './Pages/Cart';
+import ViewCart from './Pages/ViewCart';
 import Login from './Pages/Login';
 import ViewProduct from './Pages/ViewProduct';
 import OrderlistAdmin from './Pages/OrderlistAdmin';
@@ -23,7 +23,7 @@ function App() {
         <Route path='/product' element={<Product/>}>
           {/* <Route path=':productId' element={<Product/>}/> */}
         </Route>
-        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/viewcart' element={<ViewCart/>}/>
         <Route path='/product/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/admin/orderlist' element={<OrderlistAdmin/>}/>
