@@ -29,8 +29,10 @@ const Product = (prod) => {
   return (
     <Link to={`/product/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='product-container'> 
+
     <div className='container'> 
-      <img src={prod.photo} alt="" />
+      <img src={prod.photo} alt="" style={{ width: '280px', height: '200px' }} />
+
       <div className="plant-details">
         <p className='plant-name'>{prod.name}</p>
         <div className="product-description">
@@ -47,9 +49,9 @@ const Product = (prod) => {
             onClick={addToFavourites}
           ></i></button>
           <button className="buy-btn"onClick={addToCart(prod.id)}>Buy</button>    
+          </div>
         </div>
       </div>
-    </div>
     </div>
     </Link>
   )

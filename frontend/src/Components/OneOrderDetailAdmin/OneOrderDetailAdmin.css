@@ -1,4 +1,4 @@
-/* OneOrderDetail.css */
+/* OneOrderDetail.css
 .one-order-detail {
     max-width: 800px;
     margin: 0 auto;
@@ -30,4 +30,109 @@
   th {
     background-color: #f2f2f2;
   }
+   */
+   /* OneOrderDetailAdmin.css */
+
+.order-id {
+  background-color: #f8f8f8;
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-right: 150px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.order-id h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+  max-width: 600px;
+}
+.one-order-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.info-box {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+  margin-bottom: 10px;
+}
+
+.order-items {
+  width: 100%;
+  max-width: 800px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Styling for the dropdown */
+select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+.status-tag {
   
+  font-size: 14px;
+  font-weight: bold;
+}
+.order-status {
+  max-height: 25px;
+  max-width: 300px;
+  border-radius: 5px;
+  
+  
+  
+}
+.order-id-status {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-left: 80px;
+}
+
+
+/* Add more styling as needed */
