@@ -5,6 +5,7 @@ import '../Context/ViewCart.css';
 import { CartContext } from '../Context/CartContext';
 import axios, { all } from 'axios';
 import { ProjectContext } from '../Context/ProjectContext';
+import Navbar from '../Components/Navbar/Navbar';
 
 const ViewCart = (prod) => {
   const disRate= 0.1;
@@ -40,6 +41,8 @@ const ViewCart = (prod) => {
 
 
   return (
+    <div>
+    <Navbar/>
     <div className="cart-all">
        <div className='cart-items'>
         <div className="cart-items-title">
@@ -70,10 +73,10 @@ const ViewCart = (prod) => {
        </div>
        <hr/>
        <div className="cart-place-order">
-        <button className="cart-place-order-btn">place order</button>
+        <button className="cart-place-order-btn" onClick={placeOrder}>place order</button>
        </div>
     </div>
-    
+    </div>
   )
 }
 
