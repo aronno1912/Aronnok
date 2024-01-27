@@ -65,6 +65,7 @@ exports.getAllOrders = (req, res, next) => {
 
 exports.updateStatus = async (req, res) => {
   try {
+    console.log(req.body);
     const order = await Order.findByIdAndUpdate(
       { _id: req.params.orderId },
       { $set: { status: req.body.status } },

@@ -61,7 +61,7 @@ router.get(
 
 //update order status from admin/user side, both can update using the same api, like a product has gone from processing to shipped
 router.put(
-    "/order/:userId/:orderId",
+    "/order/:orderId",
     //   isSignedIn,
     //   isAuthenticated,
     //   isAdmin,
