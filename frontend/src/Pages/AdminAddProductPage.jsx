@@ -7,17 +7,17 @@ import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import AdminNewProductAdd from '../Components/AdminNewProductAdd/AdminNewProductAdd';
 
-const AdminAllProductPage = () => {
+const AdminAddProductPage = () => {
   return (
     <div>
      
       <AdminNavbar/>
       <Sidebar/>
-      <AdminProductPanel catagory="" />
-      
+      {/* <AdminProductPanel catagory="" /> */}
+      <AdminNewProductAdd/>
       <Footer/>
     </div>
   )
 }
 
-export default AdminAllProductPage
+export default AdminAddProductPage
