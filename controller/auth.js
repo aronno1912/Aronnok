@@ -34,11 +34,11 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const errors = validationResult(req);
     
     const { username, email, password } = req.body;
-    console.log(username);
+    // console.log(username);
     if (!errors.isEmpty()) {
         // console.log("here");
         return res.status(422).json({
