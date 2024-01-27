@@ -349,6 +349,7 @@ exports.trending = async (req, res) => {
                 count: { $sum: '$products.quantity' }, // Count occurrences of each product
             },
         },
+
         { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
         { $unwind: '$productDetails' }, // Unwind the productDetails array
         {
