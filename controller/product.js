@@ -118,12 +118,6 @@ exports.addPlant = async (req, res, next) => {
         error: 'Category already exists, please choose a different one'
       });
     }
-    // console.log('before');
-    req.body.photo = {
-      data: req.imageData,
-      contentType: 'image/png', // Replace with the actual content type of your image
-    };
-    // console.log('after');
     let plant = new Product(req.body);
     // console.log(product);
     await plant.save();
@@ -241,7 +235,6 @@ exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 9;
   let sortBy = req.query.sort ? req.query.sort : "_id";
   Product.find()
-    
     .populate("category")
     .sort([[sortBy, "asc"]])
     .limit(limit)
@@ -349,37 +342,40 @@ exports.recommendations =async (req, res) => {
 exports.trending = async (req, res) => {
   try {
     const trendingProducts = await Order.aggregate([
-      { $unwind: '$products' }, // Split the array of products into separate documents
-      {
-        $group: {
-          _id: '$products.product', // Group by the product
-          count: { $sum: '$products.quantity' }, // Count occurrences of each product
+        { $unwind: '$products' }, // Split the array of products into separate documents
+        {
+            $group: {
+                _id: '$products.product', // Group by the product
+                count: { $sum: '$products.quantity' }, // Count occurrences of each product
+            },
         },
-      },
-      { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
-  { $unwind: '$productDetails' }, // Unwind the productDetails array
-  {
-    $project: {
-      _id: '$_id',
-      count: '$count',
-      productDetails: '$productDetails',
-      // Add other fields you want to include
-    },
-  },
-      { $sort: { count: -1 } }, // Sort in descending order based on count
-      { $limit: 10 }, // Take only the top 10
+
+        { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
+        { $unwind: '$productDetails' }, // Unwind the productDetails array
+        {
+            $project: {
+                _id: '$productDetails._id',
+                name: '$productDetails.name',
+                description: '$productDetails.description',
+                price: '$productDetails.price',
+                category: '$productDetails.category',
+                stock: '$productDetails.stock',
+                sold: '$productDetails.sold',
+                rating: '$productDetails.rating',
+                photo: '$productDetails.photo',
+                tags: '$productDetails.tags',
+                createdAt: '$productDetails.createdAt',
+                updatedAt: '$productDetails.updatedAt',
+            },
+        },
+        { $sort: { count: -1 } }, // Sort in descending order based on count
+        { $limit: 10 }, // Take only the top 10
     ]);
 
-    // The result will be an array of objects, each containing _id (product ID) and count
-    // You can populate additional product details if needed
-    // Example: { productId: '...', count: 20 }
-
-    // Now you can fetch the actual product details using the IDs in trendingProducts
-    // ...
-
-    res.json({ trendingProducts });
-  } catch (error) {
+    res.json(trendingProducts );
+} catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
-  }
+}
+
 };

@@ -57,9 +57,9 @@ exports.addToCart = async (req, res) => {
             }
             // cart.total += product.price;
         }
-        console.log("ber holam");
+        // console.log("ber holam");
         await cart.save();
-        console.log("asolei");
+        // console.log("asolei");
         return res.status(200).json({ message: 'Item added to cart successfully', cart: req.cart });
         // res.redirect('back');
     } catch (error) {
@@ -84,6 +84,7 @@ exports.viewCart = async (req, res) => {
                     productName: productDetails.name,
                     productPrice: productDetails.price,
                     productPhoto:productDetails.photo,
+
                 };
             }
 
@@ -211,8 +212,7 @@ exports.buyNow = async (req, res, next) => {
         // ...
         //goto create order, but how? after processing
         const hasSelectedItems = req.cart.items.filter(item => item.selected);
-        // console.log(hasSelectedItems);
-        if (hasSelectedItems) {
+        if (hasSelectedItems.length>0) {
             const order = new Order({
                 products: hasSelectedItems,
                 amount: req.cart.total, // Replace with the actual amount
@@ -226,7 +226,7 @@ exports.buyNow = async (req, res, next) => {
             // res.redirect('/order/create/:userId');
             // console.log('At least one item is selected.');
         } else {
-            res.status(400).json({ message: 'Checkout not successful' });
+            return res.status(400).json({ message: 'Checkout not successful' });
             // console.log('No selected items in the cart.');
         }
         // res.redirect('/cart/checkout');
