@@ -4,13 +4,17 @@ import Cover from '../Components/Cover/Cover';
 import Footer from  '../Components/Footer/Footer';
 import AdminProductPanel from '../Components/AdminProductPanel/AdminProductPanel';
 import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import AdminNewProductAdd from '../Components/AdminNewProductAdd/AdminNewProductAdd';
 
 const AdminAllProductPage = () => {
   return (
     <div>
      
-      <AdminNavbar/>
-      <AdminProductPanel catagory="" />
+      {/* <AdminNavbar/> */}
+      <Sidebar/>
+      {/* <AdminProductPanel catagory="" /> */}
+      <AdminNewProductAdd/>
       <Footer/>
     </div>
   )

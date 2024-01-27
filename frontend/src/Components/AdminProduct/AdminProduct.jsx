@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import star_dull from '../Assets/star_dull_icon.png'
 
 import star from '../Assets/star_icon.png'
-import { CartContext } from '../../Context/CartContext'
+
 
 const AdminProduct = (prod) => {
-  const{cartItems,cartTotalPrice,addToCart,removeFromCart}=useContext(CartContext);
+  
     const ratingStars = () => {
         const result = [];
         for (let i = 0; i < prod.rating; i++) {
