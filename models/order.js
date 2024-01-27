@@ -42,10 +42,10 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    paidOn: Date,
     deliveryFee:
     {
       type: Number,
+      default:5,
     },
     user: {
       type: ObjectId,

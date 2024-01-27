@@ -27,17 +27,38 @@ exports.getOrderById = (req, res, next, id) => {
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
 exports.createOrder = async (req, res) => {
   try {
-    console.log(req.body);
-    let order = new Order(req.body);
+    const userId = req.params.userId;
+    const orderData = req.body;
+
+    const updatedProducts = await Promise.all(orderData.products.map(async (item) => {
+      const productDetails = await Product.findById(item.product);
+      
+      if (productDetails) {
+        const subtotal = productDetails.price * item.quantity;
+        return {
+          subtotal,
+        };
+      }
+      return item;
+    }));
+    const totalAmount = updatedProducts.reduce((total, item) => total + item.subtotal, 0);
+
+    // Create a new Mongoose model instance
+    const order = new Order({
+      ...orderData,
+      amount: totalAmount+orderData.deliveryFee,
+      user: userId,
+    });
+
+    // console.log(order);
     await order.save();
     res.status(201).json({ message: 'Order created successfully!' });
-    // You may want to handle the response or redirect to a login page
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 // get all orders for ADMIN
 exports.getAllOrders = (req, res, next) => {
@@ -125,6 +146,8 @@ exports.getParticularOrder = async (req, res, next) => {
     // Access the user's name from the populated user field
     const user = await User.findOne({ _id: order.user });
     const username=user.username;
+    const email=user.email;
+    const mobile=user.mobile;
     const updatedProducts = await Promise.all(order.products.map(async (item) => {
       const productDetails = await Product.findById(item.product);
       
@@ -147,6 +170,8 @@ exports.getParticularOrder = async (req, res, next) => {
     req.order = {
       ...req.order.toObject(), // Convert Mongoose document to plain JavaScript object
       username,
+      email,
+      mobile,
       products: updatedProducts,
     };
     

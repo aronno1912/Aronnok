@@ -26,7 +26,7 @@ router.param("productId", getProductById);
 // /admin/:userId/addPlant
 router.post(
   "/product/create/:userId",
-  isSignedIn,
+  // isSignedIn,
   // isAuthenticated,
   isAdmin,
   // imageHelper,
@@ -40,7 +40,7 @@ router.get("/product/photo/:productId", photo);
 // delete route
 router.delete(
   "/product/:productId/:userId",
-  isSignedIn,
+  // isSignedIn,
   // isAuthenticated,
   isAdmin,
   deleteProduct
@@ -49,7 +49,7 @@ router.delete(
 // update route
 router.put(
   "/product/:productId/:userId",
-  isSignedIn,
+  // isSignedIn,
   // isAuthenticated,
   isAdmin,
   updateProduct
