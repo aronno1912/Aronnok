@@ -82,7 +82,7 @@ const AdminNewProductAdd = () => {
          
 
           <label htmlFor="category">Category</label>
-          <select
+          <select className='ab'
             id="category"
             name="category"
             value={productInfo.category}
@@ -160,7 +160,7 @@ const AdminNewProductAdd = () => {
             required
           />
 
-          <button type="submit">Add Product</button>
+          <button className='addProductAdminButton' type="submit">Add Product</button>
         </div>
       </form>
     </div>

@@ -9,6 +9,7 @@
     background-color: #f8f8f8;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    margin-top: 90px;
   }
   
   .form-left,
@@ -27,14 +28,14 @@
   }
   
   input,
-  select {
+  .ab {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  button {
+  .addProductAdminButton {
     width: 100%;
     padding: 12px;
     background-color: #4caf50;
