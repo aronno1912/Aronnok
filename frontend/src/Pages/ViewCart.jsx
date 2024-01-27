@@ -7,22 +7,25 @@ import { all } from 'axios';
 
 const ViewCart = (prod) => {
   const disRate= 0.1;
-    const{all_plants,cartItems,cartTotalPrice,addToCart,removeFromCart,getTotalCartPrice,getTotalCartQuantity}=useContext(CartContext);
+    
+  const [cart, setCart] = useState({});
+  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/cart/viewCart/659c027001b07da1b7fef185');
+        const data = await response.json();
+        setCart(data);
+        setCartItems(data.items);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
   
-    const sendToCartItem=()=>{
-      let items=[];
-      let i=0;
-      all_plants.map((plant) => {
-        const itemId = plant._id;
-        const quantity= cartItems.get(itemId);
-        if(quantity>0)
-          items[i++]=plant;
-       });
+    fetchData();
+  }, []);
 
-      items.map((item,i)=>{
-        return <CartItem key={i} id={item._id} name={item.name} photo={item.photo} price={item.price}/>
-      })
-    }
+
 
 
   return (
@@ -40,8 +43,10 @@ const ViewCart = (prod) => {
           </div>
           <hr style={{position: "absolute", top:"50px", width:"700px"}}/>
         </div>
-        
-        {sendToCartItem()}
+        {cartItems.map((item,i)=>{
+          return <CartItem key={i} id={item.product} items={item.quantity}/>
+        })}
+        {/* {sendToCartItem()} */}
        </div>
        <hr/>
        <div className="cart-hishab">
@@ -51,8 +56,8 @@ const ViewCart = (prod) => {
             <p>discounted</p>
           </div>
           <div className="cart-hishab-right">
-            <p>{getTotalCartQuantity()}</p>
-            <p>{getTotalCartPrice()}</p>
+            <p>{cart.total}</p>
+            <p>{}</p>
             <p>(-10%)</p>
           </div>
        </div>

@@ -51,7 +51,15 @@ const OneProduct = () => {
     return <p>Product not found</p>;
   }
 
-
+  
+  const addToCart = async () => {
+    try {
+      await axios.post(`http://localhost:8000/api/cart/add/659c027001b07da1b7fef185/${productId}`, { });
+      console.log('product added to cart');
+    } catch (error) {
+      console.error('Error adding', error);
+    }
+  };
 
   const isInStock = product.stock > 0;
   const imageUrl = product.photo || ''; // Default to an empty string if product.photo is undefined
@@ -94,7 +102,7 @@ const OneProduct = () => {
           <p className="out-of-stock">Out of Stock</p>
         )}
         {isInStock?
-        (<button className="productdisplay-right-button">Add to Cart</button>):(<button className="productdisplay-right-button2">Add to Wishlist</button>)}
+        (<button className="productdisplay-right-button" onClick={addToCart}>Add to Cart</button>):(<button className="productdisplay-right-button2">Add to Wishlist</button>)}
         
         <button className="productdisplay-right-button3">Add to Favourites</button>
         {/* <p>Description: {product.description}</p>

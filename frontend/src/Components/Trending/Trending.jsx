@@ -6,13 +6,13 @@ import axios from 'axios';
 import { CartContext } from '../../Context/CartContext';
 
 
-const Trending = ({catagory}) => {
+const Trending = ({catagory,mypath}) => {
   const [all_plants, setProducts] = useState([]);
  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/products/659c027001b07da1b7fef185');
+        const response = await fetch(mypath);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -21,7 +21,7 @@ const Trending = ({catagory}) => {
     };
   
     fetchData();
-  }, []);
+  }, [mypath]);
 
   return (
     <div className='trending'>
