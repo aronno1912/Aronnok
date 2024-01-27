@@ -339,7 +339,7 @@ exports.recommendations =async (req, res) => {
     // Fetch product details based on combined product IDs
     const recommendedProducts = await Product.find({ _id: { $in: allProductIds } });
 
-    res.json({ recommendations: recommendedProducts });
+    res.json(recommendedProducts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -362,9 +362,7 @@ exports.trending = async (req, res) => {
     $project: {
       _id: '$_id',
       count: '$count',
-      productName: '$productDetails.name',
-      productPrice: '$productDetails.price',
-      productPhoto: '$productDetails.photo',
+      productDetails: '$productDetails',
       // Add other fields you want to include
     },
   },
