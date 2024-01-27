@@ -42,7 +42,6 @@ exports.createOrder = async (req, res) => {
       return item;
     }));
     const totalAmount = updatedProducts.reduce((total, item) => total + item.subtotal, 0);
-    // console.log("why:1",orderData);
     // Create a new Mongoose model instance
     const order = new Order({
       ...orderData,

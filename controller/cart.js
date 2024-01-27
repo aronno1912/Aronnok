@@ -245,12 +245,13 @@ exports.getQuantity = async (req, res) => {
         // Checkout logic
         // ...
         const productId = req.params.productId;
+        const product = await Product.findById(productId);
         // Find the cart item by productId
         const cartItem = req.cart.items.find(item => item.product.toString() === productId);
         if (!cartItem) {
             return res.status(404).json({ error: 'Product not found in the cart' });
         }
-        res.json({quantity: cartItem.quantity});
+        res.json({quantity: cartItem.quantity,price:product.price});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

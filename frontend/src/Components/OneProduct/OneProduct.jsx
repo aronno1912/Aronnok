@@ -26,6 +26,8 @@ const OneProduct = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [totalQuantity, setQuantity] = useState(0);
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -40,7 +42,17 @@ const OneProduct = () => {
       }
     };
 
+    const fetchTotalQuantity = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/cart/getQuantity/659c027001b07da1b7fef185/${productId}`);
+        const data = await response.json();
+        setQuantity(data.quantity);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     fetchProduct();
+    fetchTotalQuantity();
   }, [productId]);
 
   if (loading) {
@@ -54,7 +66,7 @@ const OneProduct = () => {
   
   const addToCart = async () => {
     try {
-      await axios.post(`http://localhost:8000/api/cart/add/659c027001b07da1b7fef185/${productId}`, { });
+      await axios.put(`http://localhost:8000/api/cart/update/659c027001b07da1b7fef185/${productId}`, {"quantity": totalQuantity, "selected":true});
       console.log('product added to cart');
     } catch (error) {
       console.error('Error adding', error);
