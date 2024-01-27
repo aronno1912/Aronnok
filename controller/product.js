@@ -133,7 +133,7 @@ exports.addPlant = async (req, res, next) => {
 // get single product
 exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
-  // console.log(req.product);
+  console.log(req.product);
   return res.json(req.product);
 };
 
