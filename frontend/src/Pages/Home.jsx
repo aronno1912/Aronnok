@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <Cover/>
-      <Trending catagory="Trending" mypath="http://localhost:8000/api/products/659c027001b07da1b7fef185"/>
+      <Trending catagory="Trending" mypath="http://localhost:8000/api/trending"/>
       <Trending catagory="Recommended for you" mypath ="http://localhost:8000/api/recommend/659c027001b07da1b7fef185"/>
       <Footer/>
     </div>
