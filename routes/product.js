@@ -29,7 +29,7 @@ router.post(
   "/product/create/:userId",
   // isSignedIn,
   // isAuthenticated,
-  isAdmin,
+  // isAdmin,
   // imageHelper,
   addPlant
 );
