@@ -122,9 +122,10 @@ const OneOrderDetailAdmin = ({ orderId }) => {
           </thead>
           <tbody>
             {orderDetails.products.map((product) => (
+             
               <tr key={product.productId}>
                 <td style={{ border: 'none' }}>
-                <img src={product.photo} alt='' style={{ width: '50px', height: '50px' }} />
+                <img src={product.productPhoto} alt='' style={{ width: '50px', height: '50px' }} />
                 </td>
                 <td style={{ border: 'none' }}>{product.productName}</td>
                 <td style={{ border: 'none' }}>{product.quantity}</td>

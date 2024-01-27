@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import OneOrderDetailAdmin from '../Components/OneOrderDetailAdmin/OneOrderDetailAdmin';
 import { useParams } from 'react-router-dom';
+import Footer from '../Components/Footer/Footer';
 
 const OrderDetailsAdmin = () => {
     const { orderId } = useParams();
@@ -11,6 +12,7 @@ const OrderDetailsAdmin = () => {
         <div>
             <Sidebar/>
             <OneOrderDetailAdmin orderId={orderId} />
+            <Footer/>
 
         </div>
     );
