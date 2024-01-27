@@ -44,6 +44,10 @@
     justify-content: center;
 }
 
+.cart-item-middle{
+     align-self: center;
+} 
+
 .cart-item-right{
     position: relative;
 }

@@ -20,16 +20,49 @@
 
 .cart-items-header{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    position: relative;
     width: 700px;
+    justify-content: space-around;
+}
+
+.cart-items-header-p{
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-cart-items-header p{
-    color: black;
+.cart-items-header-p p{
+    color: rgb(17, 77, 44);
+    font-size: 20px;
 }
 
 .cart-all hr{
-    margin-top: 30px;
+   width: 75%;
+}
+
+.cart-hishab{
+    display: flex;
+    flex-direction: row;
     width: 75%;
+    justify-content: space-around;
+    align-self: center;
+    margin-left: 150px;
+}
+
+.cart-place-order{
+    display: flex;
+    width: 75%;
+    position: relative;
+}
+
+.cart-place-order-btn{
+    position: absolute;
+    right: 100px;
+    font-size: 18px;
+    height: 40px;
+    width: 130px;
+    border-radius: 5px;
+    background-color: rgb(3, 60, 30);
+    color: aliceblue;
 }

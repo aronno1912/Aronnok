@@ -31,6 +31,9 @@ const CartItem = (prod) => {
             </div>
         </div>
     </div>
+    <div className="cart-item-middle">
+        <p>${prod.price}</p>
+    </div>
     <div className="cart-item-right">
         <button className='remove-btn'><i class="bi bi-x"  style={{ fontSize: '20px' }}></i></button>
         <p><b>${+cartTotalPrice.get(prod.id)}</b></p>

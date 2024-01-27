@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 // import all_plants from "../Components/Assets/all_products"
 export const CartContext= createContext(null);
 
@@ -8,8 +8,8 @@ const getDefaultCart=(all_plants)=>{
    
       all_plants.map((plant) => {
             const itemId = plant._id;
-            cart.set(itemId, 0);
-            price.set(itemId, plant.price);
+            cart.set(itemId, 1);
+            price.set(itemId, Number(plant.price));
       });
       
     return {cart,price};
@@ -23,7 +23,7 @@ const CartContextProvider = (props) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:8000/api/products');
+          const response = await fetch('http://localhost:8000/api/products/659c027001b07da1b7fef185');
           const data = await response.json();
           setProducts(data);
         } catch (error) {
@@ -36,24 +36,59 @@ const CartContextProvider = (props) => {
 
 
     const {cart,price}=getDefaultCart(all_plants);
+
     const [cartItems, setCartItems] = useState(cart);
     const [cartTotalPrice, setCartTotalPrice] = useState(price);
 
-    console.log(cartItems);
+  // console.log(cartItems);
+    useEffect(() => {
+      let hasNaNValue = Array.from(cartItems.values()).some((value) => isNaN(value));
+      if(hasNaNValue)
+        setCartItems(cart);
+    }, [cart]);
+
+     useEffect(() => {
+      const hasNaNValue = Array.from(cartTotalPrice.values()).some((value) => isNaN(value));
+      if(hasNaNValue)
+        setCartTotalPrice(price);
+    }, [cart]);
+
+    //  console.log(cartItems);
 
     const addToCart=(itemId)=>{
-       setCartItems((prev) => new Map([...prev, [itemId, prev.get(itemId) + 1]]));
-       setCartTotalPrice((prev) => new Map([...prev, [itemId, prev.get(itemId) + all_plants.find((plant) => plant._id === itemId)]]));
-        // console.log(cartItems.get(itemId));
-    //    setCartItems((prev) => ({...prev, [itemId]: prev.get(itemId) + 1}));
-    //    setCartTotalPrice((prev) => ({...prev, [itemId]: prev.get(itemId) + all_plants.find((plant) => plant._id === itemId)}));
-    }
-
+      //  setCartItems((prev) => new Map([...prev, [itemId, prev.get(itemId) + 1]]));
+      setCartItems((prev) => {
+        const updated = new Map(prev);
+        updated.set(itemId, updated.get(itemId) + 1);
+        return updated;
+      });
+      //  setCartTotalPrice((prev) => new Map([...prev, [itemId, prev.get(itemId) + all_plants.find((plant) => plant._id === itemId)]]));
+      setCartTotalPrice((prev) => {
+        const updated = new Map([...prev]);
+        const plant=all_plants.find((plant) => plant._id === itemId);
+        const price=0;
+        updated.set(itemId, updated.get(itemId) + price);
+        console.log(updated.get(itemId));
+        return updated;
+      });
+  }
     const removeFromCart=(itemId)=>{
-    //     setCartItems((prev) => ({...prev, [itemId]: prev.get(itemId) + 1}));
-    //    setCartTotalPrice((prev) => ({...prev, [itemId]: prev.get(itemId) + all_plants.find((plant) => plant._id === itemId)}));
-        setCartItems((prev) => new Map([...prev, [itemId, prev.get(itemId) - 1]]));
-        setCartTotalPrice((prev) => new Map([...prev, [itemId, prev.get(itemId) - all_plants.find((plant) => plant._id === itemId)]]));
+      setCartItems((prev) => {
+        const updated = new Map(prev);
+        updated.set(itemId, updated.get(itemId) - 1);
+        return updated;
+      });
+      
+      setCartTotalPrice((prev) => {
+        const updated = new Map([...prev]);
+        const plant=all_plants.find((plant) => plant._id === itemId);
+        const price=0;
+        updated.set(itemId, updated.get(itemId) - price);
+        console.log(updated.get(itemId));
+        return updated;
+      });
+        // setCartItems((prev) => new Map([...prev, [itemId, prev.get(itemId) - 1]]));
+        // setCartTotalPrice((prev) => new Map([...prev, [itemId, prev.get(itemId) - all_plants.find((plant) => plant._id === itemId)]]));
     }
 
     const getTotalCartQuantity=()=>{
@@ -72,7 +107,7 @@ const CartContextProvider = (props) => {
         return totalPrice;
     }
 
-    const contextValue={cartItems,cartTotalPrice, addToCart, removeFromCart,getTotalCartPrice,getTotalCartQuantity};
+    const contextValue={all_plants,cartItems,cartTotalPrice, addToCart, removeFromCart,getTotalCartPrice,getTotalCartQuantity};
     
   return (
     <CartContext.Provider value={contextValue}>
@@ -82,3 +117,10 @@ const CartContextProvider = (props) => {
 }
 
 export default CartContextProvider
+
+// ()=>{const updated = new Map(cart);
+//   cart.forEach((key,value) => {
+//     updated.set(key,value);
+//   });
+//   return updated;
+// }
