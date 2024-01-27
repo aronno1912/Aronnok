@@ -8,7 +8,6 @@ import star from '../Assets/star_icon.png'
 import { CartContext } from '../../Context/CartContext'
 
 const Product = (prod) => {
-  const{cartItems,cartTotalPrice,addToCart,removeFromCart}=useContext(CartContext);
     const ratingStars = () => {
         const result = [];
         for (let i = 0; i < prod.rating; i++) {
@@ -48,7 +47,7 @@ const Product = (prod) => {
             style={{ fontSize: '20px' }}
             onClick={addToFavourites}
           ></i></button>
-          <button className="buy-btn"onClick={addToCart(prod.id)}>Buy</button>    
+          <button className="buy-btn">Buy</button>    
           </div>
         </div>
       </div>
