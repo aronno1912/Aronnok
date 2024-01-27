@@ -11,13 +11,16 @@ import OrderlistAdmin from './Pages/OrderlistAdmin';
 import OrderDetailsAdmin from './Pages/OrderDetailsAdmin';
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
+import AdminAllProductPage from './Pages/AdminAllProductPage';
+import AdminNewProductAdd from './Components/AdminNewProductAdd/AdminNewProductAdd';
+import AdminAddProductPage from './Pages/AdminAddProductPage';
 
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <Navbar/>
+      
       <Routes>
         <Route path='/' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
@@ -30,6 +33,9 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/admin/orderlist' element={<OrderlistAdmin/>}/>
         <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
+        <Route path='/admin/allproducts' element={<AdminAllProductPage/>}/>
+        <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
+
       </Routes>
       </BrowserRouter>
     </div>

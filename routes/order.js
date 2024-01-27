@@ -16,10 +16,14 @@ const {
     getReceivedOrders,
     getParticularOrder
 } = require("../controller/order");
-
+const {
+    getCartById,
+    buyNow,
+} = require('../controller/cart');
 // params, path e userId thaklei 2nd param er sathe associated hoye jabe
-router.param("userId", getUserById);
+router.param("userId", getCartById);
 router.param("orderId", getOrderById);
+
 
 // actual routes
 
@@ -36,6 +40,8 @@ router.post(
     //   isSignedIn,
     //   isAuthenticated,
     //   pushOrderInPurchaseList,
+    
+    buyNow,
     updateStock,
     createOrder
 );

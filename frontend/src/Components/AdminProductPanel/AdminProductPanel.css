@@ -1,0 +1,19 @@
+
+.atrending {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create a grid with minimum column width of 250px */
+    gap: 20px; /* Adjust the gap between grid items */
+    justify-content: space-around;
+   
+}
+
+.atr-products {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    /* flex-wrap: wrap; */
+    gap: 150px; /* Adjust the gap between products */
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+

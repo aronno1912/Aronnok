@@ -39,6 +39,7 @@ exports.addToCart = async (req, res) => {
                 quantity: 1,
                 selected: false,
             });
+            // cart.totalQuantity=1;
             // cart.total += product.price;
             console.log(cart);
         }
@@ -55,6 +56,7 @@ exports.addToCart = async (req, res) => {
                     selected: false,
                 });
             }
+            // cart.totalQuantity=1;
             // cart.total += product.price;
         }
         // console.log("ber holam");
@@ -84,7 +86,7 @@ exports.viewCart = async (req, res) => {
                     productName: productDetails.name,
                     productPrice: productDetails.price,
                     productPhoto:productDetails.photo,
-
+                    
                 };
             }
 
@@ -132,6 +134,7 @@ exports.updateCartItem = async (req, res) => {
             if (cartItem.selected === true) {
                 req.cart.total = req.cart.total + product.price * (quantity - temp);
             }
+            // req.cart.totalQuantity+=(quantity - temp);
         }
 
         if (selected !== undefined) {
@@ -212,15 +215,16 @@ exports.buyNow = async (req, res, next) => {
         // ...
         //goto create order, but how? after processing
         const hasSelectedItems = req.cart.items.filter(item => item.selected);
+        
         if (hasSelectedItems.length>0) {
             const order = new Order({
                 products: hasSelectedItems,
                 amount: req.cart.total, // Replace with the actual amount
-                address: 'Sample Address',
                 user: req.cart.user, // Replace with the actual user ID
                 // Other fields of the order
             });
             req.body = order;
+            console.log(req.body);
             // res.status(200).json({ message: 'Checkout successful'});
             next();
             // res.redirect('/order/create/:userId');

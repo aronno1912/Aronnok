@@ -95,6 +95,7 @@ exports.addPlant = async (req, res, next) => {
 
 
   //before html
+  console.log("hi");
   const errors = validationResult(req);
   console.log("hi");
   if (!errors.isEmpty()) {
@@ -120,7 +121,11 @@ exports.addPlant = async (req, res, next) => {
       });
     }
     let plant = new Product(req.body);
-    // console.log(product);
+    console.log(plant);
+    const categoryId = await Category.findOne({ "name":req.body.category });
+
+    plant.category = categoryId;
+    console.log(plant);
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
   }
