@@ -51,7 +51,7 @@ const CartContextProvider = (props) => {
       const hasNaNValue = Array.from(cartTotalPrice.values()).some((value) => isNaN(value));
       if(hasNaNValue)
         setCartTotalPrice(price);
-    }, [cart]);
+    }, [price]);
 
     //  console.log(cartItems);
 
