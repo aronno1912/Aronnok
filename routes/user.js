@@ -15,6 +15,7 @@ router.get("/user/:userId",
 isSignedIn, 
 // isAuthenticated, 
 getUser);
+
 router.put("/user/:userId", 
 isSignedIn, 
 // isAuthenticated, 

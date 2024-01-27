@@ -59,20 +59,7 @@ exports.getFavourite = async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: 'Product not found in favourites 2' });
     }
-    // const updatedProducts = await Promise.all(favourite.product.map(async (item) => {
     const productDetails = await Product.findById(product.product);
-
-    //     if (productDetails) {
-    //         return {
-    //             ...item.toObject(),
-    //             productName: productDetails.name,
-    //             productPrice: productDetails.price,
-    //             productPhoto:productDetails.photo,
-    //         };
-    //     }
-
-    //     return item;
-    // }));
     product = {
       ...product.toObject(), // Convert Mongoose document to plain JavaScript object
       productName: productDetails.name,
