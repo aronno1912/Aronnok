@@ -21,6 +21,7 @@ import React from 'react';
 import OneProduct from '../Components/OneProduct/OneProduct';
 import Footer from '../Components/Footer/Footer';
 import { useParams } from 'react-router-dom';
+import Navbar from '../Components/Navbar/Navbar';
 
 // const ViewProduct = () => {
   
@@ -45,6 +46,7 @@ const ViewProduct = () => {
   
     return (
       <div>
+        <Navbar/>
         {/* Pass the product ID to the OneProduct component */}
         <OneProduct productId={productId} />
         <Footer />

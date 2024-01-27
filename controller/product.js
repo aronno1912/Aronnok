@@ -275,7 +275,7 @@ exports.getAllProducts = (req, res) => {
 
 // update stock middleware
 exports.updateStock = (req, res, next) => {
-
+  console.log("hi2");
   let myOperations = req.body.products.map((prod) => {
     // console.log(prod.quantity);
     return {

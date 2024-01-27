@@ -211,6 +211,7 @@ exports.removeCart = async (req, res) => {
 //buyNow is not done
 exports.buyNow = async (req, res, next) => {
     try {
+        console.log("hi3");
         // Update cart item logic
         // ...
         //goto create order, but how? after processing

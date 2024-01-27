@@ -27,6 +27,7 @@ exports.getOrderById = (req, res, next, id) => {
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
 exports.createOrder = async (req, res) => {
   try {
+    console.log("hi1");
     const userId = req.params.userId;
     const orderData = req.body;
     
@@ -51,7 +52,6 @@ exports.createOrder = async (req, res) => {
       address: "Sample Address",
       paidBy:"Cash on delivery",
     });
-    console.log("why2:",orderData);
     console.log(order);
     await order.save();
     res.status(201).json({ message: 'Order created successfully!' });
