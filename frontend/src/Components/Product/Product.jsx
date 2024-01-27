@@ -29,7 +29,6 @@ const Product = (prod) => {
   return (
     <Link to={`/product/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='product-container'> 
-    <div className='container'> 
       <img src={prod.photo} alt="" />
       <div className="plant-details">
         <p className='plant-name'>{prod.name}</p>
@@ -49,7 +48,6 @@ const Product = (prod) => {
           <button className="buy-btn"onClick={addToCart(prod.id)}>Buy</button>    
         </div>
       </div>
-    </div>
     </div>
     </Link>
   )

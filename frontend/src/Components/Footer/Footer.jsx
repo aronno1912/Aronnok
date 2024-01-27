@@ -4,6 +4,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <div className="footer">
+      <hr/>
       <div className="top">
         <div className="item">
           <h1>Categories</h1>
