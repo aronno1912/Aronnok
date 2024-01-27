@@ -121,10 +121,10 @@ exports.addPlant = async (req, res, next) => {
       });
     }
     let plant = new Product(req.body);
-    console.log(plant);
-    const categoryId = await Category.findOne({ "name":req.body.category });
+    const catg = await Category.findOne({ "name":req.body.category });
 
-    plant.category = categoryId;
+    plant.category = catg._id;
+    plant.photo='/default.png';
     console.log(plant);
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
@@ -238,12 +238,12 @@ exports.updateProduct = async (req, res) => {
 
 // listing products
 exports.getAllProducts = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 9;
+  // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
   let sortBy = req.query.sort ? req.query.sort : "_id";
   Product.find()
     .populate("category")
     .sort([[sortBy, "asc"]])
-    .limit(limit)
+    // .limit(limit)
     .exec()
     .then((products) => {
       if (!products) {

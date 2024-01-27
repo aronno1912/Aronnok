@@ -16,7 +16,10 @@ const AdminNavbar = () => {
           <input type="text" placeholder="Search" />
           <button type="button">Search</button>
         </div>
-        <div className="profile-icon">👤</div>
+        {/* <div className="profile-icon">👤</div> */}
+        <div className="profile-icon">
+            <img src="/us.png" alt="profile-icon" style={{ width: '50px', height: '50px' }} />
+        </div>
       </div>
     </div>
   );
