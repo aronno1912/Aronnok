@@ -12,7 +12,8 @@ const {
   getAllProducts,
   search,
   recommendations,
-  trending
+  trending,
+  category_stock,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -67,11 +68,16 @@ router.get('/search',
 //recommended for you
 router.get('/recommend/:userId',
 recommendations,
+trending,
 );
 //trending
 router.get('/trending',
 trending,
 );
 
+//get category wise 
+router.get('/category_stock',
+category_stock,
+);
 
 module.exports = router;

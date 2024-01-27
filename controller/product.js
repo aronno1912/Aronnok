@@ -1,5 +1,6 @@
 //works
 const Product = require("../models/product");
+const Category = require("../models/category");
 const User = require('../models/user');
 const Cart = require('../models/cart');
 const Favourites = require('../models/favourites');
@@ -305,7 +306,7 @@ exports.search = async (req, res, next) => {
   }
 };
 
-exports.recommendations =async (req, res) => {
+exports.recommendations = async (req, res, next) => {
   try {
     const userId = req.params.userId;
 
@@ -330,9 +331,12 @@ exports.recommendations =async (req, res) => {
     const allProductIds = [...new Set([...cartProductIds, ...favoriteProductIds, ...orderProductIds])];
 
     // Fetch product details based on combined product IDs
-    const recommendedProducts = await Product.find({ _id: { $in: allProductIds } });
-
-    res.json(recommendedProducts);
+    let recommendedProducts = await Product.find({ _id: { $in: allProductIds } });
+    recommendedProducts = recommendedProducts.sort(() => Math.random() - 0.5);
+    if (recommendedProducts.length === 0) {
+      next();
+    } else
+      return res.json(recommendedProducts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -341,41 +345,89 @@ exports.recommendations =async (req, res) => {
 
 exports.trending = async (req, res) => {
   try {
-    const trendingProducts = await Order.aggregate([
-        { $unwind: '$products' }, // Split the array of products into separate documents
-        {
-            $group: {
-                _id: '$products.product', // Group by the product
-                count: { $sum: '$products.quantity' }, // Count occurrences of each product
-            },
+    let trendingProducts = await Order.aggregate([
+      { $unwind: '$products' }, // Split the array of products into separate documents
+      {
+        $group: {
+          _id: '$products.product', // Group by the product
+          count: { $sum: '$products.quantity' }, // Count occurrences of each product
         },
-
-        { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
-        { $unwind: '$productDetails' }, // Unwind the productDetails array
-        {
-            $project: {
-                _id: '$productDetails._id',
-                name: '$productDetails.name',
-                description: '$productDetails.description',
-                price: '$productDetails.price',
-                category: '$productDetails.category',
-                stock: '$productDetails.stock',
-                sold: '$productDetails.sold',
-                rating: '$productDetails.rating',
-                photo: '$productDetails.photo',
-                tags: '$productDetails.tags',
-                createdAt: '$productDetails.createdAt',
-                updatedAt: '$productDetails.updatedAt',
-            },
+      },
+      { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
+      { $unwind: '$productDetails' }, // Unwind the productDetails array
+      {
+        $project: {
+          _id: '$productDetails._id',
+          name: '$productDetails.name',
+          description: '$productDetails.description',
+          price: '$productDetails.price',
+          category: '$productDetails.category',
+          stock: '$productDetails.stock',
+          sold: '$productDetails.sold',
+          rating: '$productDetails.rating',
+          photo: '$productDetails.photo',
+          tags: '$productDetails.tags',
+          createdAt: '$productDetails.createdAt',
+          updatedAt: '$productDetails.updatedAt',
         },
-        { $sort: { count: -1 } }, // Sort in descending order based on count
-        { $limit: 10 }, // Take only the top 10
+      },
+      { $sort: { count: -1 } }, // Sort in descending order based on count
+      { $limit: 10 }, // Take only the top 10
     ]);
-
-    res.json(trendingProducts );
-} catch (error) {
+    trendingProducts = trendingProducts.sort(() => Math.random() - 0.5);
+    res.json(trendingProducts);
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
-}
+  }
 
+};
+
+exports.category_stock = async (req, res) => {
+  try {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 9;
+    let sortBy = req.query.sort ? req.query.sort : "_id";
+
+    const products = await Product.find()
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec();
+
+    if (!products || products.length === 0) {
+      return res.status(400).json({
+        error: "No products found",
+      });
+    }
+
+    var categorySums = [];
+
+    // Iterate through each product using for...of loop
+    for (const product of products) {
+      // Fetch the category document to get its name
+      const category = await Category.findById(product.category);
+
+      // Find the index of the category in categorySums array
+      const index = categorySums.findIndex(item => item.name === category.name);
+
+      // If category not found, add a new object to categorySums
+      if (index === -1) {
+        categorySums.push({ name: category.name, amount: product.stock });
+      } else {
+        // If category found, increment the amount
+        categorySums[index].amount += product.stock;
+      }
+    }
+
+    // Now, categorySums is populated correctly
+    console.log(categorySums);
+
+    res.json(categorySums);
+  } catch (err) {
+    // Handle errors here
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
 };

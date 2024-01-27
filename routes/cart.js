@@ -7,7 +7,8 @@ const {
     updateCartItem,
     deleteCartItem,
     removeCart,
-    buyNow
+    buyNow,
+    getQuantity
 } = require('../controller/cart');
 const {
     createOrder
@@ -29,11 +30,14 @@ router.delete('/cart/deleteItem/:userId/:productId',
 router.delete('/cart/clear/:userId',
     // isSignedIn, 
     removeCart
-    );
+);
 router.put('/cart/buynow/:userId',
     // isSignedIn,
     buyNow,
     createOrder
-    );
+);
+router.get('/cart/getQuantity/:userId/:productId',
+    // isSignedIn, 
+    getQuantity);
 
 module.exports = router;
