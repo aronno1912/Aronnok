@@ -67,55 +67,46 @@ exports.addToCart = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-// const calculateTotalsAndAddToCart = async (order, cart) => {
-//     try {
-//       for (const item of order.products) {
-//         const productDetails = await Product.findById(item.product);
-//         const subtotal = productDetails.price * item.quantity;
-  
-//         const newItem = {
-//           product: item.product,
-//           quantity: item.quantity,
-//           selected: item.selected,
-//           subtotal: subtotal,
-//         };
-  
-//         cart.items.push(newItem);
-//       }
-  
-//       cart.total = cart.items.reduce((total, item) => total + item.subtotal, 0);
-  
-//       await cart.save();
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+
 exports.viewCart = async (req, res) => {
     try {
         // Checkout logic
         // ...
-      
-        // // Assuming req.cart is already available
-        // await calculateTotalsAndAddToCart(req.order, req.cart);
-      
-        // // Assuming you have User model to fetch username
-        // const user = await User.findOne({ _id: req.cart.user });
-        // const username = user.username;
-      
-        // // Update req.cart with the username
-        // req.cart = {
-        //   ...req.cart.toObject(),
-        //   username,
-        // };
-      
+
+        const cart = req.cart;
+
+        const updatedProducts = await Promise.all(cart.items.map(async (item) => {
+            const productDetails = await Product.findById(item.product);
+
+            if (productDetails) {
+                return {
+                    ...item.toObject(),
+                    productName: productDetails.name,
+                    productPrice: productDetails.price,
+                    productPhoto:productDetails.photo,
+                };
+            }
+
+            return item;
+        }));
+        console.log(updatedProducts);
+        // const totalAmount = updatedProducts.reduce((total, item) => total + item.subtotal, 0);
+        // Add the user's name to the existing req.order object
+        req.cart = {
+            ...req.cart.toObject(), // Convert Mongoose document to plain JavaScript object
+            items: updatedProducts,
+        };
+
+        // Now req.order includes the user's name
+        return res.json(req.cart);
+
         // Send the updated cart as JSON response
-        res.json(req.cart);
         // Or, if you are rendering a page
         // res.render('checkout', { title: 'CheckOut', cart: req.cart });
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
-      }
+    }
 };
 
 exports.updateCartItem = async (req, res) => {
