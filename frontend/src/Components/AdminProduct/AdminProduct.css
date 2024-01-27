@@ -1,0 +1,65 @@
+.product-container{
+    margin-top: 10px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width:270px;
+    height: 350px;
+}
+
+.plant-details{
+    position: relative;
+    background: linear-gradient(0deg, rgb(222, 223, 222),rgb(255, 255, 255) 40%)
+}
+.product-container img{
+    width: 100%;
+    height: 70%;
+}
+.plant-name{
+    font-size: 20px;
+    color: rgb(22, 76, 17);
+    margin-bottom: 5px;
+}
+
+.product-description{
+    height:50px;
+    /* margin-top: 2px; */
+  overflow: hidden;
+  text-overflow:ellipsis;
+    font-size: 13px;
+}
+
+.product-price{
+    margin-top: 0px;
+}
+
+.product-footer{
+    display: flex;
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    height: 30px;
+    width: 100px;
+    justify-content: space-around;
+    gap: 10px;
+}
+.buy-btn{
+
+    height: 30px;
+    width: 60px;
+    background-color: rgb(24, 113, 60);
+    color: white;
+}
+
+
+
+
+
+.star-img{
+    display: flex;
+    margin-top: 15px;
+    height: 20px;
+    width: 20px;
+    background-color: inherit;
+}
+

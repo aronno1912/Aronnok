@@ -14,7 +14,7 @@ const Sidebar = () => {
           <Link to="/admin/dashboard" className={location.pathname === '/admin/dashboard' ? 'active' : ''}>Dashboard</Link>
         </li>
         <li className='eta2'>
-          <Link to="/admin/all-products" className={location.pathname === '/admin/all-products' ? 'active' : ''}>All Products</Link>
+          <Link to="/admin/allproducts" className={location.pathname === '/admin/allproducts' ? 'active' : ''}>All Products</Link>
         </li>
 
         <li className='eta3'>

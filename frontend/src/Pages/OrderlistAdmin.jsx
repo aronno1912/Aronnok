@@ -3,6 +3,7 @@ import Sidebar from '../Components/Sidebar/Sidebar'
 import Navbar from '../Components/Navbar/Navbar'
 import Table from '../Components/Table/Table'
 import  { useEffect, useState } from 'react';
+import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
 
 // const OrderlistAdmin = () => {
 //   return (
@@ -36,7 +37,7 @@ const OrderlistAdmin = () => {
     return (
       <div>
         {/* <h1>Order History</h1> */}
-       
+        <AdminNavbar/>
         <Sidebar />
         {/* <p className='breadcrumbs'style={{ marginLeft: '220px' }} >Home>OrderList</p> */}
         <Table data={orderHistory} />
