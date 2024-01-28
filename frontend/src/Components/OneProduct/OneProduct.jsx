@@ -68,6 +68,7 @@ const OneProduct = () => {
     try {
       await axios.put(`http://localhost:8000/api/cart/update/659c027001b07da1b7fef185/${productId}`, {"quantity": totalQuantity, "selected":true});
       console.log('product added to cart');
+      alert("Product is added to cart successfully!!! Find them in your cart now!!!");
     } catch (error) {
       console.error('Error adding', error);
     }
