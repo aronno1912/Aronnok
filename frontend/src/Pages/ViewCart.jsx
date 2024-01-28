@@ -9,7 +9,7 @@ import Navbar from '../Components/Navbar/Navbar';
 
 const ViewCart = (prod) => {
   const disRate= 0.1;
-  const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext)
+  const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
   const [cart, setCart] = useState({});
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
@@ -26,7 +26,8 @@ const ViewCart = (prod) => {
     };
   
     fetchData();
-  }, []);
+    updateTotalQuantity();
+  }, [totalQuantity,cart]);
 
 
   const placeOrder = async () => {
@@ -34,6 +35,7 @@ const ViewCart = (prod) => {
       // console.log(totalQuantity);
       await axios.post(`http://localhost:8000/api/order/create/659c027001b07da1b7fef185`, {});
       console.log('product added to cart');
+      alert('Your Order is placed successfully!');
     } catch (error) {
       console.error('Error adding', error);
     }
@@ -65,10 +67,12 @@ const ViewCart = (prod) => {
        <hr/>
        <div className="cart-hishab">
           <div className="cart-hishab-left">
+          <p>Total quantity</p>
             <p>Total price</p>
           </div>
           <div className="cart-hishab-right">
-            <p>{cart.total}</p>
+            <p>{totalQuantity}</p>
+            <p style={{textAlign:"right"}}><b>${Math.round(cart.total)}</b></p>
           </div>
        </div>
        <hr/>
