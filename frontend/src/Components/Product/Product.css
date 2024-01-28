@@ -9,6 +9,9 @@
 
 .plant-details{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     background: linear-gradient(0deg, rgb(222, 223, 222),rgb(255, 255, 255) 40%)
 }
 .product-container img{
@@ -57,6 +60,7 @@
     border: none;
     cursor: pointer;
     justify-content: center;
+    margin-bottom: 10px;
   }
   
   .love-icon-btn:hover {
