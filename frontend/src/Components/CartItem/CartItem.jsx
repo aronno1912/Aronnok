@@ -23,7 +23,7 @@ const CartItem = (prod) => {
     const [cart, setCart] = useState({});
     const [cartItems, setCartItems] = useState([]);
 
-    const {totalQuantity,updateTotalQuantity,fetchAllItems}=useContext(ProjectContext);
+    const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
    
   useEffect(() => {
     const fetchProduct = async () => {
@@ -64,8 +64,7 @@ const CartItem = (prod) => {
           } catch (error) {
             console.error('Error adding', error);
           }
-          console.log(fetchAllItems());
-        //   updateTotalQuantity(fetchAllItems());
+          updateTotalQuantity();
       };
 
       const decrement = async () =>{
@@ -77,17 +76,22 @@ const CartItem = (prod) => {
           } catch (error) {
             console.error('Error deleteing ', error);
           }
-          //   updateTotalQuantity(fetchAllItems());
+            updateTotalQuantity();
       };
 
-      const getTotalPrice = () => {
-       
+      const removeItem = async() => {
+        try {
+            await axios.delete(`http://localhost:8000/api/cart/deleteItem/659c027001b07da1b7fef185/${prod.id}`,{});
+            console.log('product deleted from cart');
+          } catch (error) {
+            console.error('Error deleteing ', error);
+          }
       };
 
   return (
    <div className="cart-item-container">
     <div className="cart-item-left">
-        <img src={prod.photo} alt="" />
+        <img src={product.photo} alt="" />
         <div className="name-quantity">
             <p style={{fontSize:'17px', color:'rgb(2, 75, 33)'}}>{product.name}</p>
             <div className="item-quantity">
@@ -101,7 +105,7 @@ const CartItem = (prod) => {
         <p>${product.price}</p>
     </div>
     <div className="cart-item-right">
-        <button className='remove-btn'><i class="bi bi-x"  style={{ fontSize: '20px' }}></i></button>
+        <button className='remove-btn' onClick={removeItem}><i class="bi bi-x"  style={{ fontSize: '20px' }}></i></button>
         <p><b>${totalPrice}</b></p>
     </div>
     

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import './OneProduct.css';
 import star_icon from '../Assets/star_icon.png';
 import dull_star_icon from '../Assets/star_dull_icon.png';
@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API } from "../../backend";
 import { useParams } from 'react-router-dom';
+import { ProjectContext } from '../../Context/ProjectContext';
 
 
 
@@ -26,8 +27,8 @@ const OneProduct = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [totalQuantity, setQuantity] = useState(0);
-
+  // const [totalQuantity, setQuantity] = useState(0);
+  const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -42,17 +43,17 @@ const OneProduct = () => {
       }
     };
 
-    const fetchTotalQuantity = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/api/cart/getQuantity/659c027001b07da1b7fef185/${productId}`);
-        const data = await response.json();
-        setQuantity(data.quantity);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    // const fetchTotalQuantity = async () => {
+    //   try {
+    //     const response = await fetch(`http://localhost:8000/api/cart/getQuantity/659c027001b07da1b7fef185/${productId}`);
+    //     const data = await response.json();
+    //     setQuantity(data.quantity);
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
     fetchProduct();
-    fetchTotalQuantity();
+    //fetchTotalQuantity();
   }, [productId]);
 
   if (loading) {
@@ -66,12 +67,13 @@ const OneProduct = () => {
   
   const addToCart = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/cart/update/659c027001b07da1b7fef185/${productId}`, {"quantity": totalQuantity, "selected":true});
+      await axios.post(`http://localhost:8000/api/cart/add/659c027001b07da1b7fef185/${productId}`, {});
       console.log('product added to cart');
       alert("Product is added to cart successfully!!! Find them in your cart now!!!");
     } catch (error) {
       console.error('Error adding', error);
     }
+    updateTotalQuantity();
   };
 
   const isInStock = product.stock > 0;
