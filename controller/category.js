@@ -30,7 +30,7 @@ exports.getCategoryById = (req, res, next, id) => {
 // create product
 exports.addCategory = async (req, res) => {
     const errors = validationResult(req);
-    console.log("after");
+    // console.log("after");
     if (!errors.isEmpty()) {
         return res.status(422).json({
             error: errors.array()[0].msg

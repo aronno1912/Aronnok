@@ -42,7 +42,7 @@ exports.imageHelper = (req, res, next) => {
 
   req.imageData = base64Image;
   next();
-  console.log("did it");
+  // console.log("did it");
 };
 // create product
 exports.addPlant = async (req, res, next) => {
@@ -95,9 +95,9 @@ exports.addPlant = async (req, res, next) => {
 
 
   //before html
-  console.log("hi");
+  // console.log("hi");
   const errors = validationResult(req);
-  console.log("hi");
+  // console.log("hi");
   if (!errors.isEmpty()) {
     return res.status(422).json({
       error: errors.array()[0].msg
@@ -106,7 +106,7 @@ exports.addPlant = async (req, res, next) => {
   try {
     //destructure the fields
     const { name, description, price, category, stock } = req.body;
-    console.log(name);
+    // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
         error: "Please include all fields",
@@ -125,7 +125,7 @@ exports.addPlant = async (req, res, next) => {
 
     plant.category = catg._id;
     plant.photo='/default.png';
-    console.log(plant);
+    // console.log(plant);
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
   }
@@ -138,7 +138,7 @@ exports.addPlant = async (req, res, next) => {
 // get single product
 exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
-  console.log(req.product);
+  // console.log(req.product);
   return res.json(req.product);
 };
 
@@ -275,7 +275,7 @@ exports.getAllProducts = (req, res) => {
 
 // update stock middleware
 exports.updateStock = (req, res, next) => {
-  console.log("hi2");
+  // console.log("hi2");
   let myOperations = req.body.products.map((prod) => {
     // console.log(prod.quantity);
     return {
@@ -425,7 +425,7 @@ exports.category_stock = async (req, res) => {
     }
 
     // Now, categorySums is populated correctly
-    console.log(categorySums);
+    // console.log(categorySums);
 
     res.json(categorySums);
   } catch (err) {

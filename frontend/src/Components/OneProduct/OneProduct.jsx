@@ -69,7 +69,7 @@ const OneProduct = () => {
     try {
       await axios.post(`http://localhost:8000/api/cart/add/659c027001b07da1b7fef185/${productId}`, {});
       console.log('product added to cart');
-      alert("Product is added to cart successfully!!! Find them in your cart now!!!");
+      // alert("Product is added to cart successfully!!! Find them in your cart now!!!");
     } catch (error) {
       console.error('Error adding', error);
     }
