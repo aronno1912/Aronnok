@@ -117,6 +117,6 @@ exports.isAdmin = (req, res, next) => {
       error: "You are not ADMIN, Access denied"
     });
   }
-  console.log("verified admin");
+//   console.log("verified admin");
   next();
 };

@@ -41,7 +41,7 @@ exports.addToCart = async (req, res) => {
             });
             // cart.totalQuantity=1;
             // cart.total += product.price;
-            console.log(cart);
+            // console.log(cart);
         }
         else {
             const existingItem = cart.items.find((item) => item.product.equals(product._id));
@@ -92,7 +92,7 @@ exports.viewCart = async (req, res) => {
 
             return item;
         }));
-        console.log(updatedProducts);
+        // console.log(updatedProducts);
         // const totalAmount = updatedProducts.reduce((total, item) => total + item.subtotal, 0);
         // Add the user's name to the existing req.order object
         req.cart = {
@@ -128,8 +128,9 @@ exports.updateCartItem = async (req, res) => {
 
         // Update the quantity
         if (quantity !== undefined) {
-            console.log(quantity);
+            
             const temp = cartItem.quantity;
+            console.log(" from : ",temp);
             cartItem.quantity = quantity;
             if (cartItem.selected === true) {
                 req.cart.total = req.cart.total + product.price * (quantity - temp);
@@ -153,7 +154,7 @@ exports.updateCartItem = async (req, res) => {
 
         // Save the updated cart
         await req.cart.save();
-
+        console.log(`Cart item updated successfully: to ${quantity}`);
         res.status(200).json({ message: 'Cart item updated successfully', cart: req.cart });
         // res.redirect('/cart/checkout');
     } catch (error) {
@@ -190,7 +191,7 @@ exports.removeCart = async (req, res) => {
     // ...
     try {
         const userId = req.params.userId; // Assuming you have the user ID in the request parameters
-        console.log(userId);
+        // console.log(userId);
         const updatedCart = await Cart.findOneAndUpdate(
             { user: userId },
             { $set: { items: [], total: 0 } },
@@ -211,7 +212,6 @@ exports.removeCart = async (req, res) => {
 //buyNow is not done
 exports.buyNow = async (req, res, next) => {
     try {
-        console.log("hi3");
         // Update cart item logic
         // ...
         //goto create order, but how? after processing
@@ -225,7 +225,7 @@ exports.buyNow = async (req, res, next) => {
                 // Other fields of the order
             });
             req.body = order;
-            console.log(req.body);
+            // console.log(req.body);
             // res.status(200).json({ message: 'Checkout successful'});
             next();
             // res.redirect('/order/create/:userId');

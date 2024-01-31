@@ -27,7 +27,7 @@ exports.getOrderById = (req, res, next, id) => {
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
 exports.createOrder = async (req, res) => {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     const userId = req.params.userId;
     const orderData = req.body;
     
@@ -52,7 +52,7 @@ exports.createOrder = async (req, res) => {
       address: "Sample Address",
       paidBy:"Cash on delivery",
     });
-    console.log(order);
+    // console.log(order);
     await order.save();
     res.status(201).json({ message: 'Order created successfully!' });
   } catch (error) {
@@ -88,7 +88,7 @@ exports.getAllOrders = (req, res, next) => {
 
 exports.updateStatus = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const order = await Order.findByIdAndUpdate(
       { _id: req.params.orderId },
       { $set: { status: req.body.status } },
