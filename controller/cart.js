@@ -53,7 +53,7 @@ exports.addToCart = async (req, res) => {
                 cart.items.push({
                     product: product._id,
                     quantity: 1,
-                    selected: false,
+                    selected: true,
                 });
             }
             // cart.totalQuantity=1;
