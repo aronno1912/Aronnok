@@ -62,7 +62,8 @@ exports.signin = (req, res) => {
     //send response to front end
     // const { _id, name, email, role } = user;
     // return res.json({ token, user: { _id, name, email, role } });
-            return res.status(201).json({ message: 'User signed in successfully!' });
+            // return res.status(201).json({ message: 'User signed in successfully!' });
+            res.json({ token, user });
         })
         .catch((error) => {
             //When there are errors We handle them here
