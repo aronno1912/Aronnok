@@ -14,6 +14,8 @@ import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import AdminAllProductPage from './Pages/AdminAllProductPage';
 import AdminNewProductAdd from './Components/AdminNewProductAdd/AdminNewProductAdd';
 import AdminAddProductPage from './Pages/AdminAddProductPage';
+import OrderStatus from './Pages/OrderStatus';
+import OrderList from './Pages/OrderList';
 
 
 function App() {
@@ -31,6 +33,11 @@ function App() {
         <Route path='/viewcart' element={<ViewCart/>}/>
         <Route path='/product/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
+        <Route path='/orderstatus' element={<OrderStatus/>}/>
+        <Route path='/orderlist' element={<OrderList/>}/>
+
+
+
         <Route path='/admin/orderlist' element={<OrderlistAdmin/>}/>
         <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
         <Route path='/admin/allproducts' element={<AdminAllProductPage/>}/>

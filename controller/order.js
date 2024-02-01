@@ -184,3 +184,23 @@ exports.getParticularOrder = async (req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+exports.getParticularUserHistory = (req, res, next) => {
+  Order.find({ user: req.params.userId })
+    .sort({ createdAt: -1 })
+    .exec()
+    .then((orders) => {
+      res.json(orders);
+      // pass control to the next middleware or route handler in the sequence
+      next();
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+
+};
