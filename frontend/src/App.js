@@ -23,6 +23,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Login/>}/>
+        <Route path='/home/:userId' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/favourites' element={<Favourites/>}/>
         <Route path='/product' element={<Product/>}>
