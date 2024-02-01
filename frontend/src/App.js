@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
       
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={<Login/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/favourites' element={<Favourites/>}/>
         <Route path='/product' element={<Product/>}>
