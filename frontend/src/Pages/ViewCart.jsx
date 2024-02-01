@@ -19,15 +19,15 @@ const ViewCart = (prod) => {
         const data = await response.json();
         setCart(data);
         setCartItems(data.items);
-        console.log(data.items);
+        console.log("excuse me");
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
   
     fetchData();
-    updateTotalQuantity();
-  }, [totalQuantity,cart]);
+    // updateTotalQuantity();
+  }, [cart]);
 
 
   const placeOrder = async () => {
