@@ -14,8 +14,13 @@ import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import AdminAllProductPage from './Pages/AdminAllProductPage';
 import AdminNewProductAdd from './Components/AdminNewProductAdd/AdminNewProductAdd';
 import AdminAddProductPage from './Pages/AdminAddProductPage';
+
+import UserProfile from './Components/UserProfile/UserProfile';
+import UserProfilePage from './Pages/UserProfilepage';
+
 import OrderStatus from './Pages/OrderStatus';
 import OrderList from './Pages/OrderList';
+
 
 
 function App() {
@@ -28,6 +33,7 @@ function App() {
         <Route path='/home/:userId' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/favourites' element={<Favourites/>}/>
+        <Route path='/profile/:userId' element={<UserProfilePage/>}/>
         <Route path='/product' element={<Product/>}>
           {/* <Route path=':productId' element={<Product/>}/> */}
         </Route>

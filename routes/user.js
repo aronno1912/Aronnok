@@ -12,12 +12,12 @@ const { isSignedIn, isAuthenticated } = require("../controller/auth");
 router.param("userId", getUserById);
 
 router.get("/user/:userId", 
-isSignedIn, 
+// isSignedIn, 
 // isAuthenticated, 
 getUser);
 
 router.put("/user/:userId", 
-isSignedIn, 
+// isSignedIn, 
 // isAuthenticated, 
 updateUser);
 
