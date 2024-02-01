@@ -34,17 +34,18 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     const errors = validationResult(req);
-    
+    console.log(errors);
     const { username, email, password } = req.body;
-    // console.log(username);
+    console.log(email);
     if (!errors.isEmpty()) {
-        // console.log("here");
+        console.log("here");
         return res.status(422).json({
             error: errors.array()[0].msg
         });
     }
+    // console.log("here");
     User.findOne({ $or: [{ email }, { username }] })
         .then((user) => {
             if (!user.autheticate(password)) {
