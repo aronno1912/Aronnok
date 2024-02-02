@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-// const multer = require('multer');
-// // Set up Multer to handle file uploads
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+const multer = require('multer');
+// Set up Multer to handle file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const {
   getProductById,
@@ -33,7 +33,7 @@ router.param("productId", getProductById);
 // /admin/:userId/addPlant
 router.post(
   "/product/create/:userId",
-  // upload.single('plantImage'),
+  // upload.single('photo'),
   // isSignedIn,
   // isAuthenticated,
   // isAdmin,

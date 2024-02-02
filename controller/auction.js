@@ -21,7 +21,6 @@ exports.createAuction = async (req, res, next) => {
     await newAuction.save();
     // Use findOne to retrieve a single document
     const auction = await Auction.findOne({ _id: newAuction._id });
- 
     if (auction) {
       res.json({"id":auction._id});
       // pass control to the next middleware or route handler in the sequence
