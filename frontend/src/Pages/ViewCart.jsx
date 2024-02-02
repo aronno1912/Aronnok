@@ -21,21 +21,21 @@ const ViewCart = (prod) => {
         const data = await response.json();
         setCart(data);
         setCartItems(data.items);
-        console.log("excuse me");
+        // console.log("excuse me");
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
   
     fetchData();
-    // updateTotalQuantity();
-  }, [cart]);
+    updateTotalQuantity();
+  }, [totalQuantity,cart]);
 
 
   const placeOrder = async () => {
     try {
-      // console.log(totalQuantity);
-      await axios.post(`http://localhost:8000/api/order/create/659c027001b07da1b7fef185`, {});
+      console.log(address);
+      await axios.put(`http://localhost:8000/api/cart/buynow/659c027001b07da1b7fef185`, {"address":address});
       console.log('product added to cart');
       alert('Your Order is placed successfully!');
     } catch (error) {
@@ -74,7 +74,7 @@ const ViewCart = (prod) => {
           <div className="cart-hishab-left">
           <p>Total quantity</p>
             <p>Total price</p>
-            <p>Enter address:</p>
+            <p>Enter billing address:</p>
           </div>
           <div className="cart-hishab-right">
             <p>{totalQuantity}</p>

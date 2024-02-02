@@ -55,14 +55,18 @@ const auctionSchema = new mongoose.Schema(
         name: {
             type: String,
             trim: true,
-            required: true,
+            // required: true,
             maxlength: 100
         },
-        startDate: {
+        date:
+        {
+            type:Date,
+        },
+        startTime: {
             type: Date,
             required: true
         },
-        endDate: {
+        endTime: {
             type: Date,
             required: true
         },

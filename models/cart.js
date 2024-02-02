@@ -12,11 +12,11 @@ const cartItemSchema = new mongoose.Schema({
     default: 1,
     min: 1,
   },
-  selected:
-  {
-    type: Boolean,
-    default: false,
-  }
+  // selected:
+  // {
+  //   type: Boolean,
+  //   default: false,
+  // }
 });
 const cartSchema = new mongoose.Schema({
   user: {

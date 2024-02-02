@@ -10,6 +10,7 @@ const {
     buyNow,
     getQuantity
 } = require('../controller/cart');
+const { updateStock } = require("../controller/product");
 const {
     createOrder
 } = require("../controller/order");
@@ -33,8 +34,9 @@ router.delete('/cart/clear/:userId',
 );
 router.put('/cart/buynow/:userId',
     // isSignedIn,
+    updateStock,
     buyNow,
-    createOrder
+    createOrder,
 );
 router.get('/cart/getQuantity/:userId/:productId',
     // isSignedIn, 
