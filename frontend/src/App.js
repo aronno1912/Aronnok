@@ -22,6 +22,7 @@ import OrderStatus from './Pages/OrderStatus';
 import OrderList from './Pages/OrderList';
 import Auction from './Components/Auction/Auction';
 import AuctionsAll from './Pages/AuctionsAll';
+import OneAuction from './Pages/OneAuction';
 
 
 
@@ -44,7 +45,8 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderstatus' element={<OrderStatus/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
-        <Route path='/auctionsall' element={<AuctionsAll/>}/>
+        <Route path='/auctionsall/:userId' element={<AuctionsAll/>}/>
+        <Route path='/auctionsall/:userId/:auctionId' element={<OneAuction/>}/>
 
 
 

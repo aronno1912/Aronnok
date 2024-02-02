@@ -1,0 +1,33 @@
+.auction-container{
+    margin-top: 10px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width:270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auction-details{
+    position: relative;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgb(22, 139, 83);
+}
+
+.auction-details p{
+    margin-left: 10px;
+}
+.auction-container img{
+    width: 100%;
+    height: 70%;
+}
+.auction-name{
+    font-size: 20px;
+    color: rgb(208, 233, 237);
+    margin-bottom: 5px;
+}
+
+
+

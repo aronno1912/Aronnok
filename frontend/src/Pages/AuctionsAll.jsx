@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import AuctionSmall from '../Components/AuctionsSmall/AuctionSmall';
+import '../Context/AuctionsAll.css'
+import Navbar from '../Components/Navbar/Navbar';
+import { useParams } from 'react-router-dom';
 
-const AuctionsAll = (prod) => {
+const AuctionsAll = () => {
+    const { userId } = useParams();
+    
     const [auctions, setAuctions] = useState([]);
     const [ongoing, setOngoing] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
     const [completed, setCompleted] = useState([]);
  
   useEffect(() => {
-    const divideOrders = async (orders) => {
+    const divideOrders = async (auctions) => {
         setOngoing([]);
         setUpcoming([]);
         setCompleted([]);
@@ -32,40 +37,42 @@ const AuctionsAll = (prod) => {
         const response = await fetch(`http://localhost:8000/api/auctions`);
         const data = await response.json();
         setAuctions(data);
+        divideOrders(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
   
     fetchData();
-  }, []);
+  }, [auctions]);
 
   return (
     <div className='auctionall'>
+        <Navbar/>
         <div className="auctionall-ongoing">
             <h1>Ongoing</h1>
-        
+
             <div className= 'tr-auctions'>
             {ongoing.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status}/>
+                return <AuctionSmall key={i} id={item._id} userId={userId} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>
         <div className="auctionall-ongoing">
-            <h1>Ongoing</h1>
+            <h1>Upcoming</h1>
         
             <div className= 'tr-auctions'>
-            {ongoing.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status}/>
+            {upcoming.map((item,i)=>{
+                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>
         <div className="auctionall-ongoing">
-            <h1>Ongoing</h1>
+            <h1>Previous auctions</h1>
         
             <div className= 'tr-auctions'>
-            {ongoing.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status}/>
+            {completed.map((item,i)=>{
+                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>
