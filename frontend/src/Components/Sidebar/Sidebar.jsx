@@ -24,6 +24,10 @@ const Sidebar = () => {
         <li className='eta4'>
           <Link to="/admin/sell-requests" className={location.pathname === '/admin/sellrequest' ? 'active' : ''}>Sell Requests</Link>
         </li>
+
+        <li className='eta5'>
+          <Link to="/admin/createauction" className={location.pathname === '/admin/createauction' ? 'active' : ''}>Create Auction</Link>
+        </li>
       </ul>
     </div>
   );

@@ -8,7 +8,8 @@
     left: 0;
     background-color: #084219;
     padding-top: 20px;
-    margin-top: 00px;
+    margin-top: 05px;
+    box-shadow: 0 0 10px rgba(0, 0, 1, 1.9);
   }
   
   .sidebar h2 {
@@ -22,6 +23,7 @@
   }
   
   .eta1 {
+    margin-top: 80px;
     padding: 15px;
     text-align: center;
   }
@@ -96,6 +98,27 @@
     background-color: #555;
   }
   .sidebar  .eta4 a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
+  }
+
+
+  .eta5 {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .eta5 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta5 a:hover {
+    background-color: #555;
+  }
+  .sidebar  .eta5 a.active {
     background-color: #4CAF50; /* Active page color */
     color: white;
   }

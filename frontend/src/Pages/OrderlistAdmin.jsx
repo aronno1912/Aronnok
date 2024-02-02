@@ -41,6 +41,7 @@ const OrderlistAdmin = () => {
         <Sidebar />
         {/* <p className='breadcrumbs'style={{ marginLeft: '220px' }} >Home>OrderList</p> */}
         <Table data={orderHistory} />
+        
       </div>
     );
   };
