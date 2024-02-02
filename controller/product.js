@@ -408,7 +408,7 @@ exports.recommendations = async (req, res, next) => {
     // Fetch product details based on combined product IDs
     let recommendedProducts = await Product.find({ _id: { $in: allProductIds } });
     recommendedProducts = recommendedProducts.sort(() => Math.random() - 0.5);
-    if (recommendedProducts.length === 0) {
+    if (recommendedProducts.length < 5) {
       next();
     } else
       return res.json(recommendedProducts);
