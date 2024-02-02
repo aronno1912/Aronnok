@@ -19,20 +19,20 @@ exports.createAuction = async (req, res) => {
     });
 
     await newAuction.save();
-    Auction.find({ date: newAuction.date, startTime: newAuction.startTime, endTime: newAuction.endTime})
-    .exec()
-    .then((auction) => {
-      res.json(auction._id);
-      // pass control to the next middleware or route handler in the sequence
-      next();
-    })
-    .catch((err) => {
-      // Handle errors here
-      console.error(err);
-      res.status(500).json({
-        error: "Internal Server Error",
+    Auction.find({ date: newAuction.date, startTime: newAuction.startTime, endTime: newAuction.endTime })
+      .exec()
+      .then((auction) => {
+        res.json(auction._id);
+        // pass control to the next middleware or route handler in the sequence
+        next();
+      })
+      .catch((err) => {
+        // Handle errors here
+        console.error(err);
+        res.status(500).json({
+          error: "Internal Server Error",
+        });
       });
-    });
     // res.status(201).json({  });
   } catch (error) {
     console.error(error);
@@ -69,6 +69,25 @@ exports.getAuction = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+exports.getAllAuctions = async (req, res) => {
+  Auction.find()
+    .exec()
+    .then((auctions) => {
+      if (!auctions) {
+        return res.status(400).json({
+          error: "No products found",
+        });
+      }
+      res.json(auctions);
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
 };
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {

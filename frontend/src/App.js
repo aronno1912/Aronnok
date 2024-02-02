@@ -21,6 +21,7 @@ import UserProfilePage from './Pages/UserProfilepage';
 import OrderStatus from './Pages/OrderStatus';
 import OrderList from './Pages/OrderList';
 import Auction from './Components/Auction/Auction';
+import AuctionsAll from './Pages/AuctionsAll';
 
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderstatus' element={<OrderStatus/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
+        <Route path='/auctionsall' element={<AuctionsAll/>}/>
 
 
 
