@@ -30,7 +30,8 @@ exports.createOrder = async (req, res) => {
     // console.log("hi1");
     const userId = req.params.userId;
     const orderData = req.body;
-    
+    // console.log("orderData")
+    // console.log(orderData)
     const updatedProducts = await Promise.all(orderData.products.map(async (item) => {
       const productDetails = await Product.findById(item.product);
       
@@ -45,13 +46,14 @@ exports.createOrder = async (req, res) => {
     const totalAmount = updatedProducts.reduce((total, item) => total + item.subtotal, 0);
     // Create a new Mongoose model instance
     const order = new Order({
-      ...orderData,
+      ...orderData.toObject(),
       products: JSON.parse(JSON.stringify(orderData.products)),
       amount: totalAmount+orderData.deliveryFee,
       user: userId,
-      address: "Sample Address",
       paidBy:"Cash on delivery",
+      // address:
     });
+    // console.log("order")
     // console.log(order);
     await order.save();
     res.status(201).json({ message: 'Order created successfully!' });

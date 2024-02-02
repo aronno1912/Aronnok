@@ -37,7 +37,7 @@ exports.addToCart = async (req, res) => {
             cart.items.push({
                 product: productId,
                 quantity: 1,
-                selected: false,
+                // selected: true,
             });
             // cart.totalQuantity=1;
             // cart.total += product.price;
@@ -53,7 +53,7 @@ exports.addToCart = async (req, res) => {
                 cart.items.push({
                     product: product._id,
                     quantity: 1,
-                    selected: true,
+                    // selected: true,
                 });
             }
             // cart.totalQuantity=1;
@@ -117,7 +117,7 @@ exports.updateCartItem = async (req, res) => {
         // Update cart item logic
         // ...
         const productId = req.params.productId;
-        const { quantity, selected } = req.body;
+        const { quantity } = req.body;
         const product = await Product.findById(productId);
         // Find the cart item by productId
         const cartItem = req.cart.items.find(item => item.product.toString() === productId);
@@ -132,23 +132,23 @@ exports.updateCartItem = async (req, res) => {
             const temp = cartItem.quantity;
             console.log(" from : ",temp);
             cartItem.quantity = quantity;
-            if (cartItem.selected === true) {
+            // if (cartItem.selected === true) {
                 req.cart.total = req.cart.total + product.price * (quantity - temp);
-            }
+            // }
             // req.cart.totalQuantity+=(quantity - temp);
         }
 
-        if (selected !== undefined) {
-            const temp = cartItem.selected;
-            cartItem.selected = selected;
-            // Recalculate the total based on updated quantities
-            if (temp === false & selected === true) {
-                req.cart.total = req.cart.total + product.price * cartItem.quantity;
-            }
-            if (temp === true & selected === false) {
-                req.cart.total = req.cart.total - product.price * cartItem.quantity;
-            }
-        }
+        // if (selected !== undefined) {
+        //     const temp = cartItem.selected;
+        //     cartItem.selected = selected;
+        //     // Recalculate the total based on updated quantities
+        //     if (temp === false & selected === true) {
+        //         req.cart.total = req.cart.total + product.price * cartItem.quantity;
+        //     }
+        //     if (temp === true & selected === false) {
+        //         req.cart.total = req.cart.total - product.price * cartItem.quantity;
+        //     }
+        // }
 
 
 
@@ -215,17 +215,19 @@ exports.buyNow = async (req, res, next) => {
         // Update cart item logic
         // ...
         //goto create order, but how? after processing
-        const hasSelectedItems = req.cart.items.filter(item => item.selected);
-        
+        // console.log(req.cart);
+        const hasSelectedItems = req.cart.items;
+        // console.log(req.body.address);
+        // console.log(hasSelectedItems)
         if (hasSelectedItems.length>0) {
             const order = new Order({
                 products: hasSelectedItems,
                 amount: req.cart.total, // Replace with the actual amount
                 user: req.cart.user, // Replace with the actual user ID
+                address:req.body.address,
                 // Other fields of the order
             });
             req.body = order;
-            // console.log(req.body);
             // res.status(200).json({ message: 'Checkout successful'});
             next();
             // res.redirect('/order/create/:userId');

@@ -70,6 +70,11 @@ const auctionSchema = new mongoose.Schema(
             type: Date,
             required: true
         },
+        status: {
+            type: String,
+            default: "upcoming",
+            enum: ["upcoming", "ongoing", "completed"],
+          },
         auctionProducts: [
             {
                 type: ObjectId,

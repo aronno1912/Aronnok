@@ -3,12 +3,12 @@ const router = express.Router();
 
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
 const { getUserById } = require("../controller/user");
-const { updateStock } = require("../controller/product");
+// const { updateStock } = require("../controller/product");
 
 const {
     //for individual user
     getOrderById,
-    createOrder,
+    // createOrder,
     getAllOrders,
     // getOrderStatus,
     updateStatus,
@@ -19,7 +19,7 @@ const {
 } = require("../controller/order");
 const {
     getCartById,
-    buyNow,
+    // buyNow,
 } = require('../controller/cart');
 // params, path e userId thaklei 2nd param er sathe associated hoye jabe
 router.param("userId", getCartById);
@@ -36,16 +36,16 @@ router.get(
     //   pushOrderInPurchaseList,
     getParticularOrder
 );
-router.post(
-    "/order/create/:userId",
-    //   isSignedIn,
-    //   isAuthenticated,
-    //   pushOrderInPurchaseList,
+// router.post(
+//     "/order/create/:userId",
+//     //   isSignedIn,
+//     //   isAuthenticated,
+//     //   pushOrderInPurchaseList,
     
-    buyNow,
-    updateStock,
-    createOrder
-);
+//     buyNow,
+//     updateStock,
+//     createOrder
+// );
 
 // for user to see all his active or previous orders
 router.get(
