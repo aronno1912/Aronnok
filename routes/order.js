@@ -14,7 +14,8 @@ const {
     updateStatus,
     //for admin purpose
     getReceivedOrders,
-    getParticularOrder
+    getParticularOrder,
+    getParticularUserHistory,
 } = require("../controller/order");
 const {
     getCartById,
@@ -80,6 +81,14 @@ router.get(
     //   isAuthenticated,
     //   isAdmin,
     getReceivedOrders
+);
+
+router.get(
+    "/order/particularHistory/:userId",
+    //   isSignedIn,
+    //   isAuthenticated,
+    getParticularUserHistory,
+    
 );
 // // list all orders for admin to see in Manage Orders section
 // router.get("/orders", listAllOrders);

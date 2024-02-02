@@ -1,0 +1,27 @@
+.curorderitem-container{
+    display: flex;
+    flex-direction: row;
+    /* background: linear-gradient(to bottom, rgb(222, 223, 222) 0%, rgb(255, 255, 255) 50%, rgb(222, 223, 222) 100%); */
+    border-bottom: 0.5px solid rgb(114, 114, 116);
+    justify-content: space-between;
+    align-self: center;
+    align-items: stretch;
+    height: 110px;
+    width:700px;
+}
+
+.curorderitem-left{
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    margin: 1px;
+
+}
+
+.curorderitem-left p{
+    margin-bottom: 1px;
+}
+.curorderitem-right{
+    align-items: center;
+
+}
