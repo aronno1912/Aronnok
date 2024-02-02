@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import './AuctionAddPlant.css';
 import axios from 'axios';
 
-const AuctionAddPlant = () => {
+const AuctionAddPlant = ({ auctionId}) => {
   const [productInfo, setProductInfo] = useState({
     name: '',
     description: '',
@@ -49,7 +49,7 @@ const AuctionAddPlant = () => {
       // for (const pair of formData.entries()) {
       //   console.log(pair[0], pair[1]);
       // }
-      await axios.post('http://localhost:8000/api/product/create/65a294c44865e9f4138c7281', formData, {
+      await axios.post(`http://localhost:8000/api/auction/add-product/${auctionId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -89,6 +89,7 @@ const AuctionAddPlant = () => {
           <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} required />
 
           <button className='addProductAdminButton' type="submit">Add Product</button>
+          
         </div>
       </form>
     </div>
