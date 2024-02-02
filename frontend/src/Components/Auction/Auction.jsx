@@ -1,5 +1,7 @@
+
+
 // import React, { useState } from 'react';
-// import AdminNewProductAdd from '../AdminNewProductAdd/AdminNewProductAdd';
+// import AuctionAddPlant from '../AuctionAddPlant/AuctionAddPlant';
 // import './Auction.css';
 
 // const Auction = () => {
@@ -18,9 +20,11 @@
 //   };
 
 //   const handleTimeChange = (field, e) => {
+//     // Convert time input to full date object
+//     const fullDate = new Date(`${auction.date}T${e.target.value}`);
 //     setAuction((prevAuction) => ({
 //       ...prevAuction,
-//       [field]: e.target.value,
+//       [field]: fullDate,
 //     }));
 //   };
 
@@ -31,9 +35,28 @@
 //     }));
 //   };
 
-//   const handleStartAuction = () => {
-//     // Implement logic to start the auction
-//     console.log('Start Auction');
+//   const handleStartAuction = async () => {
+//     try {
+//       const response = await fetch('http://localhost:8000/api/auction/create', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(auction),
+//       });
+
+//       if (response.ok) {
+//         console.log('Auction started successfully!');
+//         alert('Auction started successfully!');
+//         // Optionally handle any success scenario or user feedback
+//       } else {
+//         console.error('Failed to start auction. Server returned:', response.status, response.statusText);
+//         // Optionally handle any error scenario or user feedback
+//       }
+//     } catch (error) {
+//       console.error('Error occurred while starting auction:', error);
+//       // Optionally handle any error scenario or user feedback
+//     }
 //   };
 
 //   return (
@@ -58,7 +81,7 @@
 //         type="time"
 //         id="startTime"
 //         name="startTime"
-//         value={auction.startTime}
+//         value={auction.startTime ? auction.startTime.toTimeString().slice(0, 5) : ''}
 //         onChange={(e) => handleTimeChange('startTime', e)}
 //         className="input"
 //       />
@@ -70,13 +93,13 @@
 //         type="time"
 //         id="endTime"
 //         name="endTime"
-//         value={auction.endTime}
+//         value={auction.endTime ? auction.endTime.toTimeString().slice(0, 5) : ''}
 //         onChange={(e) => handleTimeChange('endTime', e)}
 //         className="input"
 //       />
 
 //       <button onClick={handleStartAuction} className="start-auction-button">
-//         Start Auction
+//         Create Auction
 //       </button>
 
 //       <h2 className="plants-title">Plants in Auction</h2>
@@ -88,7 +111,7 @@
 //         ))}
 //       </ul>
 
-//       <AdminNewProductAdd onAddPlant={handleAddPlant} />
+//       <AuctionAddPlant onAddPlant={handleAddPlant} />
 //     </div>
 //   );
 // };
@@ -97,6 +120,7 @@
 
 import React, { useState } from 'react';
 import AdminNewProductAdd from '../AdminNewProductAdd/AdminNewProductAdd';
+import AuctionAddPlant from '../AuctionAddPlant/AuctionAddPlant';
 import './Auction.css';
 
 const Auction = () => {
@@ -107,6 +131,8 @@ const Auction = () => {
     plants: [],
   });
 
+  const [showAddPlantsForm, setShowAddPlantsForm] = useState(false);
+
   const handleDateChange = (e) => {
     setAuction((prevAuction) => ({
       ...prevAuction,
@@ -115,7 +141,6 @@ const Auction = () => {
   };
 
   const handleTimeChange = (field, e) => {
-    // Convert time input to full date object
     const fullDate = new Date(`${auction.date}T${e.target.value}`);
     setAuction((prevAuction) => ({
       ...prevAuction,
@@ -130,27 +155,8 @@ const Auction = () => {
     }));
   };
 
-  const handleStartAuction = async () => {
-    try {
-      const response = await fetch('YOUR_BACKEND_API_URL', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(auction),
-      });
-
-      if (response.ok) {
-        console.log('Auction started successfully!');
-        // Optionally handle any success scenario or user feedback
-      } else {
-        console.error('Failed to start auction. Server returned:', response.status, response.statusText);
-        // Optionally handle any error scenario or user feedback
-      }
-    } catch (error) {
-      console.error('Error occurred while starting auction:', error);
-      // Optionally handle any error scenario or user feedback
-    }
+  const handleStartAuction = () => {
+    setShowAddPlantsForm(true);
   };
 
   return (
@@ -192,9 +198,18 @@ const Auction = () => {
         className="input"
       />
 
-      <button onClick={handleStartAuction} className="start-auction-button">
-        Start Auction
-      </button>
+      {showAddPlantsForm ? (
+        <>
+          <AuctionAddPlant onAddPlant={handleAddPlant} />
+          <button className="start-auction-button" disabled>
+            Create Auction
+          </button>
+        </>
+      ) : (
+        <button onClick={handleStartAuction} className="start-auction-button">
+          Create Auction
+        </button>
+      )}
 
       <h2 className="plants-title">Plants in Auction</h2>
       <ul className="plants-list">
@@ -204,10 +219,9 @@ const Auction = () => {
           </li>
         ))}
       </ul>
-
-      <AdminNewProductAdd onAddPlant={handleAddPlant} />
     </div>
   );
 };
 
 export default Auction;
+

@@ -4,6 +4,7 @@ const { check, validationResult,oneOf } = require("express-validator");
 const {
     getAuctionById,
     createAuction,
+    getAuction,
     getAuctionProducts,
     addProductToAuction,
     placeBid,
@@ -13,6 +14,7 @@ const {
 router.param("auctionId", getAuctionById);
 // Define routes for auction functionalities
 router.post('/auction/create', createAuction);
+router.get('/auction/:auctionId', getAuction);
 router.get('/auction/:auctionId/products', getAuctionProducts);
 router.post('/auction/add-product/:auctionId', [
     check('name').not().isEmpty().withMessage('Product name is required'),

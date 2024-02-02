@@ -9,16 +9,31 @@ exports.createAuction = async (req, res) => {
   }
 
   try {
-    const { name, startDate, endDate } = req.body;
-
+    const { date, startTime, endTime, plants } = req.body;
+    const auctionProducts = plants;
     const newAuction = new Auction({
-      name,
-      startDate,
-      endDate,
+      date,
+      startTime,
+      endTime,
+      auctionProducts,
     });
 
     await newAuction.save();
-    res.status(201).json({ message: 'Auction created successfully!', auction: newAuction });
+    Auction.find({ date: newAuction.date, startTime: newAuction.startTime, endTime: newAuction.endTime})
+    .exec()
+    .then((auction) => {
+      res.json(auction._id);
+      // pass control to the next middleware or route handler in the sequence
+      next();
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+    // res.status(201).json({  });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -46,9 +61,19 @@ exports.getAuctionById = (req, res, next, id) => {
       });
   };
 
+// Get a specific auction
+exports.getAuction = async (req, res) => {
+  try {
+    res.status(200).json(req.auction);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {
   try {
+
     res.status(200).json(req.auction.auctionProducts);
   } catch (error) {
     console.error(error);
