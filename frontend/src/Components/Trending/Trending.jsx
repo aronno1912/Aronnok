@@ -6,7 +6,7 @@ import axios from 'axios';
 import { CartContext } from '../../Context/CartContext';
 
 
-const Trending = ({catagory,mypath}) => {
+const Trending = ({catagory,mypath,userId}) => {
   const [all_plants, setProducts] = useState([]);
  
   useEffect(() => {
@@ -29,7 +29,7 @@ const Trending = ({catagory,mypath}) => {
     
       <div className= 'tr-products'>
         {all_plants.map((item,i)=>{
-             return <Product label='product'key={i} id={item._id} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
         })}
       </div>
     </div>

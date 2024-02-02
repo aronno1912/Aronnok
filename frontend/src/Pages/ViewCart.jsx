@@ -6,8 +6,11 @@ import { CartContext } from '../Context/CartContext';
 import axios, { all } from 'axios';
 import { ProjectContext } from '../Context/ProjectContext';
 import Navbar from '../Components/Navbar/Navbar';
+import { useParams } from 'react-router-dom';
 
 const ViewCart = (prod) => {
+  const { userId } = useParams();
+
   const disRate= 0.1;
   const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
   const [cart, setCart] = useState({});
@@ -17,7 +20,7 @@ const ViewCart = (prod) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/cart/viewCart/659c027001b07da1b7fef185');
+        const response = await fetch(`http://localhost:8000/api/cart/viewCart/${userId}`);
         const data = await response.json();
         setCart(data);
         setCartItems(data.items);
@@ -35,7 +38,7 @@ const ViewCart = (prod) => {
   const placeOrder = async () => {
     try {
       // console.log(totalQuantity);
-      await axios.post(`http://localhost:8000/api/order/create/659c027001b07da1b7fef185`, {});
+      await axios.post(`http://localhost:8000/api/order/create/${userId}`, {});
       console.log('product added to cart');
       alert('Your Order is placed successfully!');
     } catch (error) {
@@ -65,7 +68,7 @@ const ViewCart = (prod) => {
           <hr style={{position: "absolute", top:"50px", width:"700px"}}/>
         </div>
         {cartItems.map((item,i)=>{
-          return <CartItem key={i} id={item.product} quantity={item.quantity}/>
+          return <CartItem key={i} id={item.product} quantity={item.quantity} userId={userId}/>
         })}
         {/* {sendToCartItem()} */}
        </div>

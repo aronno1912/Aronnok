@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar/Navbar'
 import '../Context/OrderList.css';
 import CurrentOrderItem from '../Components/CurrentOrderItem/CurrentOrderItem';
+import { useParams } from 'react-router-dom';
 
 const OrderList = () => {
+    const { userId } = useParams();
+
     const [orders, setOrder] = useState([]);
     const [curorders, setCurOrder] = useState([]);
     const [prevorders, setPrevOrder] = useState([]);
@@ -39,7 +42,7 @@ const OrderList = () => {
        };
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/order/particularHistory/659c027001b07da1b7fef185`);
+                const response = await fetch(`http://localhost:8000/api/order/particularHistory/${userId}`);
                 const data = await response.json();
                 setOrder(data);
                 divideOrders(data);
@@ -84,7 +87,7 @@ const OrderList = () => {
         </div>
         <div className="current-orderlist-orders">
             {curorders.slice(0, curdisplayItems).map((item,i)=>{
-            return <CurrentOrderItem key={i} id={item._id}/>
+            return <CurrentOrderItem key={i} id={item._id} userId={userId}/>
             })}
         </div>
 
