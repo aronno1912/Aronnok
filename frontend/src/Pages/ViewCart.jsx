@@ -12,6 +12,8 @@ const ViewCart = (prod) => {
   const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
   const [cart, setCart] = useState({});
   const [cartItems, setCartItems] = useState([]);
+  const [address, setAddress] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,6 +43,9 @@ const ViewCart = (prod) => {
     }
   };
 
+  const handleAddress=(e)=>{
+    setAddress(e.target.value);
+  }
 
   return (
     <div>
@@ -69,10 +74,17 @@ const ViewCart = (prod) => {
           <div className="cart-hishab-left">
           <p>Total quantity</p>
             <p>Total price</p>
+            <p>Enter address:</p>
           </div>
           <div className="cart-hishab-right">
             <p>{totalQuantity}</p>
             <p style={{textAlign:"right"}}><b>${Math.round(cart.total)}</b></p>
+            <input
+              type="text"
+              id="textInput"
+              value={address}
+              onChange={handleAddress}
+            />
           </div>
        </div>
        <hr/>
