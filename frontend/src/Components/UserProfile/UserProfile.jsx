@@ -79,9 +79,11 @@ const UserProfile = ({ userId }) => {
   return (
     <div style={styles.userProfile}>
       <div style={styles.userPhotoContainer}>
+      <div style={styles.verticalLine}></div>
         <img src={defaultUserPhoto} alt="User" style={styles.userPhoto} />
+        <div style={styles.usernameText}>{userInfo.username}</div>
       </div>
-      <h2 style={styles.heading}>User Profile</h2>
+      <h2 style={styles.heading}></h2>
       <div style={styles.userInfo}>
         {renderField('Username:', 'username', false)}
         {renderField('First Name:', 'firstname')}
@@ -107,91 +109,200 @@ const UserProfile = ({ userId }) => {
   );
 };
 
-const styles = {
-    userProfile: {
-      maxWidth: '800px', // Increased the max width
-      margin: '40px auto',
-      padding: '40px', // Increased padding
-      backgroundColor: '#b2d3c2',
-      borderRadius: '12px', // Increased border radius
-      boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)', // Increased box shadow
-      top: '20px',
-    },
-    heading: {
-      textAlign: 'center',
-      color: '#333',
-      borderBottom: '2px solid #ddd',
-      paddingBottom: '20px', // Increased padding
-      marginBottom: '30px', // Increased margin bottom
-      fontSize: '24px', // Increased font size
-      fontWeight: 'bold', // Added font weight
-    },
-    userInfo: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 2fr',
-      rowGap: '15px', // Increased row gap
-      columnGap: '30px', // Increased column gap
-    },
-    field: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '20px', // Increased margin bottom
-    },
-    label: {
-      width: '150px', // Increased width
-      fontWeight: 'bold',
-      color: '#555',
-      fontSize: '16px', // Increased font size
-    },
-    span: {
-      padding: '10px', // Increased padding
-    //   border: '2px solid #ddd', // Increased border size
-      borderRadius: '6px', // Increased border radius
-      fontSize: '16px',
-      backgroundColor: '#ffffff',
-    },
-    input: {
-      padding: '10px', // Increased padding
-    //   border: '2px solid #ddd', // Increased border size
-      borderRadius: '6px', // Increased border radius
-      fontSize: '16px',
-      width: '100%',
-    },
-    buttons: {
-      marginTop: '30px', // Increased margin top
-      textAlign: 'center',
-    },
-    editButton: {
-      padding: '12px 24px', // Increased padding
-      fontSize: '18px', // Increased font size
-      backgroundColor: '#4caf50',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer',
-      marginRight: '15px', // Increased margin right
-    },
-    saveButton: {
-      padding: '12px 24px', // Increased padding
-      fontSize: '18px', // Increased font size
-      backgroundColor: '#3498db',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer',
-    },
-    userPhotoContainer: {
-      textAlign: 'center',
-    },
-    userPhoto: {
-      width: '200px', // Increased width
-      height: '200px', // Increased height
-      borderRadius: '50%',
-      objectFit: 'cover',
-      marginBottom: '30px', // Increased margin bottom
-      border: '4px solid #fff', // Added border
-    },
-  };
+// const styles = {
+//     userProfile: {
+//       maxWidth: '800px', // Increased the max width
+//       margin: '40px auto',
+//       padding: '40px', // Increased padding
+//       backgroundColor: '#b2d3c2',
+//       borderRadius: '12px', // Increased border radius
+//       boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)', // Increased box shadow
+//       top: '20px',
+//     },
+//     heading: {
+//       textAlign: 'center',
+//       color: '#333',
+//       borderBottom: '2px solid #ddd',
+//       paddingBottom: '20px', // Increased padding
+//       marginBottom: '30px', // Increased margin bottom
+//       fontSize: '24px', // Increased font size
+//       fontWeight: 'bold', // Added font weight
+//     },
+//     userInfo: {
+//       display: 'grid',
+//       gridTemplateColumns: '1fr 2fr',
+//       rowGap: '15px', // Increased row gap
+//       columnGap: '30px', // Increased column gap
+//     },
+//     field: {
+//       display: 'flex',
+//       alignItems: 'center',
+//       marginBottom: '20px', // Increased margin bottom
+//     },
+//     label: {
+//       width: '150px', // Increased width
+//       fontWeight: 'bold',
+//       color: '#555',
+//       fontSize: '16px', // Increased font size
+//     },
+//     span: {
+//       padding: '10px', // Increased padding
+//     //   border: '2px solid #ddd', // Increased border size
+//       borderRadius: '6px', // Increased border radius
+//       fontSize: '16px',
+//       backgroundColor: '#b2d3c2',
+//     },
+//     input: {
+//       padding: '10px', // Increased padding
+//     //   border: '2px solid #ddd', // Increased border size
+//       borderRadius: '6px', // Increased border radius
+//       fontSize: '16px',
+//       width: '100%',
+//     },
+//     buttons: {
+//       marginTop: '30px', // Increased margin top
+//       textAlign: 'center',
+//     },
+//     editButton: {
+//       padding: '12px 24px', // Increased padding
+//       fontSize: '18px', // Increased font size
+//       backgroundColor: '#4caf50',
+//       color: '#fff',
+//       border: 'none',
+//       borderRadius: '6px',
+//       cursor: 'pointer',
+//       marginRight: '15px', // Increased margin right
+//     },
+//     saveButton: {
+//       padding: '12px 24px', // Increased padding
+//       fontSize: '18px', // Increased font size
+//       backgroundColor: '#3498db',
+//       color: '#fff',
+//       border: 'none',
+//       borderRadius: '6px',
+//       cursor: 'pointer',
+//     },
+//     userPhotoContainer: {
+//       textAlign: 'center',
+//     },
+//     userPhoto: {
+//       width: '200px', // Increased width
+//       height: '200px', // Increased height
+//       borderRadius: '50%',
+//       objectFit: 'cover',
+//       marginBottom: '30px', // Increased margin bottom
+//       border: '4px solid #fff', // Added border
+//     },
+//   };
+const styles =
+ {
+  userProfile: {
+    maxWidth: '800px',
+    margin: '40px auto',
+    padding: '40px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 0 20px rgba(50, 240, 50, 0.5)',
+    top: '20px',
+    display: 'grid',
+    gridTemplateColumns: '1fr auto 2fr', // Changed grid template columns
+    gap: '40px', // Added gap between columns
+    alignItems: 'center', // Center align items vertically
+  },
   
+  verticalLine: {
+    width: '2px',
+    height: '100%',
+    background: '#ddd',
+    position: 'absolute',
+    left: '42%', 
+    bottom: '22',
+    transform: 'translateX(-50%)'
+  },
+  
+  userPhotoContainer: {
+    textAlign: 'center',
+  },
+  
+  userPhoto: {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    marginBottom: '4px',
+    border: '4px solid #fff',
+  },
+  usernameText: {
+    textAlign: 'center', // Adjusted textAlign
+    color: '#333',
+     // Adjust the margin based on your design
+    fontSize: '24px', // Adjust the font size based on your design
+    marginBottom: '280px', // Adjust the margin bottom based on your design
+    
+  },
+  
+  userInfo: {
+    display: 'grid',
+    gridTemplateRows: '1fr auto', // Changed grid template rows
+    rowGap: '15px',
+  },
+  
+  field: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  
+  label: {
+    width: '150px',
+    fontWeight: 'bold',
+    color: '#555',
+    fontSize: '16px',
+  },
+  
+  span: {
+    padding: '10px',
+    borderRadius: '6px',
+    fontSize: '16px',
+    backgroundColor: '#ffffff',
+  },
+  
+  input: {
+    padding: '10px',
+    borderRadius: '6px',
+    fontSize: '16px',
+    width: '100%',
+  },
+  
+  buttons: {
+    marginTop: '30px',
+    textAlign: 'center',
+  },
+  
+  editButton: {
+    padding: '12px 24px',
+    fontSize: '18px',
+    backgroundColor: '#4caf50',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    marginRight: '15px',
+  },
+  
+  saveButton: {
+    padding: '12px 24px',
+    fontSize: '18px',
+    backgroundColor: '#3498db',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  },
+
+ 
+  
+};
+
   export default UserProfile;
   

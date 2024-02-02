@@ -138,12 +138,13 @@ exports.addPlant = async (req, res, next) => {
 // get single product
 exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
-  // console.log(req.product);
+  console.log(1);
   return res.json(req.product);
 };
 
 // middleware
 exports.photo = (req, res, next) => {
+  console.log(2);
   if (req.product.photo.data) {
     res.set("Content-Type", req.product.photo.contentType);
     return res.send(req.product.photo.data);
@@ -238,12 +239,40 @@ exports.updateProduct = async (req, res) => {
 
 // listing products
 exports.getAllProducts = (req, res) => {
+  console.log(3);
   // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
   let sortBy = req.query.sort ? req.query.sort : "_id";
   Product.find()
     .populate("category")
     .sort([[sortBy, "asc"]])
     // .limit(limit)
+    .exec()
+    .then((products) => {
+      if (!products) {
+        return res.status(400).json({
+          error: "No products found",
+        });
+      }
+      res.json(products);
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+};
+
+
+exports.getNewArrivals = (req, res) => {
+  console.log();
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  let sortBy = req.query.sort ? req.query.sort : "_id";
+  Product.find()
+    .populate("category")
+    .sort([[sortBy, "desc"]])
+    .limit(limit)
     .exec()
     .then((products) => {
       if (!products) {
