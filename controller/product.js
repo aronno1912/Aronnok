@@ -39,7 +39,7 @@ exports.getProductById = (req, res, next, id) => {
       });
     });
 };
-exports.imageHelper = async(req, res, next) => {
+exports.imageHelper = async (req, res, next) => {
   // console.log("jebal")
   // Read the image file
   const imagePath = './public/client/assets/jungleplant2-drc.png';  // Replace with the actual path to your image file
@@ -162,10 +162,10 @@ exports.addPlant = async (req, res, next) => {
       });
     }
     let plant = new Product(req.body);
-    const catg = await Category.findOne({ "name":req.body.category });
+    const catg = await Category.findOne({ "name": req.body.category });
 
     plant.category = catg._id;
-    plant.photo='/default.png';
+    plant.photo = '/default.png';
     // console.log(plant);
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
@@ -179,13 +179,11 @@ exports.addPlant = async (req, res, next) => {
 // get single product
 exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
-  console.log(1);
   return res.json(req.product);
 };
 
 // middleware
 exports.photo = (req, res, next) => {
-  console.log(2);
   if (req.product.photo.data) {
     res.set("Content-Type", req.product.photo.contentType);
     return res.send(req.product.photo.data);
@@ -280,7 +278,6 @@ exports.updateProduct = async (req, res) => {
 
 // listing products
 exports.getAllProducts = (req, res) => {
-  console.log(3);
   // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
   let sortBy = req.query.sort ? req.query.sort : "_id";
   Product.find()
@@ -351,15 +348,28 @@ exports.updateStock = (req, res, next) => {
     return {
       updateOne: {
         filter: { product: prod._id },
-        update: { $inc: { stock: -prod.quantity, sold: +prod.quantity } },
+        update: {
+          $inc: { stock: -prod.quantity, sold: +prod.quantity }, $max: {
+            stock: 0, // Ensures stock doesn't go below 0
+          },
+        },
       },
     };
   });
 
   Product.bulkWrite(myOperations, {})
-    .then((products) => {
-      // Handle the result
-      next();
+    .then(() => {
+      // Check if there are products with stock greater than 0
+      const hasStock = req.body.products.some((prod) => prod.quantity > 0);
+
+      // Call next only if there are products with stock greater than 0
+      if (hasStock) {
+        next();
+      } else {
+        return res.status(400).json({
+          error: "All products are out of stock",
+        });
+      }
     })
     .catch((err) => {
       // Handle the error
@@ -367,7 +377,6 @@ exports.updateStock = (req, res, next) => {
         error: "Bulk operation failed",
       });
     });
-
 };
 
 exports.search = async (req, res, next) => {
