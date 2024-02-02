@@ -4,31 +4,6 @@
 
 
 
-/* {
-	margin: 0;
-	padding: 0;
-}
-ul, li {
-	list-style: none;
-}
-input {
-	border: none;
-    outline: none;
-}
-
-body {
-  width: 160.2rem;
-} 
-
- .log-in-684 {
-  width: 100%;
-  height: 70rem;
-  position: relative;
-  overflow: hidden;
-  background-color: #121414;
-
-}    */
-
 .log-in-684 {
   width: 100%;
   height: 70rem;
@@ -37,6 +12,7 @@ body {
   background-color: #121414;
   margin: 0 auto;
   padding: 0;
+  
 }
 
 
@@ -48,6 +24,7 @@ body {
   top: 0;
   background-color: #ffffff;
   border-radius: 3.8rem;
+  
   /*font-size: 62.5%*/
 }
 .log-in-684 .frame-9c8 {
@@ -72,6 +49,7 @@ body {
   color: #a09f9f;
   font-family: Poppins, 'Source Sans Pro';
   white-space: nowrap;
+  width:10%,
   /*font-size: 62.5%*/
 }
 .log-in-684 .frame-9c8 .dont-have-an-account-sign-up-ZQx {
