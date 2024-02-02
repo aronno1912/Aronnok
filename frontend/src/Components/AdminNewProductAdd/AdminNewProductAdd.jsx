@@ -39,13 +39,20 @@ const AdminNewProductAdd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // console.log(e)
     try {
       const formData = new FormData();
+      // const file = e.target.files[0];
       for (const key in productInfo) {
         formData.append(key, productInfo[key]);
       }
+      // formData.append('file', file);
 
+      // console.log(formData)
+      // // Iterate over FormData entries and log key-value pairs
+      // for (const pair of formData.entries()) {
+      //   console.log(pair[0], pair[1]);
+      // }
       await axios.post('http://localhost:8000/api/product/create/65a294c44865e9f4138c7281', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -103,7 +110,7 @@ const AdminNewProductAdd = () => {
           <input type="number" id="price" name="price" value={productInfo.price} onChange={handleChange} required />
 
           <label htmlFor="photo">Upload Photo</label>
-          <input type="file" id="photo" name="photo" accept="image/*"  onChange={handleFileChange} required />
+          <input type="file" id="photo" name="photo" accept="image/*" onChange={handleFileChange} required />
 
           <button className='addProductAdminButton' type="submit">Add Product</button>
         </div>
