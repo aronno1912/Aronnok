@@ -30,15 +30,7 @@ const OrderList = () => {
                 setCurOrder((prevOrders) => [...prevOrders, order]);
               }
             }
-            // setIsTotal(false);
-
-            // if(isTotal===true && curorders.length){
-            //     for (const order of curorders){
-            //         setTotalCurPrice(totalCurPrice+order.amount);
-            //         console.log(order.amount);
-            //     }
-            //     setIsTotal(false);
-            // }
+            
        };
         const fetchOrders = async () => {
             try {
