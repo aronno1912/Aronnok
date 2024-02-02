@@ -20,6 +20,7 @@ import UserProfilePage from './Pages/UserProfilepage';
 
 import OrderStatus from './Pages/OrderStatus';
 import OrderList from './Pages/OrderList';
+import Auction from './Components/Auction/Auction';
 
 
 
@@ -32,7 +33,7 @@ function App() {
         <Route path='/' element={<Login/>}/>
         <Route path='/home/:userId' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
-        <Route path='/favourites' element={<Favourites/>}/>
+        <Route path='/favourites' element={<Auction/>}/>
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
         <Route path='/product' element={<Product/>}>
           {/* <Route path=':productId' element={<Product/>}/> */}
