@@ -9,7 +9,7 @@ const CurrentOrderItem = (prod) => {
     const fetchProduct = async (productId) => {
         try {
           // Assuming you have an API endpoint for fetching product data based on productId
-          const response = await fetch(`http://localhost:8000/api/product/659c027001b07da1b7fef185/${productId}`);
+          const response = await fetch(`http://localhost:8000/api/product/${prod.userId}/${productId}`);
           const data = await response.json();
           return data;
         } catch (error) {

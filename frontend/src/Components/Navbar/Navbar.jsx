@@ -33,14 +33,13 @@ const Navbar = ({userId}) => {
         <li onClick={()=>{setMenu("home")}}><Link to={`/home/${userId}`} style={{textDecoration:'none'}}>Home </Link> {menu==="home"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("favourites")}}><Link to='/favourites' style={{textDecoration:'none'}}> Favourites </Link>  {menu==="favourites"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("wishlist")}}><Link to='/wishlist' style={{textDecoration:'none'}}> Wishlist </Link>  {menu==="wishlist"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("orders")}}><Link to='/orderlist' style={{textDecoration:'none'}}>Order </Link> {menu==="orders"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("orders")}}><Link to={`/orderlist/${userId}`} style={{textDecoration:'none'}}>Order </Link> {menu==="orders"?<hr/>:<></>}</li>
       </ul>
       <div className="nav-login-cart">
         <Link to='/login' className='login-btn'>Login</Link>
-        <Link to='/viewcart'> <img src={cart_icon} alt="" /> </Link>
+        <Link to={`/viewcart/${userId}`}> <img src={cart_icon} alt="" /> </Link>
         
         <div className="nav-cart-count">
-
             0
         </div>
         <Link to={`/profile/${userId}`}> 
