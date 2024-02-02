@@ -24,7 +24,7 @@ import { ProjectContext } from '../../Context/ProjectContext';
 
 
 const OneProduct = () => {
-  const { productId } = useParams();
+  const { productId,userId } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   // const [totalQuantity, setQuantity] = useState(0);
@@ -33,7 +33,7 @@ const OneProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/product/659c027001b07da1b7fef185/${productId}`);
+        const response = await axios.get(`http://localhost:8000/api/product/${userId}/${productId}`);
         console.log("id is ",productId);
         setProduct(response.data);
       } catch (error) {
@@ -67,7 +67,7 @@ const OneProduct = () => {
   
   const addToCart = async () => {
     try {
-      await axios.post(`http://localhost:8000/api/cart/add/659c027001b07da1b7fef185/${productId}`, {});
+      await axios.post(`http://localhost:8000/api/cart/add/${userId}/${productId}`, {});
       console.log('product added to cart');
       // alert("Product is added to cart successfully!!! Find them in your cart now!!!");
     } catch (error) {

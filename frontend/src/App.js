@@ -20,6 +20,7 @@ import UserProfilePage from './Pages/UserProfilepage';
 
 import OrderStatus from './Pages/OrderStatus';
 import OrderList from './Pages/OrderList';
+import Auction from './Components/Auction/Auction';
 
 
 
@@ -32,16 +33,16 @@ function App() {
         <Route path='/' element={<Login/>}/>
         <Route path='/home/:userId' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
-        <Route path='/favourites' element={<Favourites/>}/>
+        <Route path='/favourites' element={<Auction/>}/>
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
         <Route path='/product' element={<Product/>}>
           {/* <Route path=':productId' element={<Product/>}/> */}
         </Route>
-        <Route path='/viewcart' element={<ViewCart/>}/>
-        <Route path='/product/:productId' element={<ViewProduct />} />
+        <Route path='/viewcart/:userId' element={<ViewCart/>}/>
+        <Route path='/product/:userId/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderstatus' element={<OrderStatus/>}/>
-        <Route path='/orderlist' element={<OrderList/>}/>
+        <Route path='/orderlist/:userId' element={<OrderList/>}/>
 
 
 

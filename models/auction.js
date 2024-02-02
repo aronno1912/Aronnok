@@ -60,7 +60,7 @@ const auctionSchema = new mongoose.Schema(
         },
         date:
         {
-            type:Date,
+            type: Date,
         },
         startTime: {
             type: Date,

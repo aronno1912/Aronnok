@@ -40,7 +40,7 @@ import Navbar from '../Components/Navbar/Navbar';
 
 const ViewProduct = () => {
     // Get the product ID from the URL parameters
-    const { productId } = useParams();
+    const { userId,productId } = useParams();
     console.log(productId);
     console.log("helloooooooooooooooooooooooooooo we got the product id", {productId});
   
@@ -48,7 +48,7 @@ const ViewProduct = () => {
       <div>
         <Navbar/>
         {/* Pass the product ID to the OneProduct component */}
-        <OneProduct productId={productId} />
+        <OneProduct productId={productId} userId={userId}/>
         <Footer />
       </div>
     );

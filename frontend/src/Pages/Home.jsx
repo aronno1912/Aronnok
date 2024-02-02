@@ -30,10 +30,10 @@ const Home = () => {
   const { userId } = useParams();
 
   return (
-    <div>
+   <div>
       <Navbar userId={userId}/>
       <Cover />
-      <Trending catagory="Trending" mypath="http://localhost:8000/api/trending" />
+      <Trending catagory="Trending" mypath="http://localhost:8000/api/trending" userId={userId}/>
       <Trending catagory="Recommended for you" mypath={`http://localhost:8000/api/recommend/${userId}`} />
       <Trending catagory="New Arrivals" mypath="http://localhost:8000/api/product/newarrival" />
       <Footer />

@@ -26,7 +26,7 @@ const Product = (prod) => {
       };
 
   return (
-    <Link to={`/product/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+    <Link to={`/product/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='product-container'> 
 
     <div className='container'> 
