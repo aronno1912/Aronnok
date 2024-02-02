@@ -14,6 +14,7 @@ const {
   recommendations,
   trending,
   category_stock,
+  getNewArrivals,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -58,6 +59,7 @@ router.put(
 
 // listing route for user
 router.get("/products/:userId", getAllProducts);
+router.get("/product/newarrival", getNewArrivals);
 
 // router.get("/products/categories", getAllUniqueCategories);
 
