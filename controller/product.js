@@ -1,4 +1,6 @@
 //works
+// const { google } = require('googleapis');
+
 const Product = require("../models/product");
 const Category = require("../models/category");
 const User = require('../models/user');
@@ -9,6 +11,13 @@ const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
 const { check, validationResult } = require("express-validator");
+
+// // Set up Google Drive API client
+// const drive = google.drive({
+//   version: 'v3',
+//   auth: 'AIzaSyBxtC3FcwMHmGDtNltzL6s1Kq9x2VWlvhs',
+// });
+
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id)
     .exec()
@@ -30,9 +39,8 @@ exports.getProductById = (req, res, next, id) => {
       });
     });
 };
-exports.imageHelper = (req, res, next) => {
-  const fs = require('fs');
-
+exports.imageHelper = async(req, res, next) => {
+  // console.log("jebal")
   // Read the image file
   const imagePath = './public/client/assets/jungleplant2-drc.png';  // Replace with the actual path to your image file
   const imageData = fs.readFileSync(imagePath);
@@ -43,6 +51,39 @@ exports.imageHelper = (req, res, next) => {
   req.imageData = base64Image;
   next();
   // console.log("did it");
+
+  // try {
+  //   console.log("ekhane")
+  //   // Check if there is a file in the request
+  //   if (!req.files.photo || Object.keys(req.files.photo).length === 0) {
+  //     console.log('No file uploaded')
+  //     return res.status(400).json({ error: 'No file uploaded' });
+  //   }
+  //   console.log("ashchi")
+  //   // Process the uploaded image
+  //   const uploadedFile = req.files.photo; // Adjust 'image' based on your form field
+  //   const fileName = req.body.photoName; // Adjust the filename as needed
+  //   console.log(fileName);
+  //   // Upload image to Google Drive
+  //   const response = await drive.files.create({
+  //     requestBody: {
+  //       name: fileName,
+  //       parents: ['1-0Nb190JiaLrAejsFBYwqvMrNHe_dSLJ?usp=drive_link'], // Specify the folder ID
+  //     },
+  //     media: {
+  //       mimeType: uploadedFile.mimetype,
+  //       body: fs.createReadStream(uploadedFile.data), // Create a readable stream from the file data
+  //     },
+  //   });
+
+  //   // Log success, store metadata in your database, etc.
+
+  //   res.status(200).json({ message: 'Image uploaded successfully' });
+  //   next();
+  // } catch (error) {
+  //   console.error('Error uploading image:', error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
 };
 // create product
 exports.addPlant = async (req, res, next) => {

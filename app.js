@@ -44,3 +44,5 @@ const cartRoutes = require("./routes/cart");
 app.use("/api", cartRoutes);
 const orderRoutes = require("./routes/order");
 app.use("/api", orderRoutes);
+const auctionRoutes = require("./routes/auction");
+app.use("/api", auctionRoutes);
