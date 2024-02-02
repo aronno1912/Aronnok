@@ -40,11 +40,11 @@ const Login = () => {
       console .log("userId", userId);
       // // <Link to={`/home`} className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
       // // </Link>
+      if(formData.username === 'admin')
+      navigate(`/admin/allproducts`);
+      else
       navigate(`/home/${userId}`);
-//       <Link to={`/home/${userId}`} className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
-//   Go to Home
-// </Link>
-      // For example, you can redirect the user or show a success message
+
 
 
     } catch (error) {

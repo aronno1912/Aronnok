@@ -7,7 +7,7 @@ exports.createAuction = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
   }
-
+ 
   try {
     const { date, startTime, endTime, plants } = req.body;
     const auctionProducts = plants;
@@ -17,11 +17,10 @@ exports.createAuction = async (req, res, next) => {
       endTime,
       auctionProducts,
     });
-
+ 
     await newAuction.save();
     // Use findOne to retrieve a single document
     const auction = await Auction.findOne({ _id: newAuction._id });
-
     if (auction) {
       res.json({"id":auction._id});
       // pass control to the next middleware or route handler in the sequence
@@ -104,8 +103,11 @@ exports.addProductToAuction = async (req, res) => {
   }
 
   try {
-    const { name, description, photo, initialbid } = req.body;
-    const currentBid = initialbid;
+    console.log(req.body)
+    const { name, description, photoName, startingBid } = req.body;
+    const currentBid=startingBid;
+    const photo = "/" + photoName;
+    console.log(photo)
     const auctionProduct = new AuctionProduct({
       name,
       description,
