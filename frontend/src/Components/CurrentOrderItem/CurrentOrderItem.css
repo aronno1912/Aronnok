@@ -22,6 +22,7 @@
     margin-bottom: 1px;
 }
 .curorderitem-right{
+    display: flex;
     align-items: center;
 
 }

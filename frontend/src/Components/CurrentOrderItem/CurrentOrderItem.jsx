@@ -5,7 +5,6 @@ const CurrentOrderItem = (prod) => {
     const [order, setOrder] = useState({});
     const [orderItems, setOrderItems] = useState([]);
     const [namelist,setNames]=useState([]);
-    const [date, setDate] = useState("");
 
     const fetchProduct = async (productId) => {
         try {
@@ -20,27 +19,31 @@ const CurrentOrderItem = (prod) => {
       };
 
    useEffect(() => {
+
+        const getNames = async (items) => {
+            setNames([]);
+            for (const item of items) {
+            const data = await fetchProduct(item.product);
+            setNames((prevNames) => [...prevNames, data.name]);
+            }
+            console.log(orderItems);
+        }
+
         const fetchOrder = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/api/order/particularOrder/${prod.id}`);
                 const data = await response.json();
                 setOrder(data);
                 setOrderItems(data.products);
-                setDate(data.placedOn.substring(0, 10));
+
+                getNames(data.products);
             } catch (error) {
               console.error('Error fetching product data:', error);
             }
           };
-          const getNames = async () => {
-            for (const item of orderItems) {
-              const data = await fetchProduct(item.product);
-              setNames((prevNames) => [...prevNames, data.name]);
-            }
-          };
 
          fetchOrder();
-         getNames();
-      }, []);
+      }, [prod.id]);
 
   return (
     <div>
