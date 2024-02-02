@@ -1,0 +1,15 @@
+.auctionall-ongoing{
+    display: flexbox;
+    justify-content: space-around;
+    margin-left: 75px;
+    margin-top: 40px;
+}
+
+.tr-auctions{
+    display: flex;
+    align-content: flex-start;
+    gap: 40px;
+    overflow-x: auto;
+    width: 100%; 
+    margin: 20px;
+}

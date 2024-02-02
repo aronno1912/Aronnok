@@ -9,7 +9,7 @@ import cover_photo from '../Assets/cover.png'
 import { Link } from 'react-router-dom';
 // import auction_photo from 'img7.png'
 
-const Cover = () => {
+const Cover = ({userId}) => {
 
   const settings = {
     dots: true,
@@ -26,7 +26,7 @@ const Cover = () => {
           
           <div className="cover-text">
               <p>End of year<br/> Special Bids</p>
-              <button>check them out</button>
+              <Link to={`/auctionsall/${userId}`}> <button>check them out</button> </Link>
           </div>
       </div>
       <div className='cover'>
@@ -34,7 +34,7 @@ const Cover = () => {
           
           <div className="cover-text">
               <p>Check our auction</p>
-              <Link to={`/auctionsall`}> <button>check them out</button> </Link>
+              <Link to={`/auctionsall/${userId}`}> <button>check them out</button> </Link>
           </div>
       </div>  
     </Slider>
