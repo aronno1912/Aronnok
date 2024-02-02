@@ -34,8 +34,9 @@ const Home = () => {
       <Navbar userId={userId}/>
       <Cover />
       <Trending catagory="Trending" mypath="http://localhost:8000/api/trending" />
-      <Trending catagory="Recommended for you" mypath={`http://localhost:8000/api/recommend/${userId}`} />
+     
       <Trending catagory="New Arrivals" mypath="http://localhost:8000/api/product/newarrival" />
+      <Trending catagory="Recommended for you" mypath={`http://localhost:8000/api/recommend/${userId}`} />
       <Footer />
     </div>
   );

@@ -22,6 +22,12 @@ const Login = () => {
     }));
   };
 
+  const styles = {
+    container: {
+      fontSize: '62.5%',
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="log-in-684 login-page">
+    <div style={styles.container} className="log-in-684 login-page">
       <div className="rectangle-1-RAL"></div>
       <div className="frame-9c8">
         <form id="loginForm" onSubmit={handleSubmit}>

@@ -1,0 +1,35 @@
+.auction-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .auction-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input,
+  .start-auction-button {
+    margin-bottom: 10px;
+  }
+  
+  .plants-title {
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+  
+  .plants-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .plant-item {
+    margin-bottom: 5px;
+  }
+  
