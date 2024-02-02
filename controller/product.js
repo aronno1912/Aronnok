@@ -87,56 +87,6 @@ exports.imageHelper = async (req, res, next) => {
 };
 // create product
 exports.addPlant = async (req, res, next) => {
-
-  // Now you can use the productEntry object in your MongoDB operation
-
-  //after html
-  // let form = new formidable.IncomingForm();
-  // form.keepExtensions = true;
-
-  // form.parse(req, (err, fields, file) => {
-  //   if (err) {
-  //     return res.status(400).json({
-  //       error: "problem with image",
-  //     });
-  //   }
-  //   //destructure the fields
-  //   const { name, description, price, category, stock } = fields;
-
-  //   if (!name || !description || !price || !category || !stock) {
-  //     return res.status(400).json({
-  //       error: "Please include all fields",
-  //     });
-  //   }
-
-  //   let product = new Product(fields);
-
-  //   //handle file here
-  //   if (file.photo) {
-  //     if (file.photo.size > 3000000) {
-  //       return res.status(400).json({
-  //         error: "File size too big!",
-  //       });
-  //     }
-  //     product.photo.data = fs.readFileSync(file.photo.path);
-  //     product.photo.contentType = file.photo.type;
-  //   }
-  //   // console.log(product);
-
-  //   //save to the DB
-  //   product.save((err, product) => {
-  //     if (err) {
-  //       res.status(400).json({
-  //         error: "Saving plant in DB failed",
-  //       });
-  //     }
-  //     res.json(product);
-  //   });
-  // });
-
-
-  //before html
-  // console.log("hi");
   const errors = validationResult(req);
   // console.log("hi");
   if (!errors.isEmpty()) {
@@ -215,46 +165,6 @@ exports.deleteProduct = (req, res) => {
 
 // update product
 exports.updateProduct = async (req, res) => {
-
-  //after html
-  // let form = new formidable.IncomingForm();
-  // form.keepExtensions = true;
-
-  // form.parse(req, (err, fields, file) => {
-  //   if (err) {
-  //     return res.status(400).json({
-  //       error: "problem with image",
-  //     });
-  //   }
-
-  //   // updation code
-  //   let product = req.product;
-  //   product = _.extend(product, fields);
-
-  //   //handle file here
-  //   if (file.photo) {
-  //     if (file.photo.size > 3000000) {
-  //       return res.status(400).json({
-  //         error: "File size too big!",
-  //       });
-  //     }
-  //     product.photo.data = fs.readFileSync(file.photo.path);
-  //     product.photo.contentType = file.photo.type;
-  //   }
-  //   // console.log(product);
-
-  //   //save to the DB
-  //   product.save((err, product) => {
-  //     if (err) {
-  //       res.status(400).json({
-  //         error: "Updation of product failed",
-  //       });
-  //     }
-  //     res.json(product);
-  //   });
-  // });
-
-  //before html
   try {
     const plant = await Product.findByIdAndUpdate(
       { _id: req.product._id },

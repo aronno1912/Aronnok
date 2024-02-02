@@ -2,7 +2,7 @@ const { Auction, AuctionProduct } = require('../models/auction');
 const { validationResult } = require('express-validator');
 
 // Create a new auction
-exports.createAuction = async (req, res) => {
+exports.createAuction = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
@@ -19,21 +19,17 @@ exports.createAuction = async (req, res) => {
     });
 
     await newAuction.save();
-    Auction.find({ date: newAuction.date, startTime: newAuction.startTime, endTime: newAuction.endTime })
-      .exec()
-      .then((auction) => {
-        res.json(auction._id);
-        // pass control to the next middleware or route handler in the sequence
-        next();
-      })
-      .catch((err) => {
-        // Handle errors here
-        console.error(err);
-        res.status(500).json({
-          error: "Internal Server Error",
-        });
-      });
-    // res.status(201).json({  });
+    // Use findOne to retrieve a single document
+    const auction = await Auction.findOne({ _id: newAuction._id });
+
+    if (auction) {
+      res.json({"id":auction._id});
+      // pass control to the next middleware or route handler in the sequence
+      next();
+    } else {
+      // Handle the case where no auction is found
+      res.status(404).json({ error: "Auction not found" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

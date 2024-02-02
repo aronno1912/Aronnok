@@ -74,7 +74,7 @@ const auctionSchema = new mongoose.Schema(
             type: String,
             default: "upcoming",
             enum: ["upcoming", "ongoing", "completed"],
-          },
+        },
         auctionProducts: [
             {
                 type: ObjectId,
@@ -84,6 +84,38 @@ const auctionSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+// Function to update auction status based on current time
+const updateAuctionStatus = async function () {
+    const currentTime = new Date();
+
+    try {
+        const auctions = await Auction.find({
+            status: 'upcoming',
+            startTime: { $lte: currentTime },
+        });
+
+        auctions.forEach(async (auction) => {
+            auction.status = 'ongoing';
+            await auction.save();
+        });
+
+        const completedAuctions = await Auction.find({
+            status: 'ongoing',
+            endTime: { $lte: currentTime },
+        });
+
+        completedAuctions.forEach(async (auction) => {
+            auction.status = 'completed';
+            await auction.save();
+        });
+    } catch (error) {
+        console.error('Error updating auction status:', error);
+    }
+};
+
+// Schedule the function to run every minute
+setInterval(updateAuctionStatus, 60000);
 
 const AuctionProduct = mongoose.model('AuctionProduct', auctionProductSchema);
 const Auction = mongoose.model('Auction', auctionSchema);
