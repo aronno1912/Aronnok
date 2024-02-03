@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,6 +11,31 @@ import { Link } from 'react-router-dom';
 
 const Cover = ({userId}) => {
 
+    const sliderRef = useRef(null);
+  
+    const [touchStartX, setTouchStartX] = useState(null);
+
+    const handleTouchStart = (e) => {
+      setTouchStartX(e.touches[0].clientX);
+    };
+  
+    const handleTouchMove = (e) => {
+      if (touchStartX !== null) {
+        const touchEndX = e.touches[0].clientX;
+        const deltaX = touchEndX - touchStartX;
+  
+        if (deltaX > 50) {
+          // Swipe right, go to previous slide
+          sliderRef.current.slickPrev();
+        } else if (deltaX < -50) {
+          // Swipe left, go to next slide
+          sliderRef.current.slickNext();
+        }
+  
+        setTouchStartX(null);
+      }
+    };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -20,7 +45,12 @@ const Cover = ({userId}) => {
   };
 
   return (
-    <Slider {...settings}>
+
+    <Slider 
+    ref={sliderRef}
+    {...settings}
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}>
       <div className='cover'>
           <img src={cover_photo} alt="" />
           
@@ -38,6 +68,7 @@ const Cover = ({userId}) => {
           </div>
       </div>  
     </Slider>
+   
   )
 }
 
