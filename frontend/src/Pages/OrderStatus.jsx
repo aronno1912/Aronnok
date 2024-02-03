@@ -3,8 +3,11 @@ import '../Context/OrderStatus.css';
 import Stepper from '../Components/Stepper/Stepper'
 import Navbar from '../Components/Navbar/Navbar'
 import OrderItem from '../Components/OrderItem/OrderItem';
+import { useParams } from 'react-router-dom';
 
 const OrderStatus = () => {
+    const {orderId} = useParams();
+
     const [order, setOrder] = useState({});
     const [orderItems, setOrderItems] = useState([]);
     const [totalOrderQuantity, setTotalQuantity] = useState(0);
@@ -26,7 +29,7 @@ const OrderStatus = () => {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/order/particularOrder/65b6486d555c6c30423aacab`);
+                const response = await fetch(`http://localhost:8000/api/order/particularOrder/${orderId}`);
                 const data = await response.json();
                 setOrder(data);
                 setOrderItems(data.products);

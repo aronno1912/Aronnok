@@ -47,8 +47,8 @@ function App() {
         <Route path='/viewcart/:userId' element={<ViewCart/>}/>
         <Route path='/product/:userId/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
-        <Route path='/orderstatus' element={<OrderStatus/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
+        <Route path='/orderstatus/:orderId' element={<OrderStatus/>}/>
         <Route path='/auctionsall/:userId' element={<AuctionsAll/>}/>
         <Route path='/auctionsall/:userId/:auctionId' element={<OneAuction/>}/>
 

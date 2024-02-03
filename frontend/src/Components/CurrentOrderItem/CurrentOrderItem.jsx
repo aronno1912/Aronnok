@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './CurrentOrderItem.css'
+import { Link } from 'react-router-dom';
 const CurrentOrderItem = (prod) => {
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState({});
@@ -47,6 +48,7 @@ const CurrentOrderItem = (prod) => {
 
   return (
     <div>
+        <Link to={`/orderstatus/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
        <div className="curorderitem-container">
         <div className="curorderitem-left">
             <p style={{fontSize:'18px', color:'rgb(2, 75, 33)'}}>Order ID: {order._id}</p>
@@ -56,8 +58,8 @@ const CurrentOrderItem = (prod) => {
         <div className="curorderitem-right">
             <p><b>${order.amount}</b></p>
         </div>
-    
         </div>
+        </Link>
     </div>
   )
 }
