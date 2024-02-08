@@ -28,6 +28,10 @@ import AuctionsAll from './Pages/AuctionsAll';
 import OneAuction from './Pages/OneAuction';
 import PaymentSuccess from './Pages/PaymentSuccess';
 import PaymentFail from './Pages/PaymentFail';
+import AdminViewAuctionPage from './Pages/AdminViewAuctionPage';
+
+import AdAuctionProductList from './Components/AdAuctionProductList/AdAuctionProductList';
+import PastAuctionsPage from './Pages/PastAuctionspage';
 
 
 function App() {
@@ -60,7 +64,9 @@ function App() {
         <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
         <Route path='/payment/success/:transId' element={<PaymentSuccess/>}/>
         <Route path='/payment/fail/:transId' element={<PaymentFail/>}/>
-        
+       
+        <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
+        <Route path='/admin/viewauctions/:catagory/:auctionId' element={<PastAuctionsPage/>}/>
       </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,24 @@
+.aauctionall-ongoing{
+    display: flexbox;
+    justify-content: space-around;
+    margin-left: 240px;
+    margin-top: 80px;
+
+}
+
+
+.atr-auctions{
+    display: flex;
+    align-content: flex-start;
+    gap: 40px;
+    overflow-x: auto;
+    width: 100%; 
+    margin: 20px;
+}
+.no-auctions-message {
+    color: #555;
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+  }

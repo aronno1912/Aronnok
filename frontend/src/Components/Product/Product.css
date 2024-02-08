@@ -5,7 +5,11 @@
     flex-direction: column;
     width:270px;
     height: 350px;
+
 }
+.product-container:hover {
+    transform: scale(1.05);
+  }
 
 .plant-details{
     position: relative;

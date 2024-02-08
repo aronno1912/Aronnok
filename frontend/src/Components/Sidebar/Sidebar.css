@@ -122,4 +122,25 @@
     background-color: #4CAF50; /* Active page color */
     color: white;
   }
+
+
+  .eta6 {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .eta6 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta6 a:hover {
+    background-color: #555;
+  }
+  .sidebar  .eta6 a.active {
+    background-color: #4CAF50; /* Active page color */
+    color: white;
+  }
   
