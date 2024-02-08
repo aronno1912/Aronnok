@@ -1,0 +1,9 @@
+.auction-product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusted grid layout */
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Add any additional styling as needed */
+  

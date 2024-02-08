@@ -1,4 +1,5 @@
 const { Auction, AuctionProduct } = require('../models/auction');
+const User = require("../models/user");
 const { validationResult } = require('express-validator');
 
 // Create a new auction
@@ -87,8 +88,26 @@ exports.getAllAuctions = async (req, res) => {
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {
   try {
-
-    res.status(200).json(req.auction.auctionProducts);
+    const auction = req.auction;
+    const auctionProducts = await Promise.all(auction.auctionProducts.map(async (item) => {
+      const productDetails = await AuctionProduct.findById(item);
+      if (productDetails) {
+        let highestBidder = null;
+        if (productDetails.highestBidder) {
+          const user = await User.findById(productDetails.highestBidder);
+          if (user) {
+            highestBidder = user.username;
+          }
+        }
+        return {
+          ...productDetails.toObject(),
+          highestBidder: highestBidder,
+        };
+      } else {
+        console.log('Product details not found for ID:', item);
+      }
+    }));
+    res.status(200).json(auctionProducts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

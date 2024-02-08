@@ -26,6 +26,10 @@ import AdminCreateAuction from './Pages/AdminCreateAuction';
 
 import AuctionsAll from './Pages/AuctionsAll';
 import OneAuction from './Pages/OneAuction';
+import AdminViewAuctionPage from './Pages/AdminViewAuctionPage';
+
+import AdAuctionProductList from './Components/AdAuctionProductList/AdAuctionProductList';
+
 
 
 
@@ -58,6 +62,8 @@ function App() {
         <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
         <Route path='/admin/allproducts' element={<AdminAllProductPage/>}/>
         <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
+        <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
+        <Route path='/admin/viewauctions/:auctionId' element={<AdAuctionProductList/>}/>
 
       </Routes>
       </BrowserRouter>
