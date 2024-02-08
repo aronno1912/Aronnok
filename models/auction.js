@@ -88,25 +88,47 @@ const auctionSchema = new mongoose.Schema(
 // Function to update auction status based on current time
 const updateAuctionStatus = async function () {
     const currentTime = new Date();
-    // console.log(currentTime);
     try {
-        const auctions = await Auction.find({
-            status: 'upcoming',
-            startTime: { $gte: currentTime }
+        // Move auctions from 'upcoming' to 'ongoing' when start time is less than or equal to current time and end time is greater than current time
+        const upcomingAuctionsToOngoing = await Auction.find({
+            // status: 'upcoming',
+            startTime: { $lte: currentTime },
+            endTime: { $gt: currentTime }
         });
 
-        auctions.forEach(async (auction) => {
+        console.log("upcoming to ongoing");
+        console.log(upcomingAuctionsToOngoing);
+
+        upcomingAuctionsToOngoing.forEach(async (auction) => {
             auction.status = 'ongoing';
             await auction.save();
         });
 
-        const completedAuctions = await Auction.find({
-            status: 'ongoing',
+        // Move auctions from 'ongoing' to 'completed' when end time is less than or equal to current time
+        const ongoingAuctionsToCompleted = await Auction.find({
+            // status: 'ongoing',
             endTime: { $lte: currentTime },
         });
 
-        completedAuctions.forEach(async (auction) => {
+        console.log("ongoing to completed");
+        console.log(ongoingAuctionsToCompleted);
+
+        ongoingAuctionsToCompleted.forEach(async (auction) => {
             auction.status = 'completed';
+            await auction.save();
+        });
+
+        // Move auctions from 'pending' to 'upcoming' when start time is greater than current time
+        const pendingAuctionsToUpcoming = await Auction.find({
+            // status: 'pending',
+            startTime: { $gt: currentTime }
+        });
+
+        console.log("pending to upcoming");
+        console.log(pendingAuctionsToUpcoming);
+
+        pendingAuctionsToUpcoming.forEach(async (auction) => {
+            auction.status = 'upcoming';
             await auction.save();
         });
     } catch (error) {
@@ -114,8 +136,9 @@ const updateAuctionStatus = async function () {
     }
 };
 
+
 // Schedule the function to run every minute
-setInterval(updateAuctionStatus, 60000);
+setInterval(updateAuctionStatus, 10000);
 
 const AuctionProduct = mongoose.model('AuctionProduct', auctionProductSchema);
 const Auction = mongoose.model('Auction', auctionSchema);

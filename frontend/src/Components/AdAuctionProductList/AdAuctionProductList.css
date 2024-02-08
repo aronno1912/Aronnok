@@ -1,5 +1,5 @@
 .auction-product-list {
-    margin-right: 390px; /* Adjusted margin */
+    margin-left: 10px; /* Adjusted margin */
     display: grid;
     
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusted grid layout */
