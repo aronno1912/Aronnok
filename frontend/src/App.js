@@ -62,8 +62,10 @@ function App() {
         <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
         <Route path='/admin/allproducts' element={<AdminAllProductPage/>}/>
         <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
+
         <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
         <Route path='/admin/viewauctions/:auctionId' element={<AdAuctionProductList/>}/>
+
 
       </Routes>
       </BrowserRouter>

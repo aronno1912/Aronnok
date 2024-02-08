@@ -88,11 +88,11 @@ const auctionSchema = new mongoose.Schema(
 // Function to update auction status based on current time
 const updateAuctionStatus = async function () {
     const currentTime = new Date();
-
+    // console.log(currentTime);
     try {
         const auctions = await Auction.find({
             status: 'upcoming',
-            startTime: { $lte: currentTime },
+            startTime: { $gte: currentTime }
         });
 
         auctions.forEach(async (auction) => {

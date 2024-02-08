@@ -18,6 +18,9 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(45deg, rgb(13, 109, 13),rgb(162, 242, 140)50%, rgb(13, 109, 13));
+    border-radius: 15px;
+    color: rgb(23, 29, 96);
 }
 
 .orderlist-totalorders{
@@ -29,6 +32,9 @@
     width: 400px;
     height: 140px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(45deg, rgb(13, 109, 13),rgb(162, 242, 140)50%, rgb(13, 109, 13));
+    border-radius: 15px;
+    color: rgb(23, 29, 96);
 }
 
 .orderlist-recent-title{
