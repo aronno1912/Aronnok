@@ -1,9 +1,86 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Navbar from '../Components/Navbar/Navbar';
+import '../Context/OneAuction.css';
+import Product from '../Components/Product/Product';
+import CountdownTimer from '../Components/CountdownTimer/CountdownTimer';
 
 const OneAuction = () => {
+  const {userId,auctionId}=useParams();
+
+  const [auction,setAuction]=useState({});
+  const [products,setProducts]=useState([]);
+  const [date, setDate] = useState("");
+  const [start,setStart] = useState(new Date());
+  const [end,setEnd] = useState(new Date());
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/auction/get-auction/${auctionId}`);
+            const data = await response.json();
+            setAuction(data);
+            setDate(data.date.substring(0, 10));
+            setStart(new Date(data.startTime));
+            setEnd(new Date(data.endTime));
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+      };
+
+      const fetchProducts = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/products`);
+          const data = await response.json();
+          setProducts(data);
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+       }
+
+     fetchOrder();
+     fetchProducts();
+  }, [auction,products]);
+
+  const handleTimerEnd = () => {
+    console.log('Timer ended!'); // You can perform any action when the timer reaches 0
+  };
+ 
   return (
     <div>
-      
+      <Navbar/>
+      <div className="oneauction-headers">
+          <div className="oneauction-dateTime">
+            <p><b>Date: {date}</b></p>
+            <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
+          </div>
+          <div className="oneauction-timeremaining">
+            <p><b><CountdownTimer initialTime={300} onTimerEnd={handleTimerEnd}/></b></p>
+          </div>
+          <div className="oneauction-totalsold">
+          <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>
+          </div>  
+      </div>
+
+
+      <div className='trending'>
+      <h1>Highest bid products</h1>
+      <div className= 'tr-products'>
+        {products.map((item,i)=>{
+             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+        })}
+      </div>
+      </div>
+
+      <div className='trending'>
+      <h1>All Products</h1>
+      <div className= 'tr-products'>
+        {products.map((item,i)=>{
+             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+        })}
+      </div>
+      </div>
+
     </div>
   )
 }

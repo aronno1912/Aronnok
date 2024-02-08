@@ -4,6 +4,7 @@ import Stepper from '../Components/Stepper/Stepper'
 import Navbar from '../Components/Navbar/Navbar'
 import OrderItem from '../Components/OrderItem/OrderItem';
 import { useParams } from 'react-router-dom';
+import Footer from '../Components/Footer/Footer';
 
 const OrderStatus = () => {
     const {orderId} = useParams();
@@ -94,7 +95,7 @@ const OrderStatus = () => {
                 </div>
             </div>
         </div>
-        
+        <Footer/>
     </div>
   )
 }

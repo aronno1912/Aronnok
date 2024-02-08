@@ -1,0 +1,29 @@
+.oneauction-headers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.oneauction-dateTime{
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.oneauction-dateTime p{
+    margin-top: 5px;
+} 
+
+.oneauction-timeremaining{
+    color: red;
+    font-size: 22px;
+    align-items: center;
+    align-self: center;
+}
+
+.oneauction-totalsold{
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+}

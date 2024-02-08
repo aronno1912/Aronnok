@@ -10,14 +10,14 @@
 .auction-details{
     position: relative;
     display: flex;
-    height: auto;
+    height: 120px;
     flex-direction: column;
-    justify-content: space-around;
     background-color: rgb(22, 139, 83);
 }
 
 .auction-details p{
     margin-left: 10px;
+    margin-top: 5px;
 }
 .auction-container img{
     width: 100%;
