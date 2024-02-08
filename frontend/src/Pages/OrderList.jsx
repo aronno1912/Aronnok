@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar/Navbar'
 import '../Context/OrderList.css';
 import CurrentOrderItem from '../Components/CurrentOrderItem/CurrentOrderItem';
 import { useParams } from 'react-router-dom';
+import Footer from '../Components/Footer/Footer';
 
 const OrderList = () => {
     const { userId } = useParams();
@@ -120,6 +121,7 @@ const OrderList = () => {
          ):(
             <button className="orderlist-more-btn" onClick={lessPrevItems}>less...</button>
         )} */}
+         <Footer/>
     </div>
   )
 }
