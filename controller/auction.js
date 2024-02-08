@@ -123,11 +123,11 @@ exports.addProductToAuction = async (req, res) => {
   }
 
   try {
-    console.log(req.body)
+    // console.log(req.body)
     const { name, description, photoName, startingBid } = req.body;
     const currentBid = startingBid;
     const photo = "/" + photoName;
-    console.log(photo)
+    // console.log(photo)
     const auctionProduct = new AuctionProduct({
       name,
       description,
@@ -195,7 +195,7 @@ exports.closeBidding = async (req, res) => {
     const auctionProduct = await AuctionProduct.findById(auctionProductId);
     //   const auctionProductId = req.auction.auctionProducts.find(product => product._id.equals(auctionProductId));
 
-    console.log(auctionProduct)
+    // console.log(auctionProduct)
 
     // Determine the winning bid
     let winningBid = null;

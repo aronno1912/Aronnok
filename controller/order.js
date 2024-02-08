@@ -25,7 +25,7 @@ exports.getOrderById = (req, res, next, id) => {
 };
 
 // create the order, just a noob version of the order, u have to update it later with proper addr and everything
-exports.createOrder = async (req, res) => {
+exports.createOrder = async (req, res, next) => {
   try {
     // console.log("hi1");
     const userId = req.params.userId;
@@ -53,10 +53,12 @@ exports.createOrder = async (req, res) => {
       paidBy:"Cash on delivery",
       // address:
     });
+    req.order=order;
     // console.log("order")
     // console.log(order);
     await order.save();
-    res.status(201).json({ message: 'Order created successfully!' });
+    // res.status(201).json({ message: 'Order created successfully!' });
+    next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -72,7 +72,7 @@ const uploadToGoogleDrive = async (file, auth) => {
 
 const deleteFile = (filePath) => {
   fs.unlink(filePath, () => {
-    console.log("file deleted");
+    // console.log("file deleted");
   });
 };
 
@@ -99,19 +99,19 @@ exports.getProductById = (req, res, next, id) => {
 };
 exports.imageHelper = multer.single("file"), async (req, res, next) => {
   try {
-    console.log("nope");
+    // console.log("nope");
     if (!req.file) {
       res.status(400).send("No file uploaded.");
       return;
     }
-    console.log("atleast");
+    // console.log("atleast");
     const auth = authenticateGoogle();
     const response = await uploadToGoogleDrive(req.file, auth);
     // deleteFile(req.file.path);
     res.status(200).json({ response });
   } catch (err) {
     console.log(err);
-}
+  }
 };
 // create product
 exports.addPlant = async (req, res, next) => {
@@ -142,11 +142,11 @@ exports.addPlant = async (req, res, next) => {
     }
     let plant = new Product(req.body);
     const catg = await Category.findOne({ "name": req.body.category });
-    console.log("vallage na")
-    console.log(plant);
+    // console.log("vallage na")
+    // console.log(plant);
     plant.category = catg._id;
     plant.photo = '/default.png';
-    
+
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
   }
@@ -244,7 +244,6 @@ exports.getAllProducts = (req, res) => {
 
 
 exports.getNewArrivals = (req, res) => {
-  console.log();
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
   let sortBy = req.query.sort ? req.query.sort : "_id";
   Product.find()
@@ -281,43 +280,51 @@ exports.getNewArrivals = (req, res) => {
 // };
 
 // update stock middleware
-exports.updateStock = (req, res, next) => {
-  // console.log("hi2");
-  let myOperations = req.body.products.map((prod) => {
-    // console.log(prod.quantity);
-    return {
-      updateOne: {
-        filter: { product: prod._id },
-        update: {
-          $inc: { stock: -prod.quantity, sold: +prod.quantity }, $max: {
-            stock: 0, // Ensures stock doesn't go below 0
+exports.updateStock = async (req, res, next) => {
+  try {
+    let myOperations = req.body.products.map((prod) => {
+      return {
+        updateOne: {
+          filter: { product: prod._id },
+          update: {
+            $inc: { stock: -prod.quantity, sold: +prod.quantity }
           },
         },
-      },
-    };
-  });
-
-  Product.bulkWrite(myOperations, {})
-    .then(() => {
-      // Check if there are products with stock greater than 0
-      const hasStock = req.body.products.some((prod) => prod.quantity > 0);
-
-      // Call next only if there are products with stock greater than 0
-      if (hasStock) {
-        next();
-      } else {
-        return res.status(400).json({
-          error: "All products are out of stock",
-        });
-      }
-    })
-    .catch((err) => {
-      // Handle the error
-      return res.status(400).json({
-        error: "Bulk operation failed",
-      });
+      };
     });
+
+    // Execute the bulk write operation
+    await Product.bulkWrite(myOperations, {});
+
+    // Fetch the updated products from the database
+    const updatedProducts = await Product.find({ _id: { $in: req.body.products.map(prod => prod._id) } });
+
+    // Check if any product has negative stock
+    const hasNegativeStock = updatedProducts.some(product => product.stock < 0);
+    if (hasNegativeStock) {
+      // Restore products with negative stock to their original values
+      await Promise.all(updatedProducts.map(async (product) => {
+        if (product.stock < 0) {
+          // Restore the stock to its original value
+          await Product.findByIdAndUpdate(product._id, { stock: product.stock + product.quantity });
+        }
+      }));
+
+      return res.status(400).json({
+        error: "Stock cannot be negative",
+      });
+    } else {
+      // Proceed to the next middleware
+      next();
+    }
+  } catch (err) {
+    // Handle the error
+    return res.status(400).json({
+      error: "Bulk operation failed",
+    });
+  }
 };
+
 
 exports.search = async (req, res, next) => {
   try {
