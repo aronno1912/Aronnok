@@ -1,7 +1,7 @@
 const { Auction, AuctionProduct } = require('../models/auction');
 const User = require("../models/user");
 const { validationResult } = require('express-validator');
-
+const moment = require('moment');
 // Create a new auction
 exports.createAuction = async (req, res, next) => {
   const errors = validationResult(req);
@@ -316,6 +316,26 @@ exports.addProductToAuctionById = async (req, res) => {
     auction.auctionProducts.push(req.params.productId);
     await auction.save();
     res.status(201).json({ message: 'Product added to auction successfully!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.remainingTime = async (req, res) => {
+  try {
+    let auction=req.auction;
+    const currentTime = moment(); // Current time
+    const endTime = moment(auction.endTime); // End time of the auction
+
+    // Calculate the time difference
+    const duration = moment.duration(endTime.diff(currentTime));
+
+    // Get remaining time in hours, minutes, and seconds
+    const hours = Math.floor(duration.asHours());
+    const minutes = Math.floor(duration.minutes());
+    const seconds = Math.floor(duration.seconds());
+    res.status(201).json({ "hour":`${hours}`,"min":`${minutes}`,"sec": `${seconds}`});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

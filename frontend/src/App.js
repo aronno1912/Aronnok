@@ -58,7 +58,7 @@ function App() {
         <Route path='/admin/orderlist/order-details/:orderId' element={<OrderDetailsAdmin/>}/>
         <Route path='/admin/allproducts' element={<AdminAllProductPage/>}/>
         <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
-
+        
       </Routes>
       </BrowserRouter>
     </div>
