@@ -32,15 +32,15 @@ const AdminNewProductAdd = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProductInfo((prevInfo) => ({
-        ...prevInfo,
-        photo: file,
-        photoName: file.name,
-      }));
+    setProductInfo((prevInfo) => ({
+    ...prevInfo,
+    photo: file,
+    photoName: file.name,
+    }));
     }
     // const photo = {
-    //   preview: URL.createObjectURL(e.target.files[0]),
-    //   data: e.target.files[0],
+      //   preview: URL.createObjectURL(e.target.files[0]),
+      //   data: e.target.files[0],
     // };
     // setFile(photo);
   };
@@ -75,15 +75,15 @@ const AdminNewProductAdd = () => {
       //   console.log(pair[0], pair[1]);
       // }
       await axios.post('http://localhost:8000/api/product/create/65a294c44865e9f4138c7281', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      headers: {
+      'Content-Type': 'multipart/form-data',
+      },
       });
-    //   const response = await fetch("http://localhost:8000/api/product/create/65a294c44865e9f4138c7281", {
-    //   method: "POST",
-    //   body: formData,
+        //   const response = await fetch("http://localhost:8000/api/product/create/65a294c44865e9f4138c7281", {
+        //   method: "POST",
+        //   body: formData,
     // });
-    //   console.log("mor")
+      //   console.log("mor")
       alert('New product added successfully!');
       setProductInfo({
         name: '',
@@ -96,9 +96,9 @@ const AdminNewProductAdd = () => {
         photo: null,
         photoName: '',
       });
-    //   const responseWithBody = await response.json();
+      //   const responseWithBody = await response.json();
     // if (response){ setUrl(responseWithBody.publicUrl);
-    //   console.log("ekhaneo")
+      //   console.log("ekhaneo")
     // }
     
     } catch (error) {
