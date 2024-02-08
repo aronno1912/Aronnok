@@ -7,6 +7,8 @@ import './AdminNewProductAdd.css';
 import axios from 'axios';
 
 const AdminNewProductAdd = () => {
+  // const [url, setUrl] = useState("");
+  // const [photo, setFile] = useState (null);
   const [productInfo, setProductInfo] = useState({
     name: '',
     description: '',
@@ -29,26 +31,45 @@ const AdminNewProductAdd = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    // const fileName = `${Date.now()}_${file.name}`;
-    setProductInfo((prevInfo) => ({
-      ...prevInfo,
-      photo: file,
-      photoName: file.name,
-    }));
+    if (file) {
+      setProductInfo((prevInfo) => ({
+        ...prevInfo,
+        photo: file,
+        photoName: file.name,
+      }));
+    }
+    // const photo = {
+    //   preview: URL.createObjectURL(e.target.files[0]),
+    //   data: e.target.files[0],
+    // };
+    // setFile(photo);
   };
 
   const handleSubmit = async (e) => {
+    // e.preventDefault();
+    // let formData = new FormData();
+    // formData.append("photo", photo.data);
+    // const response = await fetch("http://localhost:5001/upload-to-google-drive", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // const responseWithBody = await response.json();
+    // if (response) setUrl(responseWithBody.publicUrl);
+
     e.preventDefault();
-    // console.log(e)
+    console.log("e:")
+    console.log(e)
     try {
       const formData = new FormData();
       // const file = e.target.files[0];
+      // console.log("file: "+file)
       for (const key in productInfo) {
         formData.append(key, productInfo[key]);
       }
-      // formData.append('file', file);
+      // formData.append('photo', photo);
 
-      // console.log(formData)
+      console.log(formData)
       // // Iterate over FormData entries and log key-value pairs
       // for (const pair of formData.entries()) {
       //   console.log(pair[0], pair[1]);
@@ -58,7 +79,11 @@ const AdminNewProductAdd = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+    //   const response = await fetch("http://localhost:8000/api/product/create/65a294c44865e9f4138c7281", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+    //   console.log("mor")
       alert('New product added successfully!');
       setProductInfo({
         name: '',
@@ -71,6 +96,11 @@ const AdminNewProductAdd = () => {
         photo: null,
         photoName: '',
       });
+    //   const responseWithBody = await response.json();
+    // if (response){ setUrl(responseWithBody.publicUrl);
+    //   console.log("ekhaneo")
+    // }
+    
     } catch (error) {
       console.error('Error adding product:', error);
     }
