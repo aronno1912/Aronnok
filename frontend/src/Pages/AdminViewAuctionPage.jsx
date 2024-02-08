@@ -78,6 +78,7 @@ const AdminViewAuctionPage = () => {
         date={item.date}
         status={item.status}
         photo={"/auction_photo.jpg"}
+        
       />
     ))
   )}
@@ -88,7 +89,7 @@ const AdminViewAuctionPage = () => {
         
             <div className= 'atr-auctions'>
             {upcoming.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
+                return <PastAuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"} />
             })}
             </div>
         </div>
@@ -97,7 +98,7 @@ const AdminViewAuctionPage = () => {
         
             <div className= 'atr-auctions'>
             {completed.map((item,i)=>{
-                return <PastAuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
+                return <PastAuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"} />
             })}
             </div>
         </div>

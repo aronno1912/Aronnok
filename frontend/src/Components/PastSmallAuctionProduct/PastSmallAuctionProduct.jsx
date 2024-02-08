@@ -78,7 +78,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './PastSmallAuctionProduct.css';
 
-const PastSmallAuctionProduct = ({ productName, highestBid, userWhoBid, productPhoto }) => {
+const PastSmallAuctionProduct = ({ productName, highestBid, userWhoBid, productPhoto,catagory }) => {
+  console.log(catagory);
   return (
     <div className="past-auction-product-card">
       <div className="product-image">
@@ -86,8 +87,13 @@ const PastSmallAuctionProduct = ({ productName, highestBid, userWhoBid, productP
       </div>
       <div className="product-details">
         <h3>{productName}</h3>
-        <p>Highest Bid: ${highestBid}</p>
-        <p>User: {userWhoBid}</p>
+        {catagory === "completed" ? (
+    <p>Highest Bid: ${highestBid}</p>
+        ) : catagory === "upcoming" ? (
+    <p>Starting Bid: ${highestBid}</p>
+        ) : null}
+       
+        <p>{catagory === "completed" && `User: ${userWhoBid}`}</p>
       </div>
     </div>
   );
@@ -98,6 +104,7 @@ PastSmallAuctionProduct.propTypes = {
   highestBid: PropTypes.number.isRequired,
   userWhoBid: PropTypes.string.isRequired,
   productPhoto: PropTypes.string.isRequired,
+  catagory: PropTypes.string.isRequired,
 };
 
 export default PastSmallAuctionProduct;

@@ -29,6 +29,7 @@ import OneAuction from './Pages/OneAuction';
 import AdminViewAuctionPage from './Pages/AdminViewAuctionPage';
 
 import AdAuctionProductList from './Components/AdAuctionProductList/AdAuctionProductList';
+import PastAuctionsPage from './Pages/PastAuctionspage';
 
 
 
@@ -64,7 +65,7 @@ function App() {
         <Route path='/admin/allproducts/addplant' element={<AdminAddProductPage/>}/>
 
         <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
-        <Route path='/admin/viewauctions/:auctionId' element={<AdAuctionProductList/>}/>
+        <Route path='/admin/viewauctions/:catagory/:auctionId' element={<PastAuctionsPage/>}/>
 
 
       </Routes>
