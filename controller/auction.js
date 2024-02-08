@@ -1,4 +1,5 @@
 const { Auction, AuctionProduct } = require('../models/auction');
+const User = require("../models/user");
 const { validationResult } = require('express-validator');
 
 // Create a new auction
@@ -7,7 +8,7 @@ exports.createAuction = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
   }
- 
+
   try {
     const { date, startTime, endTime, plants } = req.body;
     const auctionProducts = plants;
@@ -17,12 +18,12 @@ exports.createAuction = async (req, res, next) => {
       endTime,
       auctionProducts,
     });
- 
+
     await newAuction.save();
     // Use findOne to retrieve a single document
     const auction = await Auction.findOne({ _id: newAuction._id });
     if (auction) {
-      res.json({"id":auction._id});
+      res.json({ "id": auction._id });
       // pass control to the next middleware or route handler in the sequence
       next();
     } else {
@@ -87,13 +88,32 @@ exports.getAllAuctions = async (req, res) => {
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {
   try {
-
-    res.status(200).json(req.auction.auctionProducts);
+    const auction = req.auction;
+    const auctionProducts = await Promise.all(auction.auctionProducts.map(async (item) => {
+      const productDetails = await AuctionProduct.findById(item);
+      if (productDetails) {
+        let highestBidder = null;
+        if (productDetails.highestBidder) {
+          const user = await User.findById(productDetails.highestBidder);
+          if (user) {
+            highestBidder = user.username;
+          }
+        }
+        return {
+          ...productDetails.toObject(),
+          highestBidder: highestBidder,
+        };
+      } else {
+        console.log('Product details not found for ID:', item);
+      }
+    }));
+    res.status(200).json(auctionProducts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 // Add a product to a specific auction
 exports.addProductToAuction = async (req, res) => {
@@ -105,7 +125,7 @@ exports.addProductToAuction = async (req, res) => {
   try {
     console.log(req.body)
     const { name, description, photoName, startingBid } = req.body;
-    const currentBid=startingBid;
+    const currentBid = startingBid;
     const photo = "/" + photoName;
     console.log(photo)
     const auctionProduct = new AuctionProduct({
@@ -247,6 +267,57 @@ exports.getFutureAuctions = async (req, res) => {
       .exec();
     res.json(futureAuctions);
   } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getTopSellingProductsInAnAuction = async (req, res) => {
+  try {
+    const auction = req.auction;
+    const auctionProducts = await Promise.all(auction.auctionProducts.map(async (item) => {
+      const productDetails = await AuctionProduct.findById(item);
+      if (productDetails) {
+        let highestBidder = null;
+        if (productDetails.highestBidder) {
+          const user = await User.findById(productDetails.highestBidder);
+          if (user) {
+            highestBidder = user.username;
+          }
+        }
+        return {
+          ...productDetails.toObject(),
+          highestBidder: highestBidder,
+        };
+      } else {
+        console.log('Product details not found for ID:', item);
+      }
+    }));
+    // Sort the auctionProducts array based on bid amount
+    auctionProducts.sort((a, b) => b.currentBid - a.currentBid);
+
+    // Select the top 3 products
+    const top3Products = auctionProducts.slice(0, 3);
+
+    res.status(200).json(top3Products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.addProductToAuctionById = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try {
+    let auction=req.auction;
+    auction.auctionProducts.push(req.params.productId);
+    await auction.save();
+    res.status(201).json({ message: 'Product added to auction successfully!' });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

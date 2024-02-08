@@ -1,5 +1,7 @@
 //works
-// const { google } = require('googleapis');
+const { google } = require('googleapis');
+const apikeys = require('../aronnok-66e5b11f8e7a.json');
+const SCOPE = ['https://www.googleapis.com/auth/drive'];
 
 const Product = require("../models/product");
 const Category = require("../models/category");
@@ -17,6 +19,46 @@ const { check, validationResult } = require("express-validator");
 //   version: 'v3',
 //   auth: 'AIzaSyBxtC3FcwMHmGDtNltzL6s1Kq9x2VWlvhs',
 // });
+
+// A Function that can provide access to google drive api
+async function authorize() {
+  const jwtClient = new google.auth.JWT(
+    apikeys.client_email,
+    null,
+    apikeys.private_key,
+    SCOPE
+  );
+  await jwtClient.authorize();
+  return jwtClient;
+}
+// A Function that will upload the desired file to google drive folder
+async function uploadFile(authClient, uploadedFile, fileName) {
+  return new Promise((resolve, reject) => {
+    const drive = google.drive({ version: 'v3', auth: authClient });
+
+    var fileMetaData = {
+      name: fileName,
+      parents: ['1bZoTbqCew34MGr1DfgczcA40ECM_QhKg'], // A folder ID to which file will get uploaded
+    };
+
+    drive.files.create(
+      {
+        resource: fileMetaData,
+        media: {
+          body: fs.createReadStream(uploadedFile.path), // files that will get uploaded
+          mimeType: 'image/jpeg', // Modify the MIME type based on your file type
+        },
+        fields: 'id',
+      },
+      function (error, file) {
+        if (error) {
+          return reject(error);
+        }
+        resolve(file);
+      }
+    );
+  });
+}
 
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id)
@@ -40,53 +82,57 @@ exports.getProductById = (req, res, next, id) => {
     });
 };
 exports.imageHelper = async (req, res, next) => {
-  // console.log("jebal")
-  // Read the image file
-  const imagePath = './public/client/assets/jungleplant2-drc.png';  // Replace with the actual path to your image file
-  const imageData = fs.readFileSync(imagePath);
+  console.log("jebal")
+  // // Read the image file
+  // const imagePath = './public/client/assets/jungleplant2-drc.png';  // Replace with the actual path to your image file
+  // const imageData = fs.readFileSync(imagePath);
 
-  // Convert the image data to Base64 encoding
-  const base64Image = imageData.toString('base64');
+  // // Convert the image data to Base64 encoding
+  // const base64Image = imageData.toString('base64');
 
-  req.imageData = base64Image;
-  next();
-  // console.log("did it");
+  // req.imageData = base64Image;
+  // next();
+  // // console.log("did it");
 
-  // try {
-  //   console.log("ekhane")
-  //   // Check if there is a file in the request
-  //   if (!req.files.photo || Object.keys(req.files.photo).length === 0) {
-  //     console.log('No file uploaded')
-  //     return res.status(400).json({ error: 'No file uploaded' });
-  //   }
-  //   console.log("ashchi")
-  //   // Process the uploaded image
-  //   const uploadedFile = req.files.photo; // Adjust 'image' based on your form field
-  //   const fileName = req.body.photoName; // Adjust the filename as needed
-  //   console.log(fileName);
-  //   // Upload image to Google Drive
-  //   const response = await drive.files.create({
-  //     requestBody: {
-  //       name: fileName,
-  //       parents: ['1-0Nb190JiaLrAejsFBYwqvMrNHe_dSLJ?usp=drive_link'], // Specify the folder ID
-  //     },
-  //     media: {
-  //       mimeType: uploadedFile.mimetype,
-  //       body: fs.createReadStream(uploadedFile.data), // Create a readable stream from the file data
-  //     },
-  //   });
+  try {
+      console.log("ki hocche: "+req.body)
+    //   // Check if there is a file in the request
+    if (!req.body.photo || !req.files.photo || Object.keys(req.files.photo).length === 0) {
+      console.log('No file uploaded');
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    //   console.log("ashchi")
+    //   // Process the uploaded image
+    const uploadedFile = req.files.photo; // Adjust 'image' based on your form field
+    const fileName = req.body.photoName; // Adjust the filename as needed
+    //   console.log(fileName);
+    //   // Upload image to Google Drive
+    //   const response = await drive.files.create({
+    //     requestBody: {
+    //       name: fileName,
+    //       parents: ['1-0Nb190JiaLrAejsFBYwqvMrNHe_dSLJ?usp=drive_link'], // Specify the folder ID
+    //     },
+    //     media: {
+    //       mimeType: uploadedFile.mimetype,
+    //       body: fs.createReadStream(uploadedFile.data), // Create a readable stream from the file data
+    //     },
+    //   });
+    const authClient = await authorize();
+    await uploadFile(authClient, uploadedFile, fileName);
+    next();
+    //   // Log success, store metadata in your database, etc.
 
-  //   // Log success, store metadata in your database, etc.
+    res.status(200).json({ message: 'Image uploaded successfully' });
+    //   next();
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 
-  //   res.status(200).json({ message: 'Image uploaded successfully' });
-  //   next();
-  // } catch (error) {
-  //   console.error('Error uploading image:', error);
-  //   res.status(500).json({ error: 'Internal Server Error' });
-  // }
 };
 // create product
 exports.addPlant = async (req, res, next) => {
+  // console.log(req.body)
   const errors = validationResult(req);
   // console.log("hi");
   if (!errors.isEmpty()) {
@@ -113,10 +159,13 @@ exports.addPlant = async (req, res, next) => {
     }
     let plant = new Product(req.body);
     const catg = await Category.findOne({ "name": req.body.category });
-
+    console.log("vallage na")
+    console.log(plant);
     plant.category = catg._id;
+    // plant.stock=stock;
+    // plant.
     plant.photo = '/default.png';
-    // console.log(plant);
+    
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
   }
