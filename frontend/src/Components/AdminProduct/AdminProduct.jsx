@@ -38,14 +38,20 @@ const AdminProduct = (prod) => {
         <div className="product-description">
             <p>{prod.description}</p>
         </div>
-        <div className="star-img">
-            {ratingStars()}
-        </div>
-        <p className='product-price'><b>${prod.price}</b></p>
-        <p classname='sold'>Sold: {prod.sold}</p>
-        <p classname='stock'>Stock: {prod.stock}</p>
-        <div className="product-footer">    
+
+        <div className="adminproduct-footer">    
+          <div className="adminproduct-left">
+            <div className="star-img">
+                {ratingStars()}
+            </div>
+            <p className='product-price'><b>${prod.price}</b></p>
           </div>
+          <div className="adminproduct-right">
+            <p classname='sold'><b>Sold: {prod.sold}</b></p>
+            <p classname='stock'><b>Stock: {prod.stock}</b></p>
+          </div> 
+          
+        </div>
         </div>
       </div>
     </div>

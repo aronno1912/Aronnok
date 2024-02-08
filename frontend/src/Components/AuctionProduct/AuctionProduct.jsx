@@ -1,8 +1,9 @@
 import React from 'react'
 import "./AuctionProduct.css"
+import { Link } from 'react-router-dom'
 
-const AuctionProduct = () => {
-    
+const AuctionProduct = (prod) => {
+
   return (
     <div>
        <Link to={`/product/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
@@ -16,7 +17,8 @@ const AuctionProduct = () => {
             <div className="product-description">
                 <p>{prod.description}</p>
             </div>
-            <p className='product-price'><b>${prod.price}</b></p>
+            <p className='product-price'><b>Current Bid: ${prod.currentBid}</b></p>
+            <p className='product-price'><b>Highest Bidder: {prod.highestBidder}</b></p>
             <div className="product-footer">
             <button className="buy-btn">Bid</button>    
             </div>
