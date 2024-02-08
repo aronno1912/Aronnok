@@ -4,11 +4,16 @@
     flex: 0 0 auto;
     flex-direction: column;
     width:270px;
-    height: 350px;
+    height: 420px;
 }
 
 .plant-details{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    height: ;
+    gap: 2px;
     background: linear-gradient(0deg, rgb(222, 223, 222),rgb(255, 255, 255) 40%)
 }
 .product-container img{
@@ -30,18 +35,14 @@
 }
 
 .product-price{
-    margin-top: 0px;
+    margin-top: 1px;
 }
 
-.product-footer{
+.adminproduct-footer{
     display: flex;
-    position:absolute;
-    bottom: 0;
-    right: 0;
-    height: 30px;
-    width: 100px;
-    justify-content: space-around;
-    gap: 10px;
+    flex-direction: row;
+   justify-content: space-between;
+   margin-top:2px ;
 }
 .buy-btn{
 
@@ -52,9 +53,6 @@
 }
 
 
-
-
-
 .star-img{
     display: flex;
     margin-top: 15px;
@@ -63,3 +61,7 @@
     background-color: inherit;
 }
 
+.adminproduct-right{
+    margin-right: 10px;
+    text-align: right;
+}

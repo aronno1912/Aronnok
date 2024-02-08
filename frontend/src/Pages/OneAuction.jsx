@@ -4,12 +4,14 @@ import Navbar from '../Components/Navbar/Navbar';
 import '../Context/OneAuction.css';
 import Product from '../Components/Product/Product';
 import CountdownTimer from '../Components/CountdownTimer/CountdownTimer';
+import AuctionProduct from '../Components/AuctionProduct/AuctionProduct';
 
 const OneAuction = () => {
   const {userId,auctionId}=useParams();
 
   const [auction,setAuction]=useState({});
   const [products,setProducts]=useState([]);
+  const [topProducts,setTopProducts]=useState([]);
   const [date, setDate] = useState("");
   const [start,setStart] = useState(new Date());
   const [end,setEnd] = useState(new Date());
@@ -33,6 +35,18 @@ const OneAuction = () => {
           const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/products`);
           const data = await response.json();
           setProducts(data);
+          console.log(products);
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+       }
+
+       const fetchTopProducts = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/top`);
+          const data = await response.json();
+          setTopProducts(data);
+          console.log(products);
         } catch (error) {
           console.error('Error fetching product data:', error);
         }
@@ -40,7 +54,9 @@ const OneAuction = () => {
 
      fetchOrder();
      fetchProducts();
-  }, [auction,products]);
+     fetchTopProducts();
+
+  }, []);
 
   const handleTimerEnd = () => {
     console.log('Timer ended!'); // You can perform any action when the timer reaches 0
@@ -66,8 +82,8 @@ const OneAuction = () => {
       <div className='trending'>
       <h1>Highest bid products</h1>
       <div className= 'tr-products'>
-        {products.map((item,i)=>{
-             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+        {topProducts.map((item,i)=>{
+             return <AuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid}/>
         })}
       </div>
       </div>
@@ -76,7 +92,7 @@ const OneAuction = () => {
       <h1>All Products</h1>
       <div className= 'tr-products'>
         {products.map((item,i)=>{
-             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+             return <AuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid}/>
         })}
       </div>
       </div>
