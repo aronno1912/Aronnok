@@ -123,11 +123,13 @@ exports.addProductToAuction = async (req, res) => {
   }
 
   try {
-    console.log(req.body)
-    const { name, description, photoName, startingBid } = req.body;
-    const currentBid = startingBid;
+    // console.log(req.body)
+    const { name, description, photoName, initialbid } = req.body;
+    console.log(initialbid)
+    const currentBid = initialbid;
+    console.log(currentBid)
     const photo = "/" + photoName;
-    console.log(photo)
+    // console.log(photo)
     const auctionProduct = new AuctionProduct({
       name,
       description,
@@ -136,7 +138,7 @@ exports.addProductToAuction = async (req, res) => {
     });
 
     await auctionProduct.save();
-
+    console.log(auctionProduct)
     req.auction.auctionProducts.push(auctionProduct._id);
     await req.auction.save();
 
