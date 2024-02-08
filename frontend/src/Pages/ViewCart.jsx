@@ -6,7 +6,7 @@ import { CartContext } from '../Context/CartContext';
 import axios, { all } from 'axios';
 import { ProjectContext } from '../Context/ProjectContext';
 import Navbar from '../Components/Navbar/Navbar';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../Components/Footer/Footer';
 
 const ViewCart = (prod) => {
@@ -40,9 +40,15 @@ const ViewCart = (prod) => {
   const placeOrder = async () => {
     try {
       console.log(address);
-      await axios.put(`http://localhost:8000/api/cart/buynow/659c027001b07da1b7fef185`, {"address":address});
+      const response=await axios.put(`http://localhost:8000/api/cart/buynow/659c027001b07da1b7fef185`, {"address":address});
+      console.log("response")
+      console.log(response.data.url);
+      const textUrl=response.data.url;
+      
       console.log('product added to cart');
       alert('Your Order is placed successfully!');
+      // windows.location.replace(response.data.url)
+      window.location.href = textUrl;
     } catch (error) {
       console.error('Error adding', error);
     }

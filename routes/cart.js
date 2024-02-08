@@ -15,6 +15,7 @@ const {
     createOrder
 } = require("../controller/order");
 const { isSignedIn, isAuthenticated } = require("../controller/auth");
+const { payment } = require("../controller/payment");
 router.param("userId", getCartById);
 router.post('/cart/add/:userId/:productId',
     // isSignedIn, 
@@ -34,9 +35,11 @@ router.delete('/cart/clear/:userId',
 );
 router.put('/cart/buynow/:userId',
     // isSignedIn,
-    updateStock,
+    
     buyNow,
+    updateStock,
     createOrder,
+    payment,
 );
 router.get('/cart/getQuantity/:userId/:productId',
     // isSignedIn, 

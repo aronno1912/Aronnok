@@ -130,7 +130,7 @@ exports.updateCartItem = async (req, res) => {
         if (quantity !== undefined) {
             
             const temp = cartItem.quantity;
-            console.log(" from : ",temp);
+            // console.log(" from : ",temp);
             cartItem.quantity = quantity;
             // if (cartItem.selected === true) {
                 req.cart.total = req.cart.total + product.price * (quantity - temp);

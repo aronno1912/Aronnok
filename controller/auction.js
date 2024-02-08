@@ -197,7 +197,7 @@ exports.closeBidding = async (req, res) => {
     const auctionProduct = await AuctionProduct.findById(auctionProductId);
     //   const auctionProductId = req.auction.auctionProducts.find(product => product._id.equals(auctionProductId));
 
-    console.log(auctionProduct)
+    // console.log(auctionProduct)
 
     // Determine the winning bid
     let winningBid = null;
