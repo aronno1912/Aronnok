@@ -60,13 +60,21 @@ const Cover = ({userId}) => {
           </div>
       </div>
       <div className='cover'>
-          <img src="/cover2.png" alt="" />
+          <img src="/a2.jpg" alt="" />
           
           <div className="cover-text">
               <p>Check our auction</p>
-              <Link to={`/auctionsall/${userId}`}> <button>check them out</button> </Link>
+              <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
           </div>
+
+          
       </div>  
+      <div className='cover'>
+          <img src="/cov3.jpg" alt="" />
+       </div>
+       <div className='cover'>
+          <img src="/cov4.jpg" alt="" />
+       </div>
     </Slider>
    
   )
