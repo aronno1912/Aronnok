@@ -519,3 +519,32 @@ exports.getIndividualRequest = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+exports.getProductsByHighestBidder = async (req, res) => {
+  const userId = req.params.userId;
+  const auction = req.auction;
+  
+  try {
+    // Find products in an auction where the user is the highest bidder
+    const highBidProducts = await Promise.all(auction.auctionProducts.map(async (productId) => {
+      const productDetails = await AuctionProduct.findById(productId);
+      
+      if (productDetails) {
+        // Check if the user is the highest bidder for this product
+        if (productDetails.highestBidder.toString() === userId) {
+          return {
+            ...productDetails.toObject(),
+          };
+        }
+      }
+    }));
+
+    // Filter out undefined values
+    const filteredProducts = highBidProducts.filter(product => product);
+
+    res.status(200).json(filteredProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Navbar from '../Components/Navbar/Navbar';
 import '../Context/OneAuction.css';
 import Product from '../Components/Product/Product';
@@ -17,6 +17,7 @@ const OneAuction = () => {
   const [start,setStart] = useState(new Date());
   const [end,setEnd] = useState(new Date());
   const [remainingTime,setRtime]=useState(2100);
+  const [isOver,setOver]=useState(false);
   
   
   useEffect(() => {
@@ -90,9 +91,13 @@ const OneAuction = () => {
             <p><b>Date: {date}</b></p>
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
-          <div className="oneauction-timeremaining">
+          {!isOver &&( <div className="oneauction-timeremaining">
             <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p>
-          </div>
+          </div>)}
+          {isOver &&( <div className="oneauction-timeremaining">
+            <Link to={`/auction/payProducts/${userId}/${auctionId}`}><button>Pay for your products</button></Link>
+          </div>)}
+         
           <div className="oneauction-totalsold">
           <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>  
