@@ -32,6 +32,8 @@ import AdminViewAuctionPage from './Pages/AdminViewAuctionPage';
 
 import AdAuctionProductList from './Components/AdAuctionProductList/AdAuctionProductList';
 import PastAuctionsPage from './Pages/PastAuctionspage';
+import OngoingAucAdmin from './Pages/OngoingAucadmin';
+import AdAuctionProductBids from './Pages/AdAuctionProductBids';
 
 
 function App() {
@@ -67,6 +69,8 @@ function App() {
        
         <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
         <Route path='/admin/viewauctions/:catagory/:auctionId' element={<PastAuctionsPage/>}/>
+        <Route path='/admin/viewauctions/ongoing/:auctionId' element={<OngoingAucAdmin/>}/>
+        <Route path='/admin/viewauctions/a' element={<AdAuctionProductBids/>}/>
       </Routes>
       </BrowserRouter>
     </div>

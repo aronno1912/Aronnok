@@ -105,7 +105,7 @@ exports.getAuctionProducts = async (req, res) => {
           const bidPlacerDetails = await User.findById(bid.bidder);
           if (bidPlacerDetails) {
             bidderName = bidPlacerDetails.username;
-            
+
             return {
               ...bid.toObject(),
               bidderName: bidderName,
@@ -128,7 +128,6 @@ exports.getAuctionProducts = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 // Add a product to a specific auction
 exports.addProductToAuction = async (req, res) => {

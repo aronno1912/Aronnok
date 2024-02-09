@@ -68,7 +68,7 @@ const AdminViewAuctionPage = () => {
     <p className='no-auctions-message'>No ongoing auctions</p>
   ) : (
     ongoing.map((item, i) => (
-      <AuctionSmall
+      <PastAuctionSmall
         key={i}
         id={item._id}
         userId={userId}
