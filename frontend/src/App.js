@@ -57,6 +57,7 @@ function App() {
         <Route path='/orderstatus/:orderId' element={<OrderStatus/>}/>
         <Route path='/auctionsall/:userId' element={<AuctionsAll/>}/>
         <Route path='/auctionsall/:userId/:auctionId' element={<OneAuction/>}/>
+        
 
 
 
