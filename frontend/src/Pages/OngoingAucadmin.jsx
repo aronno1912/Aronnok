@@ -83,7 +83,7 @@ const OngoingAucAdmin = () => {
       <h1>Highest bid products</h1>
       <div className= 'tr-products'>
         {topProducts.map((item,i)=>{
-             return <AdAuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid}/>
+             return <AdAuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid} auctionId={auctionId}/>
         })}
       </div>
       </div>
@@ -92,7 +92,7 @@ const OngoingAucAdmin = () => {
       <h1>All Products</h1>
       <div className= 'tr-products'>
         {products.map((item,i)=>{
-             return <AdAuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid}/>
+             return <AdAuctionProduct label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} highestBidder={item.highestBidder} currentBid={item.currentBid} auctionId={auctionId}/>
         })}
       </div>
       </div>

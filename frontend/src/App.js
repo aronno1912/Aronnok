@@ -70,7 +70,7 @@ function App() {
         <Route path='/admin/viewauctions' element={<AdminViewAuctionPage/>}/>
         <Route path='/admin/viewauctions/:catagory/:auctionId' element={<PastAuctionsPage/>}/>
         <Route path='/admin/viewauctions/ongoing/:auctionId' element={<OngoingAucAdmin/>}/>
-        <Route path='/admin/viewauctions/a' element={<AdAuctionProductBids/>}/>
+        <Route path='/auction/:auctionId/:productId/bids' element={<AdAuctionProductBids/>}/>
       </Routes>
       </BrowserRouter>
     </div>
