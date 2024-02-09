@@ -105,7 +105,7 @@ exports.getAuctionProducts = async (req, res) => {
           const bidPlacerDetails = await User.findById(bid.bidder);
           if (bidPlacerDetails) {
             bidderName = bidPlacerDetails.username;
-           
+
             return {
               ...bid.toObject(),
               bidderName: bidderName,
@@ -356,4 +356,29 @@ exports.remainingTime = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+
+exports.getIndividualProductInOneAuction = async (req, res) => {
+  try {
+    const auction = req.auction;
+    const productDetails = await AuctionProduct.findById(req.params.productId).lean(); // Convert to plain JavaScript object
+    const bids = await Promise.all(productDetails.bids.map(async (bid) => {
+      const bidderDetails = await User.findById(bid.bidder);
+      if (bidderDetails) {
+        bid.bidderName = bidderDetails.username; // Add bidderName field to each bid
+      } else {
+        console.log('Bidder details not found for ID:', bid.bidder);
+      }
+      return bid;
+    }));
+    bids.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    // Update productDetails with the bids array including bidderName
+    productDetails.bids = bids;
+  
+    res.status(200).json(productDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
 };
