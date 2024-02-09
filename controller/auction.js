@@ -240,7 +240,7 @@ exports.closeBidding = async (req, res,next) => {
         { new: true }
       );
       // res.status(200).json(auctionProduct);
-      req.body=auctionProduct;
+      // req.body=auctionProduct;
       next();
       // res.status(200).json({ message: 'Bidding closed successfully!', updatedAuctionProduct });
     } else {
