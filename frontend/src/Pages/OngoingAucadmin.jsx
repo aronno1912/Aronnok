@@ -15,6 +15,7 @@ const OngoingAucAdmin = () => {
   const [date, setDate] = useState("");
   const [start,setStart] = useState(new Date());
   const [end,setEnd] = useState(new Date());
+  const [remainingTime,setRtime]=useState(2100);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -51,10 +52,21 @@ const OngoingAucAdmin = () => {
           console.error('Error fetching product data:', error);
         }
        }
+       const fetchTime = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/remainingTime`);
+          const data = await response.json();
+          setRtime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+          console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+       }
 
      fetchOrder();
      fetchProducts();
      fetchTopProducts();
+     fetchTime();
 
   }, []);
 
@@ -71,7 +83,7 @@ const OngoingAucAdmin = () => {
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
           <div className="oneauction-timeremaining">
-            <p><b><CountdownTimer initialTime={300} onTimerEnd={handleTimerEnd}/></b></p>
+            <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p>
           </div>
           <div className="oneauction-totalsold">
           <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>

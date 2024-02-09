@@ -33,7 +33,7 @@ const AdminProduct = (prod) => {
     <div className='container'> 
       <img src={prod.photo} alt="" style={{ width: '280px', height: '200px' }} />
 
-      <div className="plant-details">
+      <div className="adplant-details">
         <p className='plant-name'>{prod.name}</p>
         <div className="product-description">
             <p>{prod.description}</p>
