@@ -20,8 +20,10 @@ const {
   sellRequest,
   requestApproval,
   getAllRequestsForIndividualAuction,
+  getIndividualRequest,
 } = require('../controller/auction');
 const { getUserById } = require("../controller/user");
+const { paymentAuction } = require('../controller/payment');
 router.param("userId", getUserById);
 router.param("auctionId", getAuctionById);
 // Define routes for auction functionalities
@@ -35,7 +37,7 @@ router.post('/auction/add-product/:auctionId', [
   // check('photo').not().isEmpty().withMessage('Product photo is required'),
 ], addProductToAuction);
 router.post('/auction/:auctionId/products/:productId/bid', placeBid);
-router.put('/auction/close-bidding/:auctionId/:productId', closeBidding);
+// router.put('/auction/close-bidding/:auctionId/:productId', closeBidding);
 // Get past auctions
 router.get('/auction/past', getPastAuctions);
 
@@ -55,4 +57,8 @@ router.post('/auction/auction-request-approval/:auctionId/:reqId', //userId just
 // isSignedIn,
 requestApproval);
 router.get('/auction/all/:auctionId/auction-request', getAllRequestsForIndividualAuction);
+router.get('/auction/all/:auctionId/:reqId/auction-ind-request', getIndividualRequest);
+router.post('/auction/:auctionId/:productId/payment', 
+closeBidding,
+paymentAuction);
 module.exports = router;
