@@ -12,21 +12,21 @@ const UserNotification = ({userId,onClose}) => {
                 const response = await fetch(`http://localhost:8000/api/notification/${userId}`);
                 const data = await response.json();
                 setNotis(data.messages);
+                console.log(data.messages);
             } catch (error) {
               console.error('Error fetching product data:', error);
             }
           };
     
-         
          const intervalId = setInterval(() => {
             fetchNotification();
-        }, 7000);
-    
-    
+        }, 5000);
+
+        fetchNotification();
         // Clear the interval when the component unmounts
         return () => clearInterval(intervalId);
     
-      }, []);
+      }, [notis]);
   return (
     <div>
         <div className="unot-container">
@@ -34,7 +34,7 @@ const UserNotification = ({userId,onClose}) => {
             <span className="unot-close-btn" onClick={onClose}>&times;</span>
             <div className= 'all-notifications'>
                 {notis.map((item,i)=>{
-                    return <NotificationComp id={item._id} userId={userId} message={item.message} type={item.type} link={item.link} read={item.read} />
+                    return <NotificationComp userId={userId} message={item.message} type={item.type}  read={item.read} />
                 })}
             </div>
       </div>

@@ -1,10 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const NotificationComp = (prod) => {
     const [isAction,setAction]=useState(false);
 
-    const placePay = async () => {
+    useEffect(() => {
+        const fetchData = () => {
+          if(prod.type==="order"){
+           setAction(true);
+          }
+          else
+          setAction(false);
+        };
       
+        fetchData();
+      }, []);
+
+    const openPopup = () => {
+        setAction(true);
+      };
+    
+      const closePopup = () => {
+        setAction(false);
+      };
+    const placePay = async () => {
+       
+       
       };
     
   return (

@@ -1,0 +1,18 @@
+
+.winitems-title{
+    width: 47%;
+}
+.winitems-header{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 700px;
+    justify-content: space-around;
+}
+
+.winitems-header-p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
