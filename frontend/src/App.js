@@ -34,6 +34,8 @@ import AdAuctionProductList from './Components/AdAuctionProductList/AdAuctionPro
 import PastAuctionsPage from './Pages/PastAuctionspage';
 import OngoingAucAdmin from './Pages/OngoingAucadmin';
 import AdAuctionProductBids from './Pages/AdAuctionProductBids';
+import AuctionUpcoming from './Pages/AuctionUpcoming';
+import AuctionPast from './Pages/AuctionPast';
 
 
 function App() {
@@ -55,8 +57,11 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
         <Route path='/orderstatus/:orderId' element={<OrderStatus/>}/>
+        <Route path='/auction/upcoming/:userId/:auctionId' element={<AuctionUpcoming/>}/>
+        <Route path='/auction/ongoing/:userId/:auctionId' element={<OneAuction/>}/>
+        <Route path='/auction/completed/:userId/:auctionId' element={<AuctionPast/>}/>
         <Route path='/auctionsall/:userId' element={<AuctionsAll/>}/>
-        <Route path='/auctionsall/:userId/:auctionId' element={<OneAuction/>}/>
+        
         
 
 

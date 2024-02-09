@@ -47,7 +47,7 @@ const Navbar = ({userId}) => {
         <li onClick={()=>{setMenu("orders")}}><Link to={`/orderlist/${userId}`} style={{textDecoration:'none'}}>Order </Link> {menu==="orders"?<hr/>:<></>}</li>
       </ul>
       <div className="nav-login-cart">
-          <div className="notification-icon">🔔
+          <div className="notification-icon"><button style={{backgroundColor:"white", fontSize:'30px'}} onClick={openPopup}>🔔</button>
             <div className="notification-count">0</div>
           </div>
           

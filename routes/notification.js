@@ -7,7 +7,7 @@ const {
 } = require('../controllers/notification');
 
 // Route for getting all notifications for a user
-router.get('/:userId', getUserNotifications);
+router.get('/notification/:userId', getUserNotifications);
 // router.get('/:userId/getAuctionMsg',getAuctionMessages);
 // Route for marking a notification as read
 router.put('/:notificationId/read', markNotificationAsRead);
