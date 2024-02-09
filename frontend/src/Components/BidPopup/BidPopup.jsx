@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './BidPopup.css';
 import axios from 'axios';
 
-const BidPopup = ({ auctionId, productId, currentBid, onClose, onSubmit, }) => {
+const BidPopup = ({ auctionId, productId, userId, currentBid, onClose, }) => {
   const [inputValue, setInputValue] = useState('');
   const [state,setState] = useState(1);
 
@@ -15,7 +15,8 @@ const BidPopup = ({ auctionId, productId, currentBid, onClose, onSubmit, }) => {
     if(Number(inputValue)>currentBid){
       console.log(Number(inputValue));
       try {
-        await axios.post(`http://localhost:8000/api/auction/${auctionId}/products/${productId}/bid`, {"bidAmount":Number(inputValue)});
+        console.log(userId);
+        await axios.post(`http://localhost:8000/api/auction/${auctionId}/products/${productId}/bid`, {"bidAmount":Number(inputValue) , "bidder": userId});
         setState(2);
       } catch (error) {
         console.error('Error bidding', error);
@@ -25,10 +26,6 @@ const BidPopup = ({ auctionId, productId, currentBid, onClose, onSubmit, }) => {
       setState(3);
   };
 
-  const handleSubmit = () => {
-    onSubmit(inputValue);
-    onClose();
-  };
 
   return (
     <div className="popupu-container">

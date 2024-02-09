@@ -15,10 +15,6 @@ const AuctionProduct = (prod) => {
         setPopupOpen(false);
       };
     
-      const handleSubmit = (inputValue) => {
-        // Handle the submitted value (e.g., show an alert)
-        alert(`Submitted: ${inputValue}`);
-      };
     
   return (
     <div>
@@ -42,7 +38,7 @@ const AuctionProduct = (prod) => {
                <div className="popupu-overlay">
                <div className="addu-product-popup">
                  
-                 <BidPopup auctionId={prod.auctionId} productId={prod.id} currentBid={prod.currentBid} onClose={closePopup} onSubmit={handleSubmit}/>
+                 <BidPopup auctionId={prod.auctionId} productId={prod.id} userId={prod.userId} currentBid={prod.currentBid} onClose={closePopup}/>
      
             
                 </div>

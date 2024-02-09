@@ -64,12 +64,18 @@ const OneAuction = () => {
         }
        }
 
-     fetchOrder();
-     fetchProducts();
-     fetchTopProducts();
-     fetchTime();
+     const intervalId = setInterval(() => {
+      fetchOrder();
+      fetchProducts();
+      fetchTopProducts();
+      fetchTime();
+    }, 7000);
 
-  }, [remainingTime]);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+
+  }, []);
 
   const handleTimerEnd = () => {
     console.log('Timer ended!'); // You can perform any action when the timer reaches 0

@@ -12,7 +12,6 @@ const CountdownTimer = ({ initialTime, onTimerEnd }) => {
   
       // Update the timer every second
       const intervalId = setInterval(() => {
-        console.log('Updating time...');
         setTime((prevTime) => prevTime - 1);
       }, 1000);
   

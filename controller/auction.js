@@ -165,6 +165,7 @@ exports.addProductToAuction = async (req, res) => {
 
 // Place a bid on a specific product in an auction
 exports.placeBid = async (req, res) => {
+  console.log(req.body)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
