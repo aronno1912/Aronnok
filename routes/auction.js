@@ -21,6 +21,7 @@ const {
   requestApproval,
   getAllRequestsForIndividualAuction,
   getIndividualRequest,
+  getProductsByHighestBidder,
 } = require('../controller/auction');
 const {
   // getUserNotifications,
@@ -67,4 +68,5 @@ router.get('/auction/all/:auctionId/:reqId/auction-ind-request', getIndividualRe
 router.post('/auction/:auctionId/:productId/payment', 
 // closeBidding,
 paymentAuction);
+router.get('/auction/highestBidder/:auctionId/:userId', getProductsByHighestBidder);
 module.exports = router;
