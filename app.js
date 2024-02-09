@@ -46,6 +46,8 @@ const orderRoutes = require("./routes/order");
 app.use("/api", orderRoutes);
 const auctionRoutes = require("./routes/auction");
 app.use("/api", auctionRoutes);
+const notificationRoutes = require("./routes/notification");
+app.use("/api", notificationRoutes);
 
 // const Multer = require('multer');
 // const { google } = require('googleapis');
