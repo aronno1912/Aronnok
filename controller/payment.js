@@ -7,10 +7,10 @@ const product = require('../models/product');
 const store_id = 'aronn65c4e1445f6f7'
 const store_passwd = 'aronn65c4e1445f6f7@ssl'
 const is_live = false //true for live, false for sandbox
-const tran_id=new ObjectId().toString();
+const tran_id = new ObjectId().toString();
 exports.paymentOrder = async (req, res) => {
-  const order=req.order;
-  const user=await User.findById(order.user);
+  const order = req.order;
+  const user = await User.findById(order.user);
   const data = {
     total_amount: order.amount,
     currency: 'BDT',
@@ -47,7 +47,7 @@ exports.paymentOrder = async (req, res) => {
     let GatewayPageURL = apiResponse.GatewayPageURL
     // console.log(GatewayPageURL)
     // res.redirect(GatewayPageURL)
-    res.status(200).json({"url": GatewayPageURL})
+    res.status(200).json({ "url": GatewayPageURL })
     // console.log('Redirecting to: ', GatewayPageURL)
   });
 };
@@ -66,10 +66,11 @@ exports.fail = async (req, res) => {
 };
 
 exports.paymentAuction = async (req, res) => {
-  const auctionProduct=req.body;
+  const auctionProductId = req.params.productId;
+  const auctionProduct = await AuctionProduct.findById(auctionProductId);
   console.log(auctionProduct);
-  const bidderId=auctionProduct.highestBidder;
-  const bidder=await User.findById(bidderId);
+  const bidderId = auctionProduct.highestBidder;
+  const bidder = await User.findById(bidderId);
   const data = {
     total_amount: auctionProduct.currentBid,
     currency: 'BDT',
@@ -106,7 +107,7 @@ exports.paymentAuction = async (req, res) => {
     let GatewayPageURL = apiResponse.GatewayPageURL
     // console.log(GatewayPageURL)
     // res.redirect(GatewayPageURL)
-    res.status(200).json({"url": GatewayPageURL})
+    res.status(200).json({ "url": GatewayPageURL })
     // console.log('Redirecting to: ', GatewayPageURL)
   });
 };

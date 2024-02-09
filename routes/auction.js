@@ -22,6 +22,12 @@ const {
   getAllRequestsForIndividualAuction,
   getIndividualRequest,
 } = require('../controller/auction');
+const {
+  // getUserNotifications,
+  // // getAuctionMessages,
+  // markNotificationAsRead,
+  postUserNotifications,
+} = require('../controller/notification');
 const { getUserById } = require("../controller/user");
 const { paymentAuction } = require('../controller/payment');
 router.param("userId", getUserById);
@@ -37,7 +43,7 @@ router.post('/auction/add-product/:auctionId', [
   // check('photo').not().isEmpty().withMessage('Product photo is required'),
 ], addProductToAuction);
 router.post('/auction/:auctionId/products/:productId/bid', placeBid);
-// router.put('/auction/close-bidding/:auctionId/:productId', closeBidding);
+router.put('/auction/close-bidding/:auctionId/:productId', closeBidding,postUserNotifications);
 // Get past auctions
 router.get('/auction/past', getPastAuctions);
 
@@ -59,6 +65,6 @@ requestApproval);
 router.get('/auction/all/:auctionId/auction-request', getAllRequestsForIndividualAuction);
 router.get('/auction/all/:auctionId/:reqId/auction-ind-request', getIndividualRequest);
 router.post('/auction/:auctionId/:productId/payment', 
-closeBidding,
+// closeBidding,
 paymentAuction);
 module.exports = router;
