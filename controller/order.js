@@ -50,7 +50,7 @@ exports.createOrder = async (req, res, next) => {
       products: JSON.parse(JSON.stringify(orderData.products)),
       amount: totalAmount+orderData.deliveryFee,
       user: userId,
-      paidBy:"Cash on delivery",
+      paidBy:"Bkash online payment",
       // address:
     });
     req.order=order;

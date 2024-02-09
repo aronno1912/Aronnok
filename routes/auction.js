@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult,oneOf } = require("express-validator");
+const { check, validationResult, oneOf } = require("express-validator");
 const {
-    getAuctionById,
-    createAuction,
-    getAuction,
-    getAllAuctions,
-    getAuctionProducts,
-    addProductToAuction,
-    placeBid,
-    closeBidding,
-    getPastAuctions,
-    getOngoingAuctions,
-    getFutureAuctions,
-    getTopSellingProductsInAnAuction,
-    addProductToAuctionById,
-    remainingTime,
-    getIndividualProductInOneAuction,
-  } = require('../controller/auction');
-
+  getAuctionById,
+  createAuction,
+  getAuction,
+  getAllAuctions,
+  getAuctionProducts,
+  addProductToAuction,
+  placeBid,
+  closeBidding,
+  getPastAuctions,
+  getOngoingAuctions,
+  getFutureAuctions,
+  getTopSellingProductsInAnAuction,
+  addProductToAuctionById,
+  remainingTime,
+  getIndividualProductInOneAuction,
+  sellRequest,
+  requestApproval,
+  getAllRequestsForIndividualAuction,
+} = require('../controller/auction');
+const { getUserById } = require("../controller/user");
+router.param("userId", getUserById);
 router.param("auctionId", getAuctionById);
 // Define routes for auction functionalities
 router.post('/auction/create', createAuction);
@@ -26,10 +30,10 @@ router.get('/auction/get-auction/:auctionId', getAuction);
 router.get('/auctions', getAllAuctions);
 router.get('/auction/:auctionId/products', getAuctionProducts);
 router.post('/auction/add-product/:auctionId', [
-    check('name').not().isEmpty().withMessage('Product name is required'),
-    check('description').not().isEmpty().withMessage('Product description is required'),
-    // check('photo').not().isEmpty().withMessage('Product photo is required'),
-  ], addProductToAuction);
+  check('name').not().isEmpty().withMessage('Product name is required'),
+  check('description').not().isEmpty().withMessage('Product description is required'),
+  // check('photo').not().isEmpty().withMessage('Product photo is required'),
+], addProductToAuction);
 router.post('/auction/:auctionId/products/:productId/bid', placeBid);
 router.put('/auction/close-bidding/:auctionId/:productId', closeBidding);
 // Get past auctions
@@ -41,9 +45,14 @@ router.get('/auction/ongoing', getOngoingAuctions);
 // Get future auctions
 router.get('/auction/future', getFutureAuctions);
 router.get('/auction/:auctionId/top', getTopSellingProductsInAnAuction);
-router.get('/auction/:auctionId/remainingTime',remainingTime);
+router.get('/auction/:auctionId/remainingTime', remainingTime);
 
 ///IGNORE THIS, ETA LAGBE NA TODER
 router.post('/auction/:auctionId/:productId', addProductToAuctionById);
-router.get('/auction/:auctionId/:productId',getIndividualProductInOneAuction)
+router.get('/auction/:auctionId/:productId', getIndividualProductInOneAuction);
+router.post('/auction/auction-request/:auctionId/:userId', sellRequest);
+router.post('/auction/auction-request-approval/:auctionId/:reqId', //userId just to check if it's admin
+// isSignedIn,
+requestApproval);
+router.get('/auction/all/:auctionId/auction-request', getAllRequestsForIndividualAuction);
 module.exports = router;
