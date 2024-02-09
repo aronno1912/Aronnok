@@ -6,10 +6,8 @@ import Footer from '../Components/Footer/Footer'
 import { useParams } from 'react-router-dom'
 
 const PastAuctionsPage = () => {
-    const {catagory}=useParams();
-    const {auctionId}=useParams();
-    
-
+  const {catagory,auctionId}=useParams();
+  
     const listAllStyle = {
     //    marginLeft: '250px',
     display: 'flex', // Add other styles as needed

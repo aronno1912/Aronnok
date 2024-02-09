@@ -55,7 +55,7 @@ const AuctionsAll = () => {
 
             <div className= 'tr-auctions'>
             {ongoing.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} userId={userId} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
+                return <AuctionSmall type={"ongoing"} id={item._id} userId={userId} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>
@@ -64,7 +64,7 @@ const AuctionsAll = () => {
         
             <div className= 'tr-auctions'>
             {upcoming.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
+                return <AuctionSmall type={"upcoming"} id={item._id} userId={userId} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>
@@ -73,7 +73,7 @@ const AuctionsAll = () => {
         
             <div className= 'tr-auctions'>
             {completed.map((item,i)=>{
-                return <AuctionSmall key={i} id={item._id} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
+                return <AuctionSmall type={"completed"} id={item._id} userId={userId} name={item.name} startTime={item.startTime} endTime={item.endTime} date={item.date} status={item.status} photo={"/auction_photo.jpg"}/>
             })}
             </div>
         </div>

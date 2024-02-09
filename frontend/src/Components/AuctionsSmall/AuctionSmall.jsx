@@ -7,7 +7,7 @@ const AuctionSmall = (prod) => {
     const start = new Date(prod.startTime);
     const end = new Date(prod.endTime);
   return (
-    <Link to={`/auctionsall/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+    <Link to={`/auction/${prod.type}/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='auction-container'> 
       <img src={prod.photo} alt="" style={{ width: '280px', height: '200px' }} />
 
