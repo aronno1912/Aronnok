@@ -1,6 +1,35 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
+const requestedAuctionProductSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            trim: true,
+            required: true,
+            maxlength: 32
+        },
+        description: {
+            type: String,
+            trim: true,
+            required: true,
+            maxlength: 2000
+        },
+        photo: {
+            type: String
+        },
+        initialBid: {
+            type: Number,
+            default: 0
+        },
+        auction: {
+            type: ObjectId,
+            ref: "Auction" // Adjust based on your user schema
+        }
+    },
+    { timestamps: true }
+);
+
 const auctionProductSchema = new mongoose.Schema(
     {
         name: {
@@ -139,8 +168,8 @@ const updateAuctionStatus = async function () {
 
 // Schedule the function to run every minute
 setInterval(updateAuctionStatus, 10000);
-
+const RequestedAuctionProduct=mongoose.model('RequestedAuctionProduct', requestedAuctionProductSchema);
 const AuctionProduct = mongoose.model('AuctionProduct', auctionProductSchema);
 const Auction = mongoose.model('Auction', auctionSchema);
 
-module.exports = { AuctionProduct, Auction };
+module.exports = { AuctionProduct, Auction, RequestedAuctionProduct };

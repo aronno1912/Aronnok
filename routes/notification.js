@@ -4,7 +4,7 @@ const {
     getUserNotifications,
     // getAuctionMessages,
     markNotificationAsRead,
-} = require('../controllers/notification');
+} = require('../controller/notification');
 
 // Route for getting all notifications for a user
 router.get('/:userId', getUserNotifications);

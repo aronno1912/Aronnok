@@ -1,4 +1,4 @@
-const { Auction, AuctionProduct } = require('../models/auction');
+const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
 const User = require("../models/user");
 const { validationResult } = require('express-validator');
 const moment = require('moment');
@@ -382,4 +382,94 @@ exports.getIndividualProductInOneAuction = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
   
+};
+
+exports.sellRequest = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try {
+    // console.log(req.body)
+    const { name, description, photoName, initialbid } = req.body;
+    // console.log(initialbid)
+    const initialBid=initialbid;
+    // console.log(currentBid)
+    const photo = "/" + photoName;
+    // console.log(photo)
+    const requestedAuctionProduct = new RequestedAuctionProduct({
+      name,
+      description,
+      photo,
+      initialBid,
+      auction:req.params.auctionId,
+    });
+
+    await requestedAuctionProduct.save();
+    // console.log(auctionProduct)
+    // req.auction.auctionProducts.push(auctionProduct._id);
+    // await req.auction.save();
+
+    res.status(201).json({ message: 'Request added to auction successfully!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.requestApproval = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try {
+    const auction = req.auction;
+    const requestId = req.params.reqId;
+
+    // Find the requested product
+    const requestedProduct = await RequestedAuctionProduct.findById(requestId);
+    if (!requestedProduct) {
+      return res.status(404).json({ error: 'Requested product not found' });
+    }
+
+    // Create a new AuctionProduct
+    const newAuctionProduct = new AuctionProduct({
+      name: requestedProduct.name,
+      description: requestedProduct.description,
+      photo: requestedProduct.photo,
+      currentBid: requestedProduct.initialBid,
+    });
+
+    // Save the new AuctionProduct
+    const savedAuctionProduct = await newAuctionProduct.save();
+
+    // Add the new AuctionProduct to the auction
+    auction.auctionProducts.push(savedAuctionProduct._id);
+    await auction.save();
+
+    // Delete the requested product
+    await RequestedAuctionProduct.findByIdAndDelete(requestId);
+
+    res.status(201).json({ message: 'Product request approved successfully!', auctionProduct: savedAuctionProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getAllRequestsForIndividualAuction = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+  try {
+    const auctionId = req.params.auctionId;
+    const requests = await RequestedAuctionProduct.find({ auction: auctionId });
+    res.status(201).json(requests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
