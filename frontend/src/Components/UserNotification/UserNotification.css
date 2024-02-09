@@ -7,9 +7,10 @@
 .unot-container {
     display: flex;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* top: 50%;
+    left: 50%; */
+    left: 0;
+    /* transform: translate(-50%, -50%); */
     width: 400px;
     height: 900px;
     background-color: rgba(0, 0, 0, 0.5);
