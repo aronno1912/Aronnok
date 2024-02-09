@@ -16,6 +16,7 @@ const {
     getTopSellingProductsInAnAuction,
     addProductToAuctionById,
     remainingTime,
+    getIndividualProductInOneAuction,
   } = require('../controller/auction');
 
 router.param("auctionId", getAuctionById);
@@ -44,4 +45,5 @@ router.get('/auction/:auctionId/remainingTime',remainingTime);
 
 ///IGNORE THIS, ETA LAGBE NA TODER
 router.post('/auction/:auctionId/:productId', addProductToAuctionById);
+router.get('/auction/:auctionId/:productId',getIndividualProductInOneAuction)
 module.exports = router;

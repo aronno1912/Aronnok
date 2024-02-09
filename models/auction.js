@@ -91,13 +91,13 @@ const updateAuctionStatus = async function () {
     try {
         // Move auctions from 'upcoming' to 'ongoing' when start time is less than or equal to current time and end time is greater than current time
         const upcomingAuctionsToOngoing = await Auction.find({
-            // status: 'upcoming',
+            status: 'upcoming',
             startTime: { $lte: currentTime },
             endTime: { $gt: currentTime }
         });
 
-        console.log("upcoming to ongoing");
-        console.log(upcomingAuctionsToOngoing);
+        // console.log("upcoming to ongoing");
+        // console.log(upcomingAuctionsToOngoing);
 
         upcomingAuctionsToOngoing.forEach(async (auction) => {
             auction.status = 'ongoing';
@@ -106,12 +106,12 @@ const updateAuctionStatus = async function () {
 
         // Move auctions from 'ongoing' to 'completed' when end time is less than or equal to current time
         const ongoingAuctionsToCompleted = await Auction.find({
-            // status: 'ongoing',
+            status: 'ongoing',
             endTime: { $lte: currentTime },
         });
 
-        console.log("ongoing to completed");
-        console.log(ongoingAuctionsToCompleted);
+        // console.log("ongoing to completed");
+        // console.log(ongoingAuctionsToCompleted);
 
         ongoingAuctionsToCompleted.forEach(async (auction) => {
             auction.status = 'completed';
@@ -124,8 +124,8 @@ const updateAuctionStatus = async function () {
             startTime: { $gt: currentTime }
         });
 
-        console.log("pending to upcoming");
-        console.log(pendingAuctionsToUpcoming);
+        // console.log("pending to upcoming");
+        // console.log(pendingAuctionsToUpcoming);
 
         pendingAuctionsToUpcoming.forEach(async (auction) => {
             auction.status = 'upcoming';
