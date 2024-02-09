@@ -25,7 +25,11 @@ const requestedAuctionProductSchema = new mongoose.Schema(
         auction: {
             type: ObjectId,
             ref: "Auction" // Adjust based on your user schema
-        }
+        },
+        user: {
+            type: ObjectId,
+            ref: "User" // Adjust based on your user schema
+        },
     },
     { timestamps: true }
 );
@@ -73,7 +77,11 @@ const auctionProductSchema = new mongoose.Schema(
                     default: Date.now
                 }
             }
-        ]
+        ],
+        auction: {
+            type: ObjectId,
+            ref: "Auction" // Adjust based on your user schema
+        }
     },
     { timestamps: true }
 );
