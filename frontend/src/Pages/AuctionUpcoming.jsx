@@ -3,7 +3,7 @@ import axios from 'axios';
 import PastSmallAuctionProduct from '../Components/PastSmallAuctionProduct/PastSmallAuctionProduct';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import AuctionAddPlant from '../Components/AuctionAddPlant/AuctionAddPlant';
+import AuctionAddPlantClient from '../Components/AuctionAddPlant/AuctionAddPlantClient';
 import '../Components/AdAuctionProductList/AdAuctionProductList.css';
 import Navbar from '../Components/Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
@@ -27,7 +27,7 @@ const AuctionUpcoming = () => {
         fetchAuctionProducts();
     }, [auctionId]);
 
-    const handleAddProductClick = () => {
+    const handleAddProductClick2 = () => {
         setShowAddProductPopup(true);
     };
     const handleClosePopup = () => {
@@ -73,7 +73,7 @@ const AuctionUpcoming = () => {
       ))}
     </div>
 
-        <button className="add-product-buttoninauction" onClick={handleAddProductClick} style={buttonStyle}>
+        <button className="add-product-buttoninauction" onClick={handleAddProductClick2} style={buttonStyle}>
           put up for auction
         </button>
 
@@ -81,7 +81,7 @@ const AuctionUpcoming = () => {
         <div className="popup-overlay">
           <div className="add-product-popup">
             {/* Include the AuctionAddPlant component */}
-            <AuctionAddPlant auctionId={auctionId}/>
+            <AuctionAddPlantClient auctionId={auctionId}/>
 
             {/* Include a close button to close the popup */}
             <button onClick={handleClosePopup} className="close-popup-button">

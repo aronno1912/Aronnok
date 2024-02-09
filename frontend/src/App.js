@@ -37,6 +37,10 @@ import AdAuctionProductBids from './Pages/AdAuctionProductBids';
 import AuctionUpcoming from './Pages/AuctionUpcoming';
 import AuctionPast from './Pages/AuctionPast';
 import ViewAucReqPage from './Pages/ViewAucReqPage';
+import SignupPage2 from './Pages/SignupPage2';
+
+
+
 
 
 function App() {
@@ -46,6 +50,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<Login/>}/>
+        <Route path='/abcd' element={<SignupPage2/>}/>
         <Route path='/home/:userId' element={<Home/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/admin/createauction' element={<AdminCreateAuction/>}/>
