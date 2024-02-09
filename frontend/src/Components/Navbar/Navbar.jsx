@@ -36,7 +36,7 @@ const Navbar = ({userId}) => {
         <li onClick={()=>{setMenu("orders")}}><Link to={`/orderlist/${userId}`} style={{textDecoration:'none'}}>Order </Link> {menu==="orders"?<hr/>:<></>}</li>
       </ul>
       <div className="nav-login-cart">
-        <Link to='/login' className='login-btn'>Login</Link>
+        <Link to='/' className='login-btn'>Logout</Link>
         <Link to={`/viewcart/${userId}`}> <img src={cart_icon} alt="" /> </Link>
         
         <div className="nav-cart-count">

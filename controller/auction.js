@@ -99,8 +99,23 @@ exports.getAuctionProducts = async (req, res) => {
             highestBidder = user.username;
           }
         }
+        console.log(item);
+        let bidderName=null;
+        const updatedBids = await Promise.all(productDetails.bids.map(async (bid) => {
+          const bidPlacerDetails = await User.findById(bid.bidder);
+          if (bidPlacerDetails) {
+            bidderName = bidPlacerDetails.username;
+           
+            return {
+              ...bid.toObject(),
+              bidderName: bidderName,
+            };
+            console.log(bid);
+          }
+        }));
         return {
           ...productDetails.toObject(),
+          bids:updatedBids,
           highestBidder: highestBidder,
         };
       } else {
@@ -113,7 +128,6 @@ exports.getAuctionProducts = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 // Add a product to a specific auction
 exports.addProductToAuction = async (req, res) => {
