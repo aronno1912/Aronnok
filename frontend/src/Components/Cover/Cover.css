@@ -1,6 +1,7 @@
 .cover{
     display: flex;
     justify-content: center;
+    border-radius: 20px;
 }
 
  .cover img{
@@ -36,3 +37,35 @@
     color: bisque;
     border-radius: 15px;
  }
+ /* .cover-text2{
+   font-size: 50px;
+   text-align: center;
+   color: rgb(122, 232, 224);
+ }
+ .cover-text2 p{
+   font-size: 50px;
+   text-align: center;
+   color: rgb(122, 232, 224);
+}
+.cover-text2 button{
+   align-items: center;
+   width: 145px;
+   height: 40px;
+   font-size: 15px;
+   background-color: black;
+   color: bisque;
+   border-radius: 15px;
+} */
+
+.cover2button{
+   
+   width: 145px;
+   height: 40px;
+   font-size: 15px;
+   background-color: black;
+   color: bisque;
+   border-radius: 15px;
+   margin-left: 1200px;
+   margin-top: -900px;
+   
+}

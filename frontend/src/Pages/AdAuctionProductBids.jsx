@@ -3,16 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Context/AdAuctionProductBids.css';
+import { useParams } from 'react-router-dom';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
 
 const AdAuctionProductBids = () => {
   const [bids, setBids] = useState([]);
   const [refreshCount, setRefreshCount] = useState(0);
+  const {auctionId}=useParams ();
+    const {productId}=useParams ();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get(`http://localhost:8000/api/auction/${auctionId}/${productId}/bids`);
-        const response = await axios.get('http://localhost:8000/api/auction/65bd415809608a5f34558cc7/65bd416e09608a5f34558ccb');
+        const response = await axios.get(`http://localhost:8000/api/auction/${auctionId}/${productId}`);
+        // const response = await axios.get('http://localhost:8000/api/auction/65bd415809608a5f34558cc7/65bd416e09608a5f34558ccb');
         setBids(response.data);
         console.log('Fetching updated data...');
       } catch (error) {
@@ -34,7 +39,11 @@ const AdAuctionProductBids = () => {
   }, []);
 
   return (
-    <div className="auction-product-bids">
+    <div className="ad-auction-product-bids">
+        <AdminNavbar/>
+        <Sidebar/>
+    <div className="auction-product-bids" >
+        
       <h2 className='bidh2'>Bids by Users</h2>
       <ul className='bidul'>
         {bids.map((bid, index) => (
@@ -51,6 +60,7 @@ const AdAuctionProductBids = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

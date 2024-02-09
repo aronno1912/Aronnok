@@ -1,4 +1,4 @@
-const { Auction, AuctionProduct } = require('../models/auction');
+const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
 const User = require("../models/user");
 const { validationResult } = require('express-validator');
 const moment = require('moment');
@@ -201,7 +201,7 @@ exports.placeBid = async (req, res) => {
 };
 
 // Close bidding on a specific product
-exports.closeBidding = async (req, res) => {
+exports.closeBidding = async (req, res,next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
@@ -226,9 +226,10 @@ exports.closeBidding = async (req, res) => {
     }
 
     if (winningBid) {
+
       // Update the auction product with the winning bid and set isSold to true
       const updatedAuctionProduct = await AuctionProduct.findByIdAndUpdate(
-        auctionProductId,
+        auctionProductId,{"auction":req.params.auctionId},
         {
           $set: {
             isSold: true,
@@ -238,8 +239,10 @@ exports.closeBidding = async (req, res) => {
         },
         { new: true }
       );
-
-      res.status(200).json({ message: 'Bidding closed successfully!', updatedAuctionProduct });
+      // res.status(200).json(auctionProduct);
+      req.body=auctionProduct;
+      next();
+      // res.status(200).json({ message: 'Bidding closed successfully!', updatedAuctionProduct });
     } else {
       // If no bids, you can handle this case as needed (e.g., set isSold to true without a winning bid)
       res.status(400).json({ error: 'No bids found for this product' });
@@ -382,4 +385,137 @@ exports.getIndividualProductInOneAuction = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
   
+};
+
+exports.sellRequest = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try {
+    // console.log(req.body)
+    const { name, description, photoName, initialbid } = req.body;
+    // console.log(initialbid)
+    const initialBid=initialbid;
+    // console.log(currentBid)
+    const photo = "/" + photoName;
+    // console.log(photo)
+    const requestedAuctionProduct = new RequestedAuctionProduct({
+      name,
+      description,
+      photo,
+      initialBid,
+      auction:req.params.auctionId,
+      user:req.params.userId,
+    });
+
+    await requestedAuctionProduct.save();
+    // console.log(auctionProduct)
+    // req.auction.auctionProducts.push(auctionProduct._id);
+    // await req.auction.save();
+
+    res.status(201).json({ message: 'Request added to auction successfully!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.requestApproval = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try {
+    const auction = req.auction;
+    const requestId = req.params.reqId;
+
+    // Find the requested product
+    const requestedProduct = await RequestedAuctionProduct.findById(requestId);
+    if (!requestedProduct) {
+      return res.status(404).json({ error: 'Requested product not found' });
+    }
+
+    // Create a new AuctionProduct
+    const newAuctionProduct = new AuctionProduct({
+      name: requestedProduct.name,
+      description: requestedProduct.description,
+      photo: requestedProduct.photo,
+      currentBid: requestedProduct.initialBid,
+    });
+
+    // Save the new AuctionProduct
+    const savedAuctionProduct = await newAuctionProduct.save();
+
+    // Add the new AuctionProduct to the auction
+    auction.auctionProducts.push(savedAuctionProduct._id);
+    await auction.save();
+
+    // Delete the requested product
+    await RequestedAuctionProduct.findByIdAndDelete(requestId);
+
+    res.status(201).json({ message: 'Product request approved successfully!', auctionProduct: savedAuctionProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getAllRequestsForIndividualAuction = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+  try {
+    const auctionId = req.params.auctionId;
+    const requests = await RequestedAuctionProduct.find({ auction: auctionId });
+    const updatedRequests = await Promise.all(requests.map(async (req) => {
+      const userDetails = await User.findById(req.user);
+      if (userDetails) {
+        username = userDetails.username;
+
+        return {
+          ...req.toObject(),
+          username: username,
+        };
+      }
+    }));
+    res.status(201).json(updatedRequests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getIndividualRequest = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+  try {
+    const reqId = req.params.reqId;
+    // Populate the requestedBy field to get the user's details
+    const request = await RequestedAuctionProduct.findById(reqId);
+    
+    // Check if the request exists
+    if (!request) {
+      return res.status(404).json({ error: 'Requested product not found' });
+    }
+
+    // Extract the requester's username from the populated field
+    const requesterUser = request.user;
+    const user=await User.findById(requesterUser);
+    // Include the requester's username in the response
+    const responseData = {
+      ...request.toObject(), // Convert Mongoose document to plain JavaScript object
+      username: user.username
+    };
+
+    res.status(200).json(responseData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };

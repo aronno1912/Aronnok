@@ -3,6 +3,7 @@ import AuctionSmall from '../Components/AuctionsSmall/AuctionSmall';
 import '../Context/AuctionsAll.css'
 import Navbar from '../Components/Navbar/Navbar';
 import { useParams } from 'react-router-dom';
+import PastAuctionSmall from '../Components/AuctionsSmall/PastAuctionSmall';
 
 const AuctionsAll = () => {
     const { userId } = useParams();
