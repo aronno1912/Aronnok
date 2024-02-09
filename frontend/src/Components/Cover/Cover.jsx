@@ -62,7 +62,7 @@ const Cover = ({userId}) => {
       <div className='cover'>
           <img src="/a2.jpg" alt="" />
           
-          <div className="cover-text">
+          <div className="cover-text2">
               <p>Check our auction</p>
               <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
           </div>
