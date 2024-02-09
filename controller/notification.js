@@ -30,3 +30,30 @@ exports.markNotificationAsRead = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+exports.postUserNotifications = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    let notification = await Notification.findOne({ user: userId }).sort({ createdAt: -1 });
+    
+    if (!notification) {
+      // If no notification exists for the user, create a new one
+      notification = new Notification({ user: userId, messages: [] });
+    }
+
+    // Add the new message to the notification
+    notification.messages.push({
+      message: req.body.message,
+      type: req.body.type,
+      // Add link if needed
+    });
+
+    // Save the notification
+    await notification.save();
+
+    res.status(200).json(notification);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
