@@ -3,10 +3,12 @@ import "./AuctionProduct.css"
 import { Link } from 'react-router-dom'
 
 const AdAuctionProduct = (prod) => {
+    const auctionId = prod.auctionId;
+    const productId = prod.id;
 
   return (
     <div>
-       <Link to={`/product/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+       <Link to={`/auction/${auctionId}/${productId}/bids`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
         <div className='product-container'> 
 
         <div className='container'> 

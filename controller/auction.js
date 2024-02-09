@@ -371,11 +371,11 @@ exports.getIndividualProductInOneAuction = async (req, res) => {
       }
       return bid;
     }));
-    bids.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    bids.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     // Update productDetails with the bids array including bidderName
     productDetails.bids = bids;
   
-    res.status(200).json(productDetails);
+    res.status(200).json(bids);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

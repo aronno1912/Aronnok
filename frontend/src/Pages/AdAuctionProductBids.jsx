@@ -1,26 +1,37 @@
-import React from 'react';
+
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../Context/AdAuctionProductBids.css';
-import { useState, useEffect } from 'react';
 
 const AdAuctionProductBids = () => {
-    const bids = [
-        { user: 'User1', amount: 150, timestamp: '2024-03-15 14:30:00' },
-        { user: 'User2', amount: 200, timestamp: '2024-03-15 14:35:00' },
-        { user: 'User3', amount: 180, timestamp: '2024-03-15 14:40:00' },
-      ];
-    const [refreshCount, setRefreshCount] = useState(0);
-  
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        // Fetch updated data here
-        // Example: call an API to get the latest bids
+  const [bids, setBids] = useState([]);
+  const [refreshCount, setRefreshCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // const response = await axios.get(`http://localhost:8000/api/auction/${auctionId}/${productId}/bids`);
+        const response = await axios.get('http://localhost:8000/api/auction/65bd415809608a5f34558cc7/65bd416e09608a5f34558ccb');
+        setBids(response.data);
         console.log('Fetching updated data...');
-        setRefreshCount((prevCount) => prevCount + 1);
-      }, 5000);
-  
-      // Clear the interval when the component unmounts
-      return () => clearInterval(intervalId);
-    }, []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Fetch initial data
+    fetchData();
+
+    // Set up interval for automatic refresh
+    const intervalId = setInterval(() => {
+      fetchData();
+      setRefreshCount((prevCount) => prevCount + 1);
+    }, 5000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="auction-product-bids">
@@ -29,10 +40,10 @@ const AdAuctionProductBids = () => {
         {bids.map((bid, index) => (
           <li key={index} className="bid-item">
             <div>
-              <strong>User:</strong> {bid.user}
+              <strong>User:</strong> {bid.bidderName}
             </div>
             <div>
-              <strong>Bid Amount:</strong> ${bid.amount}
+              <strong>Bid Amount:</strong> ${bid.bidAmount}
             </div>
             <div>
               <strong>Time:</strong> {bid.timestamp}
