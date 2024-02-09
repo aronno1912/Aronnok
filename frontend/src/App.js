@@ -37,6 +37,7 @@ import AdAuctionProductBids from './Pages/AdAuctionProductBids';
 import AuctionUpcoming from './Pages/AuctionUpcoming';
 import AuctionPast from './Pages/AuctionPast';
 import ViewAucReqPage from './Pages/ViewAucReqPage';
+import AuctionWinProducts from './Pages/AuctionWinProducts';
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
         <Route path='/auction/ongoing/:userId/:auctionId' element={<OneAuction/>}/>
         <Route path='/auction/completed/:userId/:auctionId' element={<AuctionPast/>}/>
         <Route path='/auctionsall/:userId' element={<AuctionsAll/>}/>
-        
+        <Route path='/auction/payProducts/:userId/:auctionId' element={<AuctionWinProducts/>}/>
         
         
 
