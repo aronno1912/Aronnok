@@ -9,6 +9,7 @@ import UserNotification from '../UserNotification/UserNotification'
 const Navbar = ({userId}) => {
   const [menu,setMenu]= useState("home"); 
   const [cartTotalQuantity, setQuantity] = useState(0);
+  const [notis, setNotis] = useState([]);
 
   const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -23,15 +24,32 @@ const Navbar = ({userId}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/products/659c027001b07da1b7fef185');
+        const response = await fetch(`http://localhost:8000/api/products/${userId}`);
         const data = await response.json();
         setQuantity(data.total);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
-    fetchData();
+
+    const fetchNotification = async () => {
+      try {
+          const response = await fetch(`http://localhost:8000/api/notification/${userId}`);
+          const data = await response.json();
+          setNotis(data.messages);
+          console.log(data.messages);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+
+    const intervalId = setInterval(() => {
+      fetchData();
+      fetchNotification();
+    }, 5000);
+
+  return () => clearInterval(intervalId);
+    
   }, []);
 
   return (
@@ -48,7 +66,7 @@ const Navbar = ({userId}) => {
       </ul>
       <div className="nav-login-cart">
           <div className="notification-icon"><button style={{backgroundColor:"white", fontSize:'30px'}} onClick={openPopup}>🔔</button>
-            <div className="notification-count">0</div>
+            <div className="notification-count">{notis.length}</div>
           </div>
           
         <Link to={`/viewcart/${userId}`}> <img src={cart_icon} alt="" /> </Link>
