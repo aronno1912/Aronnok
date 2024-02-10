@@ -16,6 +16,8 @@ const BidPopup = ({ auctionId, productId, userId, currentBid, onClose, }) => {
       console.log(Number(inputValue));
       try {
         console.log(userId);
+        console.log(auctionId);
+        console.log(productId);
         await axios.post(`http://localhost:8000/api/auction/${auctionId}/products/${productId}/bid`, {"bidAmount":Number(inputValue) , "bidder": userId});
         setState(2);
       } catch (error) {

@@ -78,8 +78,11 @@ const OneAuction = () => {
       fetchOrder();
       fetchProducts();
       fetchTopProducts();
-      setRtime((prevTime) => prevTime - 1);
-      checkTimeEnd();
+      setRtime((prevTime) =>{
+        if(prevTime>0) return prevTime-1;
+        else {setIsOver(true); return 0;}
+      });
+      // checkTimeEnd();
     }, 1000);
 
     // Clear the interval when the component unmounts
@@ -112,6 +115,7 @@ const OneAuction = () => {
           {!isOver &&( <div className="oneauction-timeremaining">
             <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
           </div>)}
+          
           {isOver &&( <div className="oneauction-timeremaining">
             <p style={{color:"rgb(141, 16, 187)"}}>Auction Ended!</p>
             <Link to={`/auction/payProducts/${userId}/${auctionId}`}><button>Pay for your products</button></Link>
