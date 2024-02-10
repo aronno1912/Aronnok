@@ -126,10 +126,10 @@
     z-index: 999; /* Ensure the overlay is above other elements */
   }
   
-  .notification-popup{
+  /* .notification-popup{
     background: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for the pop-up */
-    z-index: 1000; /* Ensure the pop-up is above the overlay */
-  }
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    z-index: 1000; 
+  } */

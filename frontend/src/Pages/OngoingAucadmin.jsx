@@ -17,6 +17,23 @@ const OngoingAucAdmin = () => {
   const [end,setEnd] = useState(new Date());
   const [remainingTime,setRtime]=useState(2100);
 
+   
+  useEffect(() => {
+    const fetchTime = async ()=>{
+      try {
+        const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/remainingTime`);
+        const data = await response.json();
+        setRtime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+        console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+     }
+     fetchTime();
+
+  }, []);
+
+
   useEffect(() => {
     const fetchOrder = async () => {
         try {
@@ -52,27 +69,39 @@ const OngoingAucAdmin = () => {
           console.error('Error fetching product data:', error);
         }
        }
-       const fetchTime = async ()=>{
-        try {
-          const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/remainingTime`);
-          const data = await response.json();
-          setRtime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-          console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-        } catch (error) {
-          console.error('Error fetching product data:', error);
-        }
-       }
 
-     fetchOrder();
-     fetchProducts();
-     fetchTopProducts();
-     fetchTime();
+      //  const checkTimeEnd = ()=>{
+      //   if(remainingTime<=0)
+      //     setIsOver(true);
+      //  }
 
+      
+     const intervalId = setInterval(() => {
+      fetchOrder();
+      fetchProducts();
+      fetchTopProducts();
+      setRtime((prevTime) => prevTime - 1);
+      // checkTimeEnd();
+    }, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleTimerEnd = () => {
     console.log('Timer ended!'); // You can perform any action when the timer reaches 0
   };
+
+  const formatTime = () => {
+    const hours = Math.floor(remainingTime / 3600);
+    const minutes = Math.floor((remainingTime % 3600) / 60);
+    const seconds = remainingTime % 60;
+
+    const padZero = (value) => (value < 10 ? `0${value}` : value);
+
+    return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+  };
+ 
  
   return (
     <div>
@@ -83,7 +112,7 @@ const OngoingAucAdmin = () => {
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
           <div className="oneauction-timeremaining">
-            <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p>
+            <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
           </div>
           <div className="oneauction-totalsold">
           <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>

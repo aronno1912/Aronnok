@@ -61,11 +61,9 @@ const Navbar = ({userId}) => {
       </div>
          {isPopupOpen && (
             <div className="notification-overlay">
-            <div className="notification-popup">
               
               <UserNotification userId={userId} onClose={closePopup}/>
         
-            </div>
           </div>
         ) }  
     </div>
