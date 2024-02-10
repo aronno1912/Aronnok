@@ -16,6 +16,7 @@ const OngoingAucAdmin = () => {
   const [start,setStart] = useState(new Date());
   const [end,setEnd] = useState(new Date());
   const [remainingTime,setRtime]=useState(2100);
+  const [isOver,setIsOver]=useState(false);
 
    
   useEffect(() => {
@@ -80,7 +81,10 @@ const OngoingAucAdmin = () => {
       fetchOrder();
       fetchProducts();
       fetchTopProducts();
-      setRtime((prevTime) => prevTime - 1);
+      setRtime((prevTime) =>{
+        if(prevTime>0) return prevTime-1;
+        else {setIsOver(true); return 0;}
+      });
       // checkTimeEnd();
     }, 1000);
 
@@ -111,9 +115,9 @@ const OngoingAucAdmin = () => {
             <p><b>Date: {date}</b></p>
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
-          <div className="oneauction-timeremaining">
+          {!isOver &&( <div className="oneauction-timeremaining">
             <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
-          </div>
+          </div>)}
           <div className="oneauction-totalsold">
           <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>  
