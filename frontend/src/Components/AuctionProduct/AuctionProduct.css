@@ -18,6 +18,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for the pop-up */
     z-index: 1000; /* Ensure the pop-up is above the overlay */
   }
+
+  .bid-btn{
+    height: 30px;
+    width: 60px;
+    background-color: rgb(24, 113, 60);
+    color: white;
+}
     
     /* Add any additional styling as needed */
     

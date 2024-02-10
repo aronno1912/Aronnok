@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../Components/Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
+import AuctionWinitem from '../Components/AuctionWinitem/AuctionWinitem';
+import '../Context/AuctionWinProducts.css'
+
 
 const AuctionWinProducts = () => {
-    const [userId,auctionId]=useParams();
-    const [products,setProducts]=useState();
+    const {userId,auctionId}=useParams();
+    const [products,setProducts]=useState([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/auction/get-auction/${auctionId}`);
+                console.log("hellloooooooo");
+                const response = await fetch(`http://localhost:8000/api/auction/highestBidder/${auctionId}/${userId}`);
                 const data = await response.json();
                 setProducts(data);
+                
             } catch (error) {
               console.error('Error fetching product data:', error);
             }
@@ -30,12 +35,12 @@ const AuctionWinProducts = () => {
       }, []);
     
   return (
-    <div>
-    <Navbar/>
+    <div style={{width:'100%'}}>
+    <Navbar userId={userId}/>
     
         <div className="winitems-title">
-            <p style={{fontSize:'25px', color:"rgb(17, 77, 44)"}}><b></b></p>
-            <hr style={{width:"150px", margin:"0", border:"2px solid", borderRadius:"10px"}}/>
+            <p style={{fontSize:'25px' , color:"rgb(141, 16, 187)"}}><b> You have won {products.length} products!</b></p>
+            {/* <hr style={{width:"150px", margin:"0", border:"2px solid", borderRadius:"10px"}}/> */}
         </div>
         <div className="winitems-header">
             <div className="winitems-header-p">
@@ -46,7 +51,7 @@ const AuctionWinProducts = () => {
         </div>
         <div className="winitems-orderitems">
         {products.map((item,i)=>{
-        return <AuctionWinProducts key={i} id={item.product} name={item.name} price={item.price} photo={item.photo}/>
+        return <AuctionWinitem key={i} id={item._id} auctionId={auctionId} userId={userId} name={item.name} price={item.currentBid} photo={item.photo}/>
         })}
         </div>
     <Footer/>

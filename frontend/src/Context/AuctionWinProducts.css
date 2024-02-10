@@ -1,18 +1,29 @@
 
 .winitems-title{
-    width: 47%;
+    display: flex;
+    /* margin-left: 580px; */
+    width:100%;
+    justify-content: center;
+    color: rgb(141, 16, 187);
 }
 .winitems-header{
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 700px;
+    width: 400px;
     justify-content: space-around;
+    margin-left: 400px;
 }
 
 .winitems-header-p{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-left: 15px;
 }
 
+.winitems-orderitems{
+    display: flex;
+    flex-direction: column;
+    margin-left: 400px;
+}

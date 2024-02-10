@@ -1,27 +1,16 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
+import './AuctionWinitem.css'
 
-const AuctionWinitem = () => {
+const AuctionWinitem = (prod) => {
     const [product, setProduct] = useState([]);
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/api/product/659c027001b07da1b7fef185/${prod.id}`);
-                const data = await response.json();
-                setProduct(data);
-            } catch (error) {
-              console.error('Error fetching product data:', error);
-            }
-          };
-    
-         fetchProduct();
-      }, []);
 
       const pay = async () => {
           try {
-            console.log(userId);
-            await axios.post(`http://localhost:8000/api/auction/${auctionId}/${productId}/payment`, {"bidAmount":Number(inputValue) , "bidder": userId});
-            setState(2);
+            const response=await axios.post(`http://localhost:8000/api/auction/${prod.auctionId}/${prod.id}/payment`, {});
+            const textUrl=response.data.url;
+            
+            window.location.href = textUrl;
           } catch (error) {
             console.error('Error bidding', error);
           }
@@ -29,17 +18,17 @@ const AuctionWinitem = () => {
 
   return (
     <div>
-    <div className="order-item-container">
-        <div className="order-item-left">
+    <div className="winitem-container">
+        <div className="winitem-left">
             <img src={prod.photo} alt="" />
-            <div className="orderitem-name-quantity">
+            <div className="winitem-name-quantity">
                 <p style={{fontSize:'17px', color:'rgb(2, 75, 33)'}}>{prod.name}</p>
             </div>
         </div>
-        <div className="order-item-middle">
+        <div className="winitem-middle">
             <p><b>${prod.price}</b></p>
         </div>
-        <div className="order-item-right">
+        <div className="winitem-right">
             <button onClick={pay}>pay for item</button>
         </div>
     

@@ -33,14 +33,13 @@ const AuctionProduct = (prod) => {
             <p className='product-price'><b>Current Bid: ${prod.currentBid}</b></p>
             <p className='product-price'><b>Highest Bidder: {prod.highestBidder}</b></p>
             <div className="product-footer">
-            <button className="buy-btn" onClick={openPopup}>Bid</button>
+            <button className="bid-btn" onClick={openPopup}>Bid</button>
                 {isPopupOpen && (
                <div className="popupu-overlay">
                <div className="addu-product-popup">
                  
                  <BidPopup auctionId={prod.auctionId} productId={prod.id} userId={prod.userId} currentBid={prod.currentBid} onClose={closePopup}/>
      
-            
                 </div>
               </div>
             ) }  

@@ -16,8 +16,12 @@
 } 
 
 .oneauction-timeremaining{
+    display: flex;
+    flex-direction: column;
+    gap: -1px;
+    margin-top: -30px;
     color: red;
-    font-size: 22px;
+    font-size: 20px;
     align-items: center;
     align-self: center;
 }

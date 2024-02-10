@@ -8,7 +8,6 @@ import Footer from '../Components/Footer/Footer';
 
 const OrderStatus = () => {
     const {orderId} = useParams();
-
     const [order, setOrder] = useState({});
     const [orderItems, setOrderItems] = useState([]);
     const [totalOrderQuantity, setTotalQuantity] = useState(0);
