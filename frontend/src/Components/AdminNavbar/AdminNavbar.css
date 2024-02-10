@@ -40,29 +40,46 @@
     align-items: center;
   }
   
-  .notification-icon,
-  .profile-icon {
+ 
+  .adminprofile-icon {
+    
+    margin: 0 10px; /* Increased margin for better spacing */
+    cursor: pointer;
+    color: #333; /* Set icon color to a dark color for contrast */
+   
+  }
+
+  .adminnotification-icon
+  {
     font-size: 1.8rem; /* Increased font size for icons */
     margin: 0 10px; /* Increased margin for better spacing */
     cursor: pointer;
     color: #333; /* Set icon color to a dark color for contrast */
+    margin-bottom: 3px;
   }
   
-  .search-bar {
+  .adminsearch-bar {
     display: flex;
     align-items: center;
   }
   
-  .search-bar input {
-    padding: 5px; /* Increased padding for input field */
+  .adminsearch-bar input {
+    padding: 5px 40px; /* Increased padding for input field */
     margin-right: 5px; /* Increased margin for better spacing */
   }
+  .adminsearch-bar input[type="text"] {
+    width: 100%; /* Set input width to 100% */
+    border: 1px solid #333; /* Set input border to a dark color for contrast */
+    
+  }
+
   
-  .search-bar button {
+  .adminsearchbutton {
     padding: 5px 10px; /* Increased padding for the search button */
     background-color: #333; /* Set button background color to a dark color */
     color: white; /* Set button text color to white for contrast */
     border: none;
     cursor: pointer;
+   
   }
   

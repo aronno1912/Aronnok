@@ -29,7 +29,7 @@ const Sidebar = () => {
           <Link to="/admin/createauction" className={location.pathname === '/admin/createauction' ? 'active' : ''}>Create Auction</Link>
         </li>
         <li className='eta6'>
-          <Link to="/admin/viewauctions" className={location.pathname === '/admin/viewauctions' ? 'active' : ''}>View Auctions</Link>
+          <Link to="/admin/viewauctions" className={location.pathname.startsWith('/admin/viewauctions') ? 'active' : ''}>View Auctions</Link>
         </li>
       </ul>
     </div>
