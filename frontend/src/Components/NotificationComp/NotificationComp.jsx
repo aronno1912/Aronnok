@@ -7,7 +7,7 @@ const NotificationComp = (prod) => {
 
     useEffect(() => {
         const fetchData = () => {
-          if(prod.type==="order"){
+          if(prod.type==="auction"){
            setAction(true);
           }
           else

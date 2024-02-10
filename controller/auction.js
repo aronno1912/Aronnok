@@ -12,9 +12,10 @@ exports.createAuction = async (req, res, next) => {
   }
 
   try {
-    const { date, startTime, endTime, plants } = req.body;
+    const {name, date, startTime, endTime, plants } = req.body;
     const auctionProducts = plants;
     const newAuction = new Auction({
+      name,
       date,
       startTime,
       endTime,
@@ -73,13 +74,11 @@ exports.getAllAuctions = async (req, res) => {
     const auctions = await Auction.find()
       .sort({ startTime: 1 }) // Sort by startTime in ascending order
       .exec();
-
     if (!auctions || auctions.length === 0) {
       return res.status(404).json({
         error: "No auctions found",
       });
     }
-
     res.json(auctions);
   } catch (error) {
     console.error(error);
