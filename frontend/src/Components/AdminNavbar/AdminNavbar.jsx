@@ -11,13 +11,13 @@ const AdminNavbar = () => {
         <div className="admin-name">Aronnok</div>
       </div>
       <div className="right-section">
-        <div className="notification-icon">🔔</div>
-        <div className="search-bar">
+        <div className="adminnotification-icon">🔔</div>
+        <div className="adminsearch-bar">
           <input type="text" placeholder="Search" />
-          <button type="button">Search</button>
+          <button className= "adminsearchbutton"type="button">Search</button>
         </div>
         {/* <div className="profile-icon">👤</div> */}
-        <div className="profile-icon">
+        <div className="adminprofile-icon">
             <img src="/us.png" alt="profile-icon" style={{ width: '50px', height: '50px' }} />
         </div>
       </div>

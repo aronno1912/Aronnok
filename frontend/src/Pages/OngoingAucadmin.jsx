@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../Components/Navbar/Navbar';
-import '../Context/OneAuction.css';
+import '../Context/ongoingAuctionAdmin.css';
 import Product from '../Components/Product/Product';
 import CountdownTimer from '../Components/CountdownTimer/CountdownTimer';
 import AdAuctionProduct from '../Components/AuctionProduct/AdAuctionProduct';
+import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
 
 const OngoingAucAdmin = () => {
   const {userId,auctionId}=useParams();
@@ -109,16 +110,17 @@ const OngoingAucAdmin = () => {
  
   return (
     <div>
-      <Navbar/>
+      <AdminNavbar/>
       <div className="oneauction-headers">
-          <div className="oneauction-dateTime">
+          <div className="adminoneauction-dateTime">
             <p><b>Date: {date}</b></p>
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
-          {!isOver &&( <div className="oneauction-timeremaining">
+
+          {!isOver &&( <div className="adminoneauction-timeremaining">
             <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
           </div>)}
-          <div className="oneauction-totalsold">
+          <div className="adminoneauction-totalsold">
           <p><b>End time: {end.getHours().toString().padStart(2, '0')}:{end.getMinutes().toString().padStart(2, '0')}:{end.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>  
       </div>

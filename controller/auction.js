@@ -1,4 +1,6 @@
 const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
+const Notification = require('../models/notification');
+const product = require('../models/product');
 const User = require("../models/user");
 const { validationResult } = require('express-validator');
 const moment = require('moment');
@@ -10,9 +12,10 @@ exports.createAuction = async (req, res, next) => {
   }
 
   try {
-    const { date, startTime, endTime, plants } = req.body;
+    const {name, date, startTime, endTime, plants } = req.body;
     const auctionProducts = plants;
     const newAuction = new Auction({
+      name,
       date,
       startTime,
       endTime,
@@ -67,23 +70,24 @@ exports.getAuction = async (req, res) => {
   }
 };
 exports.getAllAuctions = async (req, res) => {
-  Auction.find()
-    .exec()
-    .then((auctions) => {
-      if (!auctions) {
-        return res.status(400).json({
-          error: "No products found",
-        });
-      }
-      res.json(auctions);
-    })
-    .catch((err) => {
-      // Handle errors here
-      console.error(err);
-      res.status(500).json({
-        error: "Internal Server Error",
+  try {
+    const auctions = await Auction.find()
+      .sort({ startTime: 1 }) // Sort by startTime in ascending order
+      .exec();
+ 
+    if (!auctions || auctions.length === 0) {
+      return res.status(404).json({
+        error: "No auctions found",
       });
+    }
+ 
+    res.json(auctions);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Internal Server Error",
     });
+  }
 };
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {
@@ -100,7 +104,7 @@ exports.getAuctionProducts = async (req, res) => {
           }
         }
         console.log(item);
-        let bidderName=null;
+        let bidderName = null;
         const updatedBids = await Promise.all(productDetails.bids.map(async (bid) => {
           const bidPlacerDetails = await User.findById(bid.bidder);
           if (bidPlacerDetails) {
@@ -115,7 +119,7 @@ exports.getAuctionProducts = async (req, res) => {
         }));
         return {
           ...productDetails.toObject(),
-          bids:updatedBids,
+          bids: updatedBids,
           highestBidder: highestBidder,
         };
       } else {
@@ -201,7 +205,7 @@ exports.placeBid = async (req, res) => {
 };
 
 // Close bidding on a specific product
-exports.closeBidding = async (req, res,next) => {
+exports.closeBidding = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
@@ -229,7 +233,7 @@ exports.closeBidding = async (req, res,next) => {
 
       // Update the auction product with the winning bid and set isSold to true
       const updatedAuctionProduct = await AuctionProduct.findByIdAndUpdate(
-        auctionProductId,{"auction":req.params.auctionId},
+        auctionProductId, { "auction": req.params.auctionId },
         {
           $set: {
             isSold: true,
@@ -332,7 +336,7 @@ exports.addProductToAuctionById = async (req, res) => {
   }
 
   try {
-    let auction=req.auction;
+    let auction = req.auction;
     auction.auctionProducts.push(req.params.productId);
     await auction.save();
     res.status(201).json({ message: 'Product added to auction successfully!' });
@@ -344,7 +348,7 @@ exports.addProductToAuctionById = async (req, res) => {
 
 exports.remainingTime = async (req, res) => {
   try {
-    let auction=req.auction;
+    let auction = req.auction;
     const currentTime = moment(); // Current time
     const endTime = moment(auction.endTime); // End time of the auction
 
@@ -355,7 +359,7 @@ exports.remainingTime = async (req, res) => {
     const hours = Math.floor(duration.asHours());
     const minutes = Math.floor(duration.minutes());
     const seconds = Math.floor(duration.seconds());
-    res.status(201).json({ "hour":`${hours}`,"min":`${minutes}`,"sec": `${seconds}`});
+    res.status(201).json({ "hour": `${hours}`, "min": `${minutes}`, "sec": `${seconds}` });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -378,13 +382,13 @@ exports.getIndividualProductInOneAuction = async (req, res) => {
     bids.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     // Update productDetails with the bids array including bidderName
     productDetails.bids = bids;
-  
+
     res.status(200).json(bids);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-  
+
 };
 
 exports.sellRequest = async (req, res) => {
@@ -397,7 +401,7 @@ exports.sellRequest = async (req, res) => {
     // console.log(req.body)
     const { name, description, photoName, initialbid } = req.body;
     // console.log(initialbid)
-    const initialBid=initialbid;
+    const initialBid = initialbid;
     // console.log(currentBid)
     const photo = "/" + photoName;
     // console.log(photo)
@@ -406,8 +410,8 @@ exports.sellRequest = async (req, res) => {
       description,
       photo,
       initialBid,
-      auction:req.params.auctionId,
-      user:req.params.userId,
+      auction: req.params.auctionId,
+      user: req.params.userId,
     });
 
     await requestedAuctionProduct.save();
@@ -498,7 +502,7 @@ exports.getIndividualRequest = async (req, res) => {
     const reqId = req.params.reqId;
     // Populate the requestedBy field to get the user's details
     const request = await RequestedAuctionProduct.findById(reqId);
-    
+
     // Check if the request exists
     if (!request) {
       return res.status(404).json({ error: 'Requested product not found' });
@@ -506,7 +510,7 @@ exports.getIndividualRequest = async (req, res) => {
 
     // Extract the requester's username from the populated field
     const requesterUser = request.user;
-    const user=await User.findById(requesterUser);
+    const user = await User.findById(requesterUser);
     // Include the requester's username in the response
     const responseData = {
       ...request.toObject(), // Convert Mongoose document to plain JavaScript object
@@ -523,12 +527,12 @@ exports.getIndividualRequest = async (req, res) => {
 exports.getProductsByHighestBidder = async (req, res) => {
   const userId = req.params.userId;
   const auction = req.auction;
-  
+
   try {
     // Find products in an auction where the user is the highest bidder
     const highBidProducts = await Promise.all(auction.auctionProducts.map(async (productId) => {
       const productDetails = await AuctionProduct.findById(productId);
-      
+
       if (productDetails) {
         // Check if the user is the highest bidder for this product
         if (productDetails.highestBidder.toString() === userId) {
@@ -548,3 +552,107 @@ exports.getProductsByHighestBidder = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+// Function to update auction status based on current time
+const updateAuctionStatus = async function () {
+  const currentTime = new Date();
+  console.log(currentTime);
+  try {
+    // Move auctions from 'upcoming' to 'ongoing'
+    const upcomingAuctionsToOngoing = await Auction.find({
+      // status: 'upcoming',
+      startTime: { $lt: currentTime },
+      endTime: { $gt: currentTime }
+    });
+
+    // console.log("upcoming to ongoing");
+    // console.log(upcomingAuctionsToOngoing);
+
+    for (const auction of upcomingAuctionsToOngoing) {
+      if (String(auction.status) !== 'ongoing') {
+        auction.status = 'ongoing';
+        await auction.save();
+      }
+    }
+
+    // Move auctions from 'ongoing' to 'completed'
+    const ongoingAuctionsToCompleted = await Auction.find({
+      // status: 'ongoing',
+      endTime: { $lte: currentTime },
+    });
+
+    // console.log("ongoing to completed");
+    // console.log(ongoingAuctionsToCompleted);
+
+    for (const auction of ongoingAuctionsToCompleted) {
+      console.log(auction.status, auction.name)
+      if (String(auction.status) !== 'completed') {
+        console.log(auction.status+auction.name)
+        auction.status = 'completed';
+        await auction.save();
+        await closeBiddingOnAllProducts(auction);
+      }
+    }
+
+    // Move auctions from 'pending' to 'upcoming'
+    const pendingAuctionsToUpcoming = await Auction.find({
+      // status: 'pending',
+      startTime: { $gt: currentTime }
+    });
+
+    // console.log("pending to upcoming");
+    // console.log(pendingAuctionsToUpcoming);
+
+    for (const auction of pendingAuctionsToUpcoming) {
+      if (String(auction.status) !== 'upcoming') {
+        auction.status = 'upcoming';
+        await auction.save();
+      }
+    }
+  } catch (error) {
+    console.error('Error updating auction status:', error);
+  }
+};
+
+const closeBiddingOnAllProducts = async function (auction) {
+  console.log("Closing bidding for auction:", auction._id);
+  try {
+    // Update isSold field for all auction products
+    await Promise.all(auction.auctionProducts.map(async (productId) => {
+      const productDetails = await AuctionProduct.findByIdAndUpdate(
+        productId,
+        { isSold: true, auction: auction._id },
+        { new: true }
+      );
+      console.log("Updated product:", productDetails);
+      //notify highest bidder
+      const userId = productDetails.highestBidder;
+      let notification = await Notification.findOne({ user: userId }).sort({ createdAt: -1 });
+
+      if (!notification) {
+        // If no notification exists for the user, create a new one
+        notification = new Notification({ user: userId, messages: [] });
+      }
+
+      // Add the new message to the notification
+      notification.messages.push({
+        message: "You won the bid for "+productDetails.name+" on the auction "+auction.name+" with a bid of "+productDetails.currentBid,
+        type: "auction",
+        // Add link if needed
+      });
+
+      // Save the notification
+      await notification.save();
+
+    }));
+    console.log("weirdo")
+    console.log("Bidding closed for all products in auction:", auction._id);
+  } catch (error) {
+    console.error("Error closing bidding:", error);
+    throw error;
+  }
+};
+
+
+// Schedule the function to run every minute
+setInterval(updateAuctionStatus, 10000);

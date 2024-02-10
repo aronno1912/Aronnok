@@ -152,6 +152,13 @@ const Auction = () => {
     }));
   };
 
+  const handleNameChange = (e) => {
+    setAuction((prevAuction) => ({
+      ...prevAuction,
+      name: e.target.value,
+    }));
+  };
+
   const handleAddPlant = (newPlant) => {
     setAuction((prevAuction) => ({
       ...prevAuction,
@@ -201,6 +208,17 @@ const Auction = () => {
   return (
     <div className="auction-page">
       <h1 className="auction-title">Auction Details</h1>
+      <label htmlFor='auctionName' className="label">
+        Auction Name:
+      </label>
+      <input
+        type="text"
+        id="auctionName"
+        name="auctionName"
+        value={auction.name}
+        onChange={handleNameChange}
+        className="input"
+      />
       <label htmlFor="auctionDate" className="label">
         Auction Date:
       </label>
