@@ -105,8 +105,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -4px;
-    margin-left: -4px;
+    margin-top: 0px;
+    margin-left: -26px;
     border: 11px;
     font-size: 14px;
     background-color: rgb(220, 23, 13);

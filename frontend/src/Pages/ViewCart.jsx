@@ -71,7 +71,7 @@ const ViewCart = (prod) => {
 
   return (
     <div>
-    <Navbar/>
+    <Navbar userId={userId}/>
     <div className="cart-all">
       <div className="cartItems-totalsbox">
         <div className='cart-items'>
@@ -104,11 +104,12 @@ const ViewCart = (prod) => {
        <div className="cart-hishab">
           <div className="cart-hishab-address">
             <p>Enter billing address:</p>
-            <input style={{width: '180px', height: '140px',color: textColor}}
+            <input style={{width: '180px', height: '140px',color: textColor, textAlign:"start"}}
                 type="text"
                 id="textInput"
                 value={address}
                 onChange={handleAddress}
+                placeholder='Enter address'
             />
           </div>
           <div className="cart-hishab-payment">

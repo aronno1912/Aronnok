@@ -17,9 +17,23 @@ const OneAuction = () => {
   const [start,setStart] = useState(new Date());
   const [end,setEnd] = useState(new Date());
   const [remainingTime,setRtime]=useState(2100);
-  const [isOver,setOver]=useState(false);
+  const [isOver,setIsOver]=useState(false);
   
-  
+  useEffect(() => {
+    const fetchTime = async ()=>{
+      try {
+        const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/remainingTime`);
+        const data = await response.json();
+        setRtime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+        console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+     }
+     fetchTime();
+
+  }, []);
+
   useEffect(() => {
     const fetchOrder = async () => {
         try {
@@ -54,24 +68,19 @@ const OneAuction = () => {
         }
        }
 
-       const fetchTime = async ()=>{
-        try {
-          const response = await fetch(`http://localhost:8000/api/auction/${auctionId}/remainingTime`);
-          const data = await response.json();
-          setRtime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-          console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-        } catch (error) {
-          console.error('Error fetching product data:', error);
-        }
+       const checkTimeEnd = ()=>{
+        if(remainingTime<=0)
+          setIsOver(true);
        }
 
+      
      const intervalId = setInterval(() => {
       fetchOrder();
       fetchProducts();
       fetchTopProducts();
-      fetchTime();
-    }, 7000);
-
+      setRtime((prevTime) => prevTime - 1);
+      checkTimeEnd();
+    }, 1000);
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
@@ -82,19 +91,30 @@ const OneAuction = () => {
     console.log('Timer ended!'); // You can perform any action when the timer reaches 0
   };
 
+  const formatTime = () => {
+    const hours = Math.floor(remainingTime / 3600);
+    const minutes = Math.floor((remainingTime % 3600) / 60);
+    const seconds = remainingTime % 60;
+
+    const padZero = (value) => (value < 10 ? `0${value}` : value);
+
+    return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+  };
  
   return (
     <div>
-      <Navbar/>
+      <Navbar userId={userId}/>
       <div className="oneauction-headers">
           <div className="oneauction-dateTime">
             <p><b>Date: {date}</b></p>
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
           {!isOver &&( <div className="oneauction-timeremaining">
-            <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p>
+            {/* <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p> */}
+            <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
           </div>)}
           {isOver &&( <div className="oneauction-timeremaining">
+            <p style={{color:"rgb(141, 16, 187)"}}>Auction Ended!</p>
             <Link to={`/auction/payProducts/${userId}/${auctionId}`}><button>Pay for your products</button></Link>
           </div>)}
          

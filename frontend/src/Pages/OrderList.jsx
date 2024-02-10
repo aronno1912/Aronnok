@@ -64,7 +64,7 @@ const OrderList = () => {
       }
   return (
     <div>
-        <Navbar/>
+        <Navbar userId={userId}/>
         <div className="orderlist-alltotals">
             <div className="orderlist-currentorders">
                 <p>Current orders: {curorders.length}</p>

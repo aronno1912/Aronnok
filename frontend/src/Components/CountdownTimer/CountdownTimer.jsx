@@ -19,21 +19,6 @@ const CountdownTimer = ({ initialTime, onTimerEnd }) => {
       return () => clearInterval(intervalId);
     }, [time, onTimerEnd]);
 
-    // const countdownInterval = setInterval(() => {
-    //     // Update the timer every second
-    //     setTime((prevTime) => prevTime - 1);
-    //   }, 100000);
-    
-    //   // Clear the interval when the component unmounts
-    //   const cleanupFunction = () => {
-    //     clearInterval(countdownInterval);
-    
-    //     // Additional logic after clearing the interval
-    //     if (time <= 0) {
-    //       onTimerEnd();
-    //     }
-    //   };
-    // Format seconds into HH:MM:SS
     const formatTime = () => {
       const hours = Math.floor(time / 3600);
       const minutes = Math.floor((time % 3600) / 60);

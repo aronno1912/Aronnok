@@ -49,7 +49,7 @@ const AuctionsAll = () => {
 
   return (
     <div className='auctionall'>
-        <Navbar/>
+        <Navbar userId={userId}/>
         <div className="auctionall-ongoing">
             <h1>Ongoing</h1>
 

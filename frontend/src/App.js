@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import Home from './Pages/Home';
 import Favourites from './Pages/Favourites';
-import Product from './Pages/Product';
 import ViewCart from './Pages/ViewCart';
 import Login from './Pages/Login';
 import ViewProduct from './Pages/ViewProduct';
@@ -51,9 +50,7 @@ function App() {
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/admin/createauction' element={<AdminCreateAuction/>}/>
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
-        <Route path='/product' element={<Product/>}>
-          {/* <Route path=':productId' element={<Product/>}/> */}
-        </Route>
+        
         <Route path='/viewcart/:userId' element={<ViewCart/>}/>
         <Route path='/product/:userId/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>

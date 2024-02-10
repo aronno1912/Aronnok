@@ -1,5 +1,6 @@
 // const axios = require('axios');
 const User = require("../models/user");
+const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const SSLCommerzPayment = require('sslcommerz-lts');

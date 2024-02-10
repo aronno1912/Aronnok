@@ -55,7 +55,7 @@ const AuctionUpcoming = () => {
 
   return (
     <div>
-        <Navbar/>
+        <Navbar userId={userId}/>
         <div classname="listall" style={listAllStyle}>
             
         <div className="auction-product-list">

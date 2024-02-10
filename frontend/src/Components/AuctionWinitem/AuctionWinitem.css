@@ -1,0 +1,48 @@
+.winitem-container{
+    display: flex;
+    flex-direction: row;
+    /* background: linear-gradient(to bottom, rgb(222, 223, 222) 0%, rgb(255, 255, 255) 50%, rgb(222, 223, 222) 100%); */
+    border-bottom: 0.5px solid rgb(114, 114, 116);
+    justify-content: space-between;
+    align-self: center;
+    height: 80px;
+    width:700px;
+}
+
+.winitem-left{
+    display: flex;
+    width: 200px;
+    justify-content: space-around;
+}
+
+.winitem-left img{
+    width: 80px;
+    height: 80;
+    margin: 5px;
+}
+
+.winitem-name-quantity{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.orderitem-quantity{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.winitem-middle{
+     align-self: center;
+} 
+
+.winitem-right{
+    position: relative;
+    margin-top: 20px;
+}
+.winitem-right p{
+    margin-top: 30px;
+    margin-right: 20px;
+    color: rgb(17, 74, 32);
+}
