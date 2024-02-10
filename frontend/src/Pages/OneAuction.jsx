@@ -110,7 +110,6 @@ const OneAuction = () => {
             <p><b>Start time: {start.getHours().toString().padStart(2, '0')}:{start.getMinutes().toString().padStart(2, '0')}:{start.getSeconds().toString().padStart(2, '0')}</b></p>
           </div>
           {!isOver &&( <div className="oneauction-timeremaining">
-            {/* <p><b><CountdownTimer initialTime={remainingTime} onTimerEnd={handleTimerEnd}/></b></p> */}
             <p style={{fontSize:'22px'}}><b>Time remaining: {formatTime()}</b></p>
           </div>)}
           {isOver &&( <div className="oneauction-timeremaining">

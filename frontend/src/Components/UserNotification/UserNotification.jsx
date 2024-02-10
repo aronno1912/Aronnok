@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import NotificationComp from '../NotificationComp/NotificationComp';
+import './UserNotification.css'
 
 const UserNotification = ({userId,onClose}) => {
 
@@ -28,18 +29,16 @@ const UserNotification = ({userId,onClose}) => {
     
       }, [notis]);
   return (
-    <div>
-        <div className="unot-container">
+        // <div className="unot-container">
         <div className="unot-content">
             <span className="unot-close-btn" onClick={onClose}>&times;</span>
             <div className= 'all-notifications'>
                 {notis.map((item,i)=>{
-                    return <NotificationComp userId={userId} message={item.message} type={item.type}  read={item.read} />
+                    return <NotificationComp userId={userId} message={item.message} type={item.type} auctionId={item._id} read={item.read} />
                 })}
             </div>
       </div>
-      </div>
-    </div>
+    //   </div>
   )
 }
 

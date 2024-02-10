@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import './NotificationComp.css'
+import { Link } from 'react-router-dom';
 
 const NotificationComp = (prod) => {
     const [isAction,setAction]=useState(false);
@@ -28,19 +30,17 @@ const NotificationComp = (prod) => {
       };
     
   return (
-    <div>
       <div className="noticomp-container">
         <div className="noticomp-left">
             <p>{prod.message}</p>
         </div>
         {isAction && (
             <div className="noticomp-right">
-                <button onClick={placePay}>Go to pay</button>
+                <Link to={`/auction/payProducts/${prod.userId}/${prod.auctionId}`}><button>Pay now</button></Link>
             </div>
         )}
         
       </div>
-    </div>
   )
 }
 
