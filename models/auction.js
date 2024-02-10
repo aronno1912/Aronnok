@@ -122,60 +122,7 @@ const auctionSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Function to update auction status based on current time
-const updateAuctionStatus = async function () {
-    const currentTime = new Date();
-    try {
-        // Move auctions from 'upcoming' to 'ongoing' when start time is less than or equal to current time and end time is greater than current time
-        const upcomingAuctionsToOngoing = await Auction.find({
-            status: 'upcoming',
-            startTime: { $lte: currentTime },
-            endTime: { $gt: currentTime }
-        });
 
-        // console.log("upcoming to ongoing");
-        // console.log(upcomingAuctionsToOngoing);
-
-        upcomingAuctionsToOngoing.forEach(async (auction) => {
-            auction.status = 'ongoing';
-            await auction.save();
-        });
-
-        // Move auctions from 'ongoing' to 'completed' when end time is less than or equal to current time
-        const ongoingAuctionsToCompleted = await Auction.find({
-            status: 'ongoing',
-            endTime: { $lte: currentTime },
-        });
-
-        // console.log("ongoing to completed");
-        // console.log(ongoingAuctionsToCompleted);
-
-        ongoingAuctionsToCompleted.forEach(async (auction) => {
-            auction.status = 'completed';
-            await auction.save();
-        });
-
-        // Move auctions from 'pending' to 'upcoming' when start time is greater than current time
-        const pendingAuctionsToUpcoming = await Auction.find({
-            // status: 'pending',
-            startTime: { $gt: currentTime }
-        });
-
-        // console.log("pending to upcoming");
-        // console.log(pendingAuctionsToUpcoming);
-
-        pendingAuctionsToUpcoming.forEach(async (auction) => {
-            auction.status = 'upcoming';
-            await auction.save();
-        });
-    } catch (error) {
-        console.error('Error updating auction status:', error);
-    }
-};
-
-
-// Schedule the function to run every minute
-setInterval(updateAuctionStatus, 10000);
 const RequestedAuctionProduct=mongoose.model('RequestedAuctionProduct', requestedAuctionProductSchema);
 const AuctionProduct = mongoose.model('AuctionProduct', auctionProductSchema);
 const Auction = mongoose.model('Auction', auctionSchema);
