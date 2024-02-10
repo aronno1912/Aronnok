@@ -69,24 +69,26 @@ exports.getAuction = async (req, res) => {
   }
 };
 exports.getAllAuctions = async (req, res) => {
-  Auction.find()
-    .exec()
-    .then((auctions) => {
-      if (!auctions) {
-        return res.status(400).json({
-          error: "No products found",
-        });
-      }
-      res.json(auctions);
-    })
-    .catch((err) => {
-      // Handle errors here
-      console.error(err);
-      res.status(500).json({
-        error: "Internal Server Error",
+  try {
+    const auctions = await Auction.find()
+      .sort({ startTime: 1 }) // Sort by startTime in ascending order
+      .exec();
+
+    if (!auctions || auctions.length === 0) {
+      return res.status(404).json({
+        error: "No auctions found",
       });
+    }
+
+    res.json(auctions);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Internal Server Error",
     });
+  }
 };
+
 // Get products of a specific auction
 exports.getAuctionProducts = async (req, res) => {
   try {
@@ -151,8 +153,9 @@ exports.addProductToAuction = async (req, res) => {
       description,
       photo,
       currentBid,
+      auction: req.params.auctionId,
     });
-
+    
     await auctionProduct.save();
     console.log(auctionProduct)
     req.auction.auctionProducts.push(auctionProduct._id);
@@ -260,12 +263,14 @@ exports.getPastAuctions = async (req, res) => {
   try {
     const pastAuctions = await Auction.find({ endTime: { $lt: new Date() } })
       .populate('auctionProducts')
+      .sort({ startTime: -1 }) // Sort by startTime in descending order
       .exec();
     res.json(pastAuctions);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 // Get ongoing auctions
 exports.getOngoingAuctions = async (req, res) => {
   try {
@@ -274,6 +279,7 @@ exports.getOngoingAuctions = async (req, res) => {
       endTime: { $gt: new Date() },
     })
       .populate('auctionProducts')
+      .sort({startTime:-1})
       .exec();
     res.json(ongoingAuctions);
   } catch (error) {
@@ -286,6 +292,7 @@ exports.getFutureAuctions = async (req, res) => {
   try {
     const futureAuctions = await Auction.find({ startTime: { $gt: new Date() } })
       .populate('auctionProducts')
+      .sort({startTime:1})
       .exec();
     res.json(futureAuctions);
   } catch (error) {
