@@ -642,6 +642,7 @@ const closeBiddingOnAllProducts = async function (auction) {
       notification.messages.push({
         message: "You won the bid for "+productDetails.name+" on the auction "+auction.name+" with a bid of "+productDetails.currentBid,
         type: "auction",
+        link:auction._id,
         // Add link if needed
       });
 
