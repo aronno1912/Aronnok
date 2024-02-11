@@ -11,6 +11,8 @@ import Footer from '../Components/Footer/Footer';
 
 const ViewCart = (prod) => {
   const { userId } = useParams();
+  console.log("ekhane view cart")
+  console.log(userId)
 
   const disRate= 0.1;
   const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
@@ -40,7 +42,7 @@ const ViewCart = (prod) => {
   const placeOrder = async () => {
     try {
       console.log(address);
-      const response=await axios.put(`http://localhost:8000/api/cart/buynow/659c027001b07da1b7fef185`, {"address":address});
+      const response=await axios.put(`http://localhost:8000/api/cart/buynow/${userId}`, {"address":address});
       console.log("response")
       console.log(response.data.url);
       const textUrl=response.data.url;
