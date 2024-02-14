@@ -11,6 +11,8 @@ import Footer from '../Components/Footer/Footer';
 
 const ViewCart = (prod) => {
   const { userId } = useParams();
+  console.log("ekhane view cart")
+  console.log(userId)
 
   const disRate= 0.1;
   const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);

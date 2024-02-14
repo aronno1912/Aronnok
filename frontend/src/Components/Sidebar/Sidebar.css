@@ -143,4 +143,30 @@
     background-color: #4CAF50; /* Active page color */
     color: white;
   }
+
+
+  .eta7 {
+    padding: 15px;
+    text-align: center;
+    margin-top: 210px;
+    margin-right: 30px;
+  }
+  
+  .eta7 a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .eta7 a:hover {
+    background-color: #555;
+  }
+  .eta7 img {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    margin-top: 12px;
+  }
+  
   

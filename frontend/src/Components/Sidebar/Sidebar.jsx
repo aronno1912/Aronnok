@@ -31,6 +31,10 @@ const Sidebar = () => {
         <li className='eta6'>
           <Link to="/admin/viewauctions" className={location.pathname.startsWith('/admin/viewauctions') ? 'active' : ''}>View Auctions</Link>
         </li>
+
+        <li className='eta7'>
+          <Link to="/"> <img src='/logout2.png' ></img>LogOut</Link>
+        </li>
       </ul>
     </div>
   );
