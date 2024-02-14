@@ -96,9 +96,13 @@ const ViewCart = (prod) => {
         </div>
         <div className="viewcartTotals">
               <p><b>Total quantity: {totalQuantity}</b></p>
+              <hr/>
               <p><b>Total price: ${Math.round(cart.total)}</b></p>
+              <hr/>
               <p><b>Delivery fee: +$4</b></p>
+              <hr/>
               <p><b>Total: ${Math.round(cart.total+4)}</b></p>
+              <hr/>
         </div>
       </div>
        

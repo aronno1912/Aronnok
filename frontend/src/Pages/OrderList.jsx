@@ -44,8 +44,13 @@ const OrderList = () => {
             }
           };
 
-         fetchOrders();
-      }, [orders]);
+          const intervalId = setInterval(() => {
+            fetchOrders();
+          }, 3000);
+      
+          return () => clearInterval(intervalId);
+         
+      }, []);
 
       const moreCurItems=()=>{
         setCurDisplayItems(curdisplayItems+4)
@@ -101,7 +106,7 @@ const OrderList = () => {
         </div>
         <div className="current-orderlist-orders">
             {prevorders.slice(0, prevdisplayItems).map((item,i)=>{
-            return <CurrentOrderItem key={i} id={item._id}/>
+            return <CurrentOrderItem key={i} id={item._id} userId={userId}/>
             })}
         </div>
 
