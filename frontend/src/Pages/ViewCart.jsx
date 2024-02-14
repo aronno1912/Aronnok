@@ -40,7 +40,7 @@ const ViewCart = (prod) => {
   const placeOrder = async () => {
     try {
       console.log(address);
-      const response=await axios.put(`http://localhost:8000/api/cart/buynow/659c027001b07da1b7fef185`, {"address":address});
+      const response=await axios.put(`http://localhost:8000/api/cart/buynow/${userId}`, {"address":address});
       console.log("response")
       console.log(response.data.url);
       const textUrl=response.data.url;
@@ -94,9 +94,13 @@ const ViewCart = (prod) => {
         </div>
         <div className="viewcartTotals">
               <p><b>Total quantity: {totalQuantity}</b></p>
+              <hr/>
               <p><b>Total price: ${Math.round(cart.total)}</b></p>
+              <hr/>
               <p><b>Delivery fee: +$4</b></p>
+              <hr/>
               <p><b>Total: ${Math.round(cart.total+4)}</b></p>
+              <hr/>
         </div>
       </div>
        

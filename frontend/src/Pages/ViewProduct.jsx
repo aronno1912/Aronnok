@@ -46,7 +46,7 @@ const ViewProduct = () => {
   
     return (
       <div>
-        <Navbar/>
+        <Navbar userId={userId}/>
         {/* Pass the product ID to the OneProduct component */}
         <OneProduct productId={productId} userId={userId}/>
         <Footer />

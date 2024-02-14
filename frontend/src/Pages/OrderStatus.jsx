@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import Footer from '../Components/Footer/Footer';
 
 const OrderStatus = () => {
-    const {orderId} = useParams();
+    const {userId,orderId} = useParams();
     const [order, setOrder] = useState({});
     const [orderItems, setOrderItems] = useState([]);
     const [totalOrderQuantity, setTotalQuantity] = useState(0);
@@ -47,15 +47,20 @@ const OrderStatus = () => {
             setTotalQuantity(total);
            }
 
-         fetchOrder();
-         getTotalQuantity();
-      }, [order,orderItems]);
+           const intervalId = setInterval(() => {
+            fetchOrder();
+            getTotalQuantity();
+          }, 3000);
+      
+          return () => clearInterval(intervalId);
+         
+      }, []);
 
       
       
   return (
     <div>
-        <Navbar/>
+        <Navbar userId={userId}/>
         <div className="orderstatus-container">
             <div className="orderstatus-order-id">
                 <p><b>Order Id: {order._id}</b></p>

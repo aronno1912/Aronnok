@@ -48,7 +48,7 @@ const CurrentOrderItem = (prod) => {
 
   return (
     <div>
-        <Link to={`/orderstatus/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+        <Link to={`/orderstatus/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
        <div className="curorderitem-container">
         <div className="curorderitem-left">
             <p style={{fontSize:'18px', color:'rgb(2, 75, 33)'}}>Order ID: {order._id}</p>
