@@ -62,7 +62,7 @@ function App() {
         <Route path='/product/:userId/:productId' element={<ViewProduct />} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
-        <Route path='/orderstatus/:orderId' element={<OrderStatus/>}/>
+        <Route path='/orderstatus/:userId/:orderId' element={<OrderStatus/>}/>
         <Route path='/auction/upcoming/:userId/:auctionId' element={<AuctionUpcoming/>}/>
         <Route path='/auction/ongoing/:userId/:auctionId' element={<OneAuction/>}/>
         <Route path='/auction/completed/:userId/:auctionId' element={<AuctionPast/>}/>
