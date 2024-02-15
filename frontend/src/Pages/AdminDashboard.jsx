@@ -3,6 +3,7 @@ import '../Context/AdminDashboard.css'
 import AdminNavbar from '../Components/AdminNavbar/AdminNavbar'
 import Sidebar from '../Components/Sidebar/Sidebar'
 import Footer from '../Components/Footer/Footer'
+import LineChart from '../Components/LineChart/LineChart';
 
 const AdminDashboard = () => {
   return (
@@ -22,18 +23,37 @@ const AdminDashboard = () => {
                         </div>
                         
                         <div className="db-tatalsale-text">
-                            <p><b>Current month Sale</b></p>
-                            <p style={{marginTop:'1px'}}><b>$1500.50</b></p>
+                            <p><b>Total Users</b></p>
+                            <p style={{marginTop:'1px'}}><b>10</b></p>
                         </div>
                         
                     </div>
                     <div className="db-totalsale">
-
+                        <div className="db-graphIcon">
+                            <i class="bi bi-currency-dollar" style={{fontSize:'35px' , color:'rgb(67, 80, 198)', marginLeft:'13px', marginTop:'30px'}}></i>
+                        </div>
+                        
+                        <div className="db-tatalsale-text">
+                            <p><b>Current month Sale</b></p>
+                            <p style={{marginTop:'1px'}}><b>$1500.50</b></p>
+                        </div>
                     </div>
                     <div className="db-totalsale">
-
+                    <div className="db-graphIcon">
+                            <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)', marginLeft:'13px', marginTop:'30px'}}></i>
+                        </div>
+                        
+                        <div className="db-tatalsale-text">
+                            <p><b>Current month Sale</b></p>
+                            <p style={{marginTop:'1px'}}><b>$1500.50</b></p>
+                        </div>
                     </div>
+
                 </div>
+
+                {/* <div className="db-graph">
+                    <LineChart/>
+                </div> */}
             </div>
 
         </div>
