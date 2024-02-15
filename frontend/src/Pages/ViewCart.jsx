@@ -11,11 +11,10 @@ import Footer from '../Components/Footer/Footer';
 
 const ViewCart = (prod) => {
   const { userId } = useParams();
-  console.log("ekhane view cart")
-  console.log(userId)
 
   const disRate= 0.1;
-  const {totalQuantity,updateTotalQuantity}=useContext(ProjectContext);
+  const [totalQuantity,setTotalQuantity]=useState();
+  const [totalPrice,setTotalPrice]=useState();
   const [cart, setCart] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [address, setAddress] = useState('');
@@ -33,10 +32,36 @@ const ViewCart = (prod) => {
         console.error('Error fetching data:', error);
       }
     };
-  
-    fetchData();
-    updateTotalQuantity();
-  }, [totalQuantity,cart]);
+
+    const getPrice = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/product/${prod.userId}/${prod.id}`);
+        const data = await response.json();
+        return data.price;
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+
+    const getTotalQuantity = async () => {
+        let total=0;
+        // let totPrice=0;
+        cartItems.map((item)=>{
+          console.log("eitaaaaaaaaaaaaaaaaaaaa "+item.quantity);
+            total+=item.quantity;
+            // totPrice+=getPrice();
+          });   
+        setTotalQuantity(total);
+        // setTotalPrice(totPrice);
+    };
+
+    const intervalId = setInterval(() => {
+      fetchData();
+      getTotalQuantity();
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [cartItems]);
 
 
   const placeOrder = async () => {
