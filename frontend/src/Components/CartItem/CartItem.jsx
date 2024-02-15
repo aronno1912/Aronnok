@@ -21,19 +21,21 @@ const CartItem = (prod) => {
       }
     };
 
-    const fetchTotalQuantity = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/api/cart/getQuantity/${prod.userId}/${prod.id}`);
-        const data = await response.json();
-        setQuantity(data.quantity);
-        setPrice(Math.round(data.quantity * data.price));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    // const fetchTotalQuantity = async () => {
+    //   try {
+    //     const response = await fetch(`http://localhost:8000/api/cart/getQuantity/${prod.userId}/${prod.id}`);
+    //     const data = await response.json();
+    //     setQuantity(data.quantity);
+    //     setPrice(Math.round(data.quantity * data.price));
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
+    const intervalId = setInterval(() => {
+      fetchProduct();
+    }, 3000);
 
-    fetchProduct();
-    fetchTotalQuantity();
+    return () => clearInterval(intervalId);
   }, []);
 
   const updateCart = async (newQuantity) => {
@@ -43,7 +45,7 @@ const CartItem = (prod) => {
     } catch (error) {
       console.error('Error updating ', error);
     }
-    updateTotalQuantity();
+    // updateTotalQuantity();
   };
 
   const increment = () => {
@@ -89,7 +91,7 @@ const CartItem = (prod) => {
       </div>
       <div className="cart-item-right">
         <button className='remove-btn' onClick={removeItem}><i class="bi bi-x" style={{ fontSize: '20px' }}></i></button>
-        <p><b>${totalPrice}</b></p>
+        <p><b>${product.price*prod.quantity}</b></p>
       </div>
 
     </div>

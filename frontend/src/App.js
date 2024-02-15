@@ -42,6 +42,7 @@ import SignupPage2 from './Pages/SignupPage2';
 
 
 import AuctionWinProducts from './Pages/AuctionWinProducts';
+import AdminDashboard from './Pages/AdminDashboard';
 
 
 
@@ -85,6 +86,7 @@ function App() {
         <Route path='/admin/viewauctions/ongoing/:auctionId' element={<OngoingAucAdmin/>}/>
         
         <Route path='/auction/:auctionId/:productId/bids' element={<AdAuctionProductBids/>}/>
+        <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
       </Routes>
       </BrowserRouter>
     </div>
