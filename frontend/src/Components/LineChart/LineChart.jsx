@@ -1,30 +1,54 @@
-// LineChart.js
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useEffect, useRef } from 'react';
+import Chart from 'chart.js/auto';
+import './LineChart.css'
 
 const LineChart = () => {
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        label: 'Monthly Sales',
-        data: [65, 59, 80, 81, 56, 55],
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 2,
-      },
-    ],
-  };
+  const chartRef = useRef(null);
 
-  const options = {
-    scales: {
-      y: {
-        type: 'linear', // <-- Specify the scale type here
-        beginAtZero: true,
-      },
-    },
-  };
+  useEffect(() => {
+    const ctx = chartRef.current.getContext('2d');
 
-  return <Line data={data} options={options} />;
+    // Example data
+    const data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'june', 'july', 'august'],
+      datasets: [
+        {
+          label: 'Sale graph',
+          data: [10, 16, 3, 5, 2, 4, 8, 7],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgb(11, 23, 133)',
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    // Example options
+    const options = {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    };
+
+    // Create the chart
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: options,
+    });
+
+    return () => {
+      // Cleanup on component unmount
+      myChart.destroy();
+    };
+  }, []);
+
+  return (
+    <div className='graphstyles'>
+      <canvas ref={chartRef} width="400" height="200"></canvas>
+    </div>
+  );
 };
 
 export default LineChart;
