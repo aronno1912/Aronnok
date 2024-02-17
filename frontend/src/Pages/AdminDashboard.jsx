@@ -6,7 +6,7 @@ import Footer from '../Components/Footer/Footer'
 import LineChart from '../Components/LineChart/LineChart';
 import { useParams } from 'react-router-dom'
 import BestSellerItem from '../Components/BestSellerItem/BestSellerItem'
-import Calendar from '../Components/Calender/Calender'
+import Calendar from '../Components/Calender/Calendar'
 
 const AdminDashboard = () => {
     
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
                 <div className="dashboard-cards">
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
-                            <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)', marginLeft:'10px', marginTop:'20px'}}></i>
+                            <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
                         </div>
                         
                         <div className="db-tatalsale-text">
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
-                            <i class="bi bi-currency-dollar" style={{fontSize:'35px' , color:'rgb(67, 80, 198)', marginLeft:'13px', marginTop:'30px'}}></i>
+                            <i class="bi bi-currency-dollar" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
                         </div>
                         
                         <div className="db-tatalsale-text">
@@ -66,12 +66,22 @@ const AdminDashboard = () => {
                     </div>
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
-                            <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)', marginLeft:'13px', marginTop:'30px'}}></i>
+                            <i class="bi bi-clock-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
                         </div>
                         
                         <div className="db-tatalsale-text">
-                            <p><b>Current month Sale</b></p>
-                            <p style={{marginTop:'1px'}}><b>$1500.50</b></p>
+                            <p><b>Auction time</b></p>
+                            <p style={{marginTop:'1px', color:'red'}}><b>01:03:29</b></p>
+                        </div>
+                    </div>
+                    <div className="db-totalsale">
+                        <div className="db-graphIcon">
+                            <i class="bi bi-bag-check-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
+                        </div>
+                        
+                        <div className="db-tatalsale-text">
+                            <p><b>Active orders</b></p>
+                            <p style={{marginTop:'1px'}}><b>15</b></p>
                         </div>
                     </div>
 
