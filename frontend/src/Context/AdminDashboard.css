@@ -25,15 +25,16 @@
 .dashboard-cards{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
+    width: 92%;
+    justify-content: space-between;
+    align-self: center;
 }
 
 .db-totalsale{
     display: flex;
     /* flex: 0 0 auto; */
     flex-direction: row;
-    width:300px;
+    width:260px;
     height: 150px;
     border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
@@ -57,23 +58,27 @@
     height: 63px;
     border-radius: 63px;
     background-color: rgb(237, 239, 239);
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .db-middlepart{
     height: 400px;
+    width: 92%;
     margin-top: 10px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    justify-content: space-between;
+    align-self: center;
 }
 .db-graphplot{
-    margin-left: 12px;
+    /* margin-left: 12px; */
 }
 
 .db-bestSellers{
-    width: 360px;
+    width: 380px;
     height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     background-color: rgb(255, 255, 255);
@@ -88,15 +93,16 @@
 
 .db-lastpart{
     height: 400px;
+    width: 92%;
     margin-top: 35px;
-    margin-left: 63px;
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    justify-content: space-between;
+    align-self: center;
 }
 
 .db-orders{
-    width:720px;
+    width:740px;
     height: 95%;
     border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
@@ -105,5 +111,7 @@
 }
 
 .db-calender{
-
+    height: 95%;
+    margin-top: -20px;
+   
 }
