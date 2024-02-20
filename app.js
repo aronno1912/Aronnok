@@ -48,6 +48,8 @@ const auctionRoutes = require("./routes/auction");
 app.use("/api", auctionRoutes);
 const notificationRoutes = require("./routes/notification");
 app.use("/api", notificationRoutes);
+const sellRoutes = require("./routes/sell");
+app.use("/api", sellRoutes);
 
 // const Multer = require('multer');
 // const { google } = require('googleapis');
