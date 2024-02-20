@@ -43,15 +43,7 @@ const OneProduct = () => {
       }
     };
 
-    // const fetchTotalQuantity = async () => {
-    //   try {
-    //     const response = await fetch(`http://localhost:8000/api/cart/getQuantity/659c027001b07da1b7fef185/${productId}`);
-    //     const data = await response.json();
-    //     setQuantity(data.quantity);
-    //   } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //   }
-    // };
+    
     fetchProduct();
     //fetchTotalQuantity();
   }, [productId]);
@@ -68,8 +60,6 @@ const OneProduct = () => {
   const addToCart = async () => {
     try {
       await axios.post(`http://localhost:8000/api/cart/add/${userId}/${productId}`, {});
-      console.log('product added to cart');
-      // alert("Product is added to cart successfully!!! Find them in your cart now!!!");
     } catch (error) {
       console.error('Error adding', error);
     }

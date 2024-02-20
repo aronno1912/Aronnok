@@ -37,7 +37,6 @@ const Navbar = ({userId}) => {
           const response = await fetch(`http://localhost:8000/api/notification/${userId}`);
           const data = await response.json();
           setNotis(data.messages);
-          console.log(data.messages);
       } catch (error) {
         console.error('Error fetching product data:', error);
       }
