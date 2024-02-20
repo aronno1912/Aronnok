@@ -36,5 +36,33 @@ exports.sellRequest = async(req, res) => {
     
   };
 
+  exports.getAllSellRequest = async(req, res) => {
+    console.log("here I come1");
+    const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  try{
+    const sellRequests = await SellProduct.find({});
+    const updatedRequests = await Promise.all(sellRequests.map(async (req) => {
+    const userDetails = await User.findById(req.user);
+    if (userDetails) {
+        console.log("here I come");
+        username = userDetails.username;
+
+        return {
+          ...req.toObject(),
+          username: username,
+        };
+      }
+    }));
+    res.status(201).json(updatedRequests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  };
+
   exports.requestApproval = async(req, res) => {
   };
