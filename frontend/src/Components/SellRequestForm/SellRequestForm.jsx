@@ -55,7 +55,7 @@ const SellRequestForm = ({ userId,onClose}) => {
         },
       });
 
-      alert('New product added successfully!');
+      alert('Your request is sent to Admin successfully!');
       setProductInfo({
         name: '',
         description: '',

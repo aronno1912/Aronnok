@@ -22,7 +22,7 @@ const Sidebar = () => {
 
         </li>
         <li className='eta4'>
-          <Link to="/admin/sell-requests" className={location.pathname === '/admin/sellrequest' ? 'active' : ''}>Sell Requests</Link>
+          <Link to="/admin/viewsellrequests" className={location.pathname === '/admin/viewsellrequests' ? 'active' : ''}>Sell Requests</Link>
         </li>
 
         <li className='eta5'>
