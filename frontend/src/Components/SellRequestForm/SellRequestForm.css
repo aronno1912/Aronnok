@@ -1,0 +1,74 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for the overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.close-buttonsell
+{
+    position: absolute;
+    top: 290px;
+    right: 345px;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+.client-add-product-form {
+    display: flex;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 90px;
+  }
+  
+  .form-left,
+  .form-right {
+    width: 48%;
+  }
+  
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input,
+  .ab {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .addProductclientButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+
+

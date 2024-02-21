@@ -64,5 +64,35 @@ exports.sellRequest = async(req, res) => {
   }
   };
 
+
+  //==============================================================================================================================
   exports.requestApproval = async(req, res) => {
+    const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+  try{
+    const requestId = req.params.reqId;
+    const requestedProduct = await SellProduct.findById(requestId);
+    if (!requestedProduct) {
+        return res.status(404).json({ error: 'Requested product not found' });
+      }
+      //create a new product
+        const newProduct = new Product({
+            name: requestedProduct.name,
+            description: requestedProduct.description,
+            photo: requestedProduct.photo,
+            price: requestedProduct.askingPrice,
+            
+        });
+        await newProduct.save();
+        await requestedProduct.remove();
+        res.status(201).json({ message: 'Request approved successfully!'});
+
+
+  }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
   };
