@@ -7,7 +7,11 @@ import './Cover.css'
 import hand_icon from '../Assets/aronnok-logo.png'
 import cover_photo from '../Assets/cover.png'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 // import auction_photo from 'img7.png'
+import AuctionAddPlant from '../AuctionAddPlant/AuctionAddPlant';
+import SellRequestForm from '../SellRequestForm/SellRequestForm';
 
 const Cover = ({userId}) => {
 
@@ -18,7 +22,19 @@ const Cover = ({userId}) => {
     const handleTouchStart = (e) => {
       setTouchStartX(e.touches[0].clientX);
     };
+
+ 
+    const [isFormVisible, setFormVisible] = useState(false);
+    const showFormHandler = () => {
+      setFormVisible(true);
+    };
   
+    const closeFormHandler = () => {
+      setFormVisible(false);
+    };
+
+
+
     const handleTouchMove = (e) => {
       if (touchStartX !== null) {
         const touchEndX = e.touches[0].clientX;
@@ -45,7 +61,7 @@ const Cover = ({userId}) => {
   };
 
   return (
-
+   <div>
     <Slider 
     ref={sliderRef}
     {...settings}
@@ -55,8 +71,8 @@ const Cover = ({userId}) => {
           <img src={cover_photo} alt="" />
           
           <div className="cover-text">
-              <p>End of year<br/> Special Bids</p>
-              <Link to={`/auctionsall/${userId}`}> <button>check them out</button> </Link>
+              <p>Want to sell<br/>Your Plants?</p>
+             <button className='sellreqbutton' onClick={showFormHandler}>Drop To Us</button> 
           </div>
       </div>
       <div className='cover'>
@@ -76,9 +92,13 @@ const Cover = ({userId}) => {
           <img src="/cov4.jpg" alt="" />
        </div>
     </Slider>
+    {isFormVisible && (
+      <SellRequestForm userId={userId} onClose={closeFormHandler} />
+    )}
+    </div>
    
-  )
-}
+  );
+};
 
 
 export default Cover
