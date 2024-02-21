@@ -16,7 +16,7 @@ router.param("categoryId", getCategoryById);
 
 router.post(
     "/category/create/:userId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     isAdmin,
     addCategory
@@ -27,7 +27,7 @@ router.get("/categories", getAllCategory);
 //update
 router.put(
     "/category/:categoryId/:userId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     isAdmin,
     updateCategory
@@ -37,7 +37,7 @@ router.put(
 
 router.delete(
     "/category/:categoryId/:userId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     isAdmin,
     removeCategory

@@ -15,11 +15,13 @@ const {
   deleteProduct,
   updateProduct,
   getAllProducts,
-  search,
   recommendations,
   trending,
   category_stock,
   getNewArrivals,
+  getPlantaByTag,
+  getPlantByName,
+  getPlantByCategory,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -28,7 +30,7 @@ const { getUserById } = require("../controller/user");
 //all of params
 router.param("userId", getUserById);
 router.param("productId", getProductById);
-
+// router.param("keyword",getPlantaByTag,getPlantByName,getPlantByCategory);
 //all of actual routes
 // /admin/:userId/addPlant
 router.post(
@@ -71,7 +73,9 @@ router.get("/product/newarrival", getNewArrivals);
 
 // Search route
 router.get('/search',
-  search,
+  getPlantaByTag,
+  getPlantByName,
+  getPlantByCategory,
 );
 //recommended for you
 router.get('/recommend/:userId',

@@ -1,9 +1,10 @@
 //works
 const User = require("../models/user");
 const { check, validationResult } = require("express-validator");
+// const cookieParser = require('cookie-parser');
 var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
-
+// app.use(cookieParser());
 exports.signup = async (req, res) => {
     const errors = validationResult(req);
 
@@ -13,7 +14,7 @@ exports.signup = async (req, res) => {
         });
     }
     try {
-        const {username}=req.body;
+        const { username } = req.body;
         // Check if the username already exists
         const existingUser = await User.findOne({ username });
 
@@ -48,22 +49,20 @@ exports.signin = (req, res) => {
     // console.log("here");
     User.findOne({ $or: [{ email }, { username }] })
         .then((user) => {
-            if (!user.autheticate(password)) {
+            if (!user.authenticate(password)) {
                 return res.status(401).json({
                     error: "Username/email or password do not match"
                 });
             }
             //create token
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET);
-    //put token in cookie
-    console.log(token);
-    res.cookie("token", token, { expire: new Date() + 9999 });
-    
-    //send response to front end
-    // const { _id, name, email, role } = user;
-    // return res.json({ token, user: { _id, name, email, role } });
-            // return res.status(201).json({ message: 'User signed in successfully!' });
+            const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+            //put token in cookie
+            // console.log(token);
+            // res.headers.Cook=token;
+            res.cookie("token", token);
+            console.log(res.cookie)
             res.json({ token, user });
+            // console.log(res.cookies.token);
         })
         .catch((error) => {
             //When there are errors We handle them here
@@ -74,7 +73,7 @@ exports.signin = (req, res) => {
 };
 
 exports.signout = (req, res) => {
-      res.clearCookie("token");
+    res.clearCookie("token");
     res.json({
         message: "User signout successfully"
     });
@@ -83,8 +82,10 @@ exports.signout = (req, res) => {
 //protected routes
 exports.isSignedIn = (req, res, next) => {
     // Check if the token is present in the request headers
-    const token = req.headers.authorization;
-
+    const token = req.cookies.token;
+    console.log(req.cookies)
+    // const token = res.headers.authorization;
+    // console.log("token: "+token)
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
@@ -104,21 +105,21 @@ exports.isSignedIn = (req, res, next) => {
 //custom middlewares
 exports.isAuthenticated = (req, res, next) => {
     //to store authentication-related information in req
-  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
-  if (!checker) {
-    return res.status(403).json({
-      error: "ACCESS DENIED"
-    });
-  }
-  next();
+    let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+    if (!checker) {
+        return res.status(403).json({
+            error: "ACCESS DENIED"
+        });
+    }
+    next();
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.profile.role === 0) {
-    return res.status(403).json({
-      error: "You are not ADMIN, Access denied"
-    });
-  }
-//   console.log("verified admin");
-  next();
+    if (req.profile.role === 0) {
+        return res.status(403).json({
+            error: "You are not ADMIN, Access denied"
+        });
+    }
+    //   console.log("verified admin");
+    next();
 };

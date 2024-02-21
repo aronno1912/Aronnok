@@ -102,7 +102,7 @@ exports.getAuctionProducts = async (req, res) => {
             highestBidder = user.username;
           }
         }
-        console.log(item);
+        // console.log(item);
         let bidderName = null;
         const updatedBids = await Promise.all(productDetails.bids.map(async (bid) => {
           const bidPlacerDetails = await User.findById(bid.bidder);
@@ -142,9 +142,9 @@ exports.addProductToAuction = async (req, res) => {
   try {
     // console.log(req.body)
     const { name, description, photoName, initialbid } = req.body;
-    console.log(initialbid)
+    // console.log(initialbid)
     const currentBid = initialbid;
-    console.log(currentBid)
+    // console.log(currentBid)
     const photo = "/" + photoName;
     // console.log(photo)
     const auctionProduct = new AuctionProduct({
@@ -156,7 +156,7 @@ exports.addProductToAuction = async (req, res) => {
     });
     
     await auctionProduct.save();
-    console.log(auctionProduct)
+    // console.log(auctionProduct)
     req.auction.auctionProducts.push(auctionProduct._id);
     await req.auction.save();
 
@@ -589,9 +589,9 @@ const updateAuctionStatus = async function () {
     // console.log(ongoingAuctionsToCompleted);
 
     for (const auction of ongoingAuctionsToCompleted) {
-      console.log(auction.status, auction.name)
+      // console.log(auction.status, auction.name)
       if (String(auction.status) !== 'completed') {
-        console.log(auction.status+auction.name)
+        // console.log(auction.status+auction.name)
         auction.status = 'completed';
         await auction.save();
         await closeBiddingOnAllProducts(auction);
@@ -620,16 +620,19 @@ const updateAuctionStatus = async function () {
 
 const closeBiddingOnAllProducts = async function (auction) {
   console.log("Closing bidding for auction:", auction._id);
-  try {
-    // Update isSold field for all auction products
-    await Promise.all(auction.auctionProducts.map(async (productId) => {
-      const productDetails = await AuctionProduct.findByIdAndUpdate(
+try {
+  // Update isSold field for all auction products
+  await Promise.all(auction.auctionProducts.map(async (productId) => {
+    const productDetails = await AuctionProduct.findById(productId);
+    if (productDetails.bids.length > 0) {
+      const updatedProduct = await AuctionProduct.findByIdAndUpdate(
         productId,
         { isSold: true, auction: auction._id },
         { new: true }
       );
-      console.log("Updated product:", productDetails);
-      //notify highest bidder
+      console.log("Updated product:", updatedProduct);
+
+      // Notify highest bidder
       const userId = productDetails.highestBidder;
       let notification = await Notification.findOne({ user: userId }).sort({ createdAt: -1 });
 
@@ -640,22 +643,22 @@ const closeBiddingOnAllProducts = async function (auction) {
 
       // Add the new message to the notification
       notification.messages.push({
-        message: "You won the bid for "+productDetails.name+" on the auction "+auction.name+" with a bid of "+productDetails.currentBid,
+        message: "You won the bid for " + updatedProduct.name + " on the auction " + auction.name + " with a bid of " + updatedProduct.currentBid,
         type: "auction",
-        link:auction._id,
+        link: auction._id,
         // Add link if needed
       });
 
       // Save the notification
       await notification.save();
+    }
+  }));
+  console.log("Bidding closed for all products in auction:", auction._id);
+} catch (error) {
+  console.error("Error closing bidding:", error);
+  throw error;
+}
 
-    }));
-    console.log("weirdo")
-    console.log("Bidding closed for all products in auction:", auction._id);
-  } catch (error) {
-    console.error("Error closing bidding:", error);
-    throw error;
-  }
 };
 
 

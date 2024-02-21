@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult, oneOf } = require("express-validator");
+const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
 const {
   getAuctionById,
   createAuction,
@@ -34,8 +35,16 @@ const { paymentAuction } = require('../controller/payment');
 router.param("userId", getUserById);
 router.param("auctionId", getAuctionById);
 // Define routes for auction functionalities
-router.post('/auction/create', createAuction);
-router.get('/auction/get-auction/:auctionId', getAuction);
+router.post('/auction/create', 
+// isSignedIn,
+// isAuthenticated,
+// isAdmin,
+createAuction);
+router.get('/auction/get-auction/:auctionId', 
+// isSignedIn,
+// isAuthenticated,
+// isAdmin,
+getAuction);
 router.get('/auctions', getAllAuctions);
 router.get('/auction/:auctionId/products', getAuctionProducts);
 router.post('/auction/add-product/:auctionId', [
