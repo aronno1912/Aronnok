@@ -326,17 +326,53 @@ exports.updateStock = async (req, res, next) => {
 };
 
 
-exports.search = async (req, res, next) => {
+exports.getPlantaByTag = async (req, res, next) => {
   try {
     const searchTerm = req.query.q;
     const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
-    res.json(products);
+    // res.json(products);
+    res.tag_plants=products;
+    next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
+exports.getPlantByName = async (req, res, next) => {
+  try {
+    const searchTerm = req.query.q;
+    const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
+    // res.json(products);
+    res.name_plants=products;
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getPlantByCategory = async (req, res, next) => {
+  try {
+    const searchTerm = req.query.q;
+    const category= await Category.find({ name: { $regex: searchTerm, $options: 'i' } });
+    const products = await Product.find({ category: category });
+    // res.json(products);
+    res.category_plants=products;
+    const combinedResults = new Set([
+      ...res.tag_plants,
+      ...res.name_plants,
+      ...res.category_plants
+    ]);
+
+    // Convert the Set back to an array and respond with the unique results
+    res.json([...combinedResults]);
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 exports.recommendations = async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -462,3 +498,4 @@ exports.category_stock = async (req, res) => {
     });
   }
 };
+

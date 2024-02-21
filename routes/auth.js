@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
+const cookieParser = require('cookie-parser');
 // const User = require('../models/user.js');
 const { check, validationResult,oneOf } = require("express-validator");
 const { signup,signin,signout } = require("../controller/auth");
@@ -9,6 +10,7 @@ const fileupload = require('express-fileupload')
 // Serve static files (including images) from the "public" directory
 // router.use(express.static('public'));
 router.use(express.static('assets')); // Add this line to serve images
+router.use(cookieParser());
 
 //middlewares
 router.use(express.static(staticPath))

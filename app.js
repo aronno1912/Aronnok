@@ -1,9 +1,11 @@
 require("dotenv").config();
 var express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 var app = express();
 
 app.use(cors());
+app.use(cookieParser());
 
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on ${process.env.PORT}`);

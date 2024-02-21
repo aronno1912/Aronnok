@@ -65,7 +65,22 @@ const OneProduct = () => {
     }
     updateTotalQuantity();
   };
-
+  const addToFavourites = async () => {
+    try {
+      await axios.post(`http://localhost:8000/api/favourites/create/${userId}`, {"plantId":productId});
+    } catch (error) {
+      console.error('Error adding', error);
+    }
+    updateTotalQuantity();
+  };
+  const addToWishlist = async () => {
+    try {
+      await axios.post(`http://localhost:8000/api/wishlist/create/${userId}`, {"plantId":productId});
+    } catch (error) {
+      console.error('Error adding', error);
+    }
+    updateTotalQuantity();
+  };
   const isInStock = product.stock > 0;
   const imageUrl = product.photo || ''; // Default to an empty string if product.photo is undefined
 
@@ -107,9 +122,9 @@ const OneProduct = () => {
           <p className="out-of-stock">Out of Stock</p>
         )}
         {isInStock?
-        (<button className="productdisplay-right-button" onClick={addToCart}>Add to Cart</button>):(<button className="productdisplay-right-button2">Add to Wishlist</button>)}
+        (<button className="productdisplay-right-button" onClick={addToCart}>Add to Cart</button>):(<button className="productdisplay-right-button2" onClick={addToWishlist}>Add to Wishlist</button>)}
         
-        <button className="productdisplay-right-button3">Add to Favourites</button>
+        <button className="productdisplay-right-button3" onClick={addToFavourites}>Add to Favourites</button>
         {/* <p>Description: {product.description}</p>
         {/* Add other details as needed */}
     

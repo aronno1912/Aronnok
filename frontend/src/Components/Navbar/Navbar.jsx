@@ -59,10 +59,14 @@ const Navbar = ({userId}) => {
       </div>
       <ul className="nav-menu">
         <li onClick={()=>{setMenu("home")}}><Link to={`/home/${userId}`} style={{textDecoration:'none'}}>Home </Link> {menu==="home"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("favourites")}}><Link to='/favourites' style={{textDecoration:'none'}}> Favourites </Link>  {menu==="favourites"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("wishlist")}}><Link to='/wishlist' style={{textDecoration:'none'}}> Wishlist </Link>  {menu==="wishlist"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("favourites")}}><Link to={`/favourites/${userId}`} style={{textDecoration:'none'}}> Favourites </Link>  {menu==="favourites"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("wishlist")}}><Link to={`/wishlist/${userId}`} style={{textDecoration:'none'}}> Wishlist </Link>  {menu==="wishlist"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("orders")}}><Link to={`/orderlist/${userId}`} style={{textDecoration:'none'}}>Order </Link> {menu==="orders"?<hr/>:<></>}</li>
       </ul>
+      {/* <div className="usersearch-bar">
+          <input type="text" placeholder="Search" />
+          <button className= "usersearchbutton"type="button">Search</button>
+        </div> */}
       <div className="nav-login-cart">
           <div className="notification-icon"><button style={{backgroundColor:"white", fontSize:'30px'}} onClick={openPopup}>🔔</button>
             <div className="notification-count">{notis.length}</div>

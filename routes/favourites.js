@@ -16,7 +16,7 @@ const { getUserById } = require("../controller/user");
 //favouritePlantId specifies one specific plant in one specific user's favourites
 router.post(
     "/favourites/create/:userId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     // isAdmin,
     addFavourite
@@ -29,7 +29,7 @@ router.get("/favourites/:userId", getAllFavourites);
 
 router.delete(
     "/favourites/:userId/:favouritePlantId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     // isAdmin,
     removeFavourite

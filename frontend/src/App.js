@@ -38,12 +38,9 @@ import AuctionPast from './Pages/AuctionPast';
 import ViewAucReqPage from './Pages/ViewAucReqPage';
 
 import SignupPage2 from './Pages/SignupPage2';
-
-
-
 import AuctionWinProducts from './Pages/AuctionWinProducts';
 import AdminDashboard from './Pages/AdminDashboard';
-
+import Wishlist from './Pages/Wishlist';
 
 
 function App() {
@@ -87,6 +84,8 @@ function App() {
         
         <Route path='/auction/:auctionId/:productId/bids' element={<AdAuctionProductBids/>}/>
         <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+        <Route path='/wishlist/:userId' element={<Wishlist/>}/>
+        <Route path='/favourites/:userId' element={<Favourites/>}/>
       </Routes>
       </BrowserRouter>
     </div>

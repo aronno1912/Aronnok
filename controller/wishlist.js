@@ -117,6 +117,8 @@ exports.getAllwishlistPlants = async (req, res) => {
 exports.removewishlistPlant = (req, res) => {
   const userId = req.params.userId;
   const wishlistPlantId = req.params.wishlistPlantId;
+  console.log(userId)
+  console.log(wishlistPlantId)
   // Using Mongoose to update the document
   Wishlist.findOneAndUpdate(
     { user: userId },

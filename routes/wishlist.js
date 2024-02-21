@@ -11,7 +11,7 @@ const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
 const { getUserById } = require("../controller/user");
 router.post(
     "/wishlist/create/:userId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     // isAdmin,
     addWishlistPlant
@@ -24,7 +24,7 @@ router.get("/wishlist/:userId", getAllwishlistPlants);
 
 router.delete(
     "/wishlist/:userId/:wishlistPlantId",
-    isSignedIn,
+    // isSignedIn,
     // isAuthenticated,
     // isAdmin,
     removewishlistPlant

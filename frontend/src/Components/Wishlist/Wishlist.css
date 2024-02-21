@@ -1,0 +1,32 @@
+/* .wishallproduct-body{
+  margin-top: 40px;
+  padding-top: 40px;
+} */
+.wishcard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-gap: 10px;
+  margin-top: 40px;
+  margin-left: 60px;
+  width: auto;
+  height: auto; 
+  border-radius: 10px;
+}
+
+.wishcard-sm {
+  width: 300px;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.wishcard-sm:hover .card-content {
+  transform: scale(1.05);
+}
+
+.card-content {
+  transition: transform 0.3s ease;
+}
+
+.card-content:hover {
+  cursor: pointer;
+}

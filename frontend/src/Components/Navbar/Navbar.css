@@ -44,8 +44,12 @@
     gap: 3px;
     cursor: pointer;
 }
-
-.nav-menu hr{
+.nav-menu li:hover hr {
+    display: block;
+  }
+  
+.nav-menu hr {
+    display: none; /* Hide the line by default */
     border: none;
     width: 80%;
     height: 3px;
