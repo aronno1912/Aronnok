@@ -328,7 +328,8 @@ exports.updateStock = async (req, res, next) => {
 
 exports.getPlantaByTag = async (req, res, next) => {
   try {
-    const searchTerm = req.query.q;
+    const searchTerm = req.body.query;
+    console.log(searchTerm)
     const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
     res.tag_plants=products;
@@ -341,7 +342,7 @@ exports.getPlantaByTag = async (req, res, next) => {
 
 exports.getPlantByName = async (req, res, next) => {
   try {
-    const searchTerm = req.query.q;
+    const searchTerm = req.body.query;
     const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
     res.name_plants=products;
@@ -354,7 +355,7 @@ exports.getPlantByName = async (req, res, next) => {
 
 exports.getPlantByCategory = async (req, res, next) => {
   try {
-    const searchTerm = req.query.q;
+    const searchTerm = req.body.query;
     const category= await Category.find({ name: { $regex: searchTerm, $options: 'i' } });
     const products = await Product.find({ category: category });
     // res.json(products);
