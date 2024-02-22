@@ -23,6 +23,7 @@ const {
   getAllRequestsForIndividualAuction,
   getIndividualRequest,
   getProductsByHighestBidder,
+  currentRemainingTime,
 } = require('../controller/auction');
 const {
   // getUserNotifications,
@@ -64,6 +65,7 @@ router.get('/auction/ongoing', getOngoingAuctions);
 router.get('/auction/future', getFutureAuctions);
 router.get('/auction/:auctionId/top', getTopSellingProductsInAnAuction);
 router.get('/auction/:auctionId/remainingTime', remainingTime);
+router.get('/auction/remainingTime', currentRemainingTime);
 
 ///IGNORE THIS, ETA LAGBE NA TODER
 router.post('/auction/:auctionId/:productId', addProductToAuctionById);

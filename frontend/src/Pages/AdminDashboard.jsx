@@ -7,15 +7,19 @@ import LineChart from '../Components/LineChart/LineChart';
 import { useParams } from 'react-router-dom'
 import BestSellerItem from '../Components/BestSellerItem/BestSellerItem'
 import Calendar from '../Components/Calender/Calendar'
+import AdDashOrderItem from '../Components/AdDashOrderItem/AdDashOrderItem'
 
 const AdminDashboard = () => {
     
     const [products, setProducts] = useState([]);
+    const [userNo, setUserNo] = useState();
+    const [aucTime, setAucTime] = useState();
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/trending`);
+                const response = await fetch(`http://localhost:8000/api/products/get/bestSellers`);
                 const data = await response.json();
                 setProducts(data);
             } catch (error) {
@@ -23,14 +27,58 @@ const AdminDashboard = () => {
             }
           };
 
-        //    const intervalId = setInterval(() => {
-        //     fetchProduct();
-        //   }, 3000);
+          const fetchUsers = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/getAllUser`);
+                const data = await response.json();
+                setUserNo(data.length);
+            } catch (error) {
+              console.error('Error fetching product data:', error);
+            }
+          };
+
+          const fetchTime = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
+                const data = await response.json();
+                setAucTime(data.length);
+            } catch (error) {
+              console.error('Error fetching product data:', error);
+            }
+          };
+
+          const fetchAllOrders = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/order/activeOrders`);
+                const data = await response.json();
+                setOrders(data);
+            } catch (error) {
+              console.error('Error fetching product data:', error);
+            }
+          };
+
+          const intervalId = setInterval(() => {
+            fetchProduct();
+            fetchUsers();
+            fetchTime();
+            fetchAllOrders();
+            // checkTimeEnd();
+          }, 5000);
       
-        //   return () => clearInterval(intervalId);
-        fetchProduct();
-         
+          // Clear the interval when the component unmounts
+          return () => clearInterval(intervalId);
+       
       }, []);
+
+      const formatTime = () => {
+        const hours = Math.floor(aucTime / 3600);
+        const minutes = Math.floor((aucTime % 3600) / 60);
+        const seconds = aucTime % 60;
+    
+        const padZero = (value) => (value < 10 ? `0${value}` : value);
+    
+        return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+      };
 
   return (
     <div>
@@ -50,7 +98,7 @@ const AdminDashboard = () => {
                         
                         <div className="db-tatalsale-text">
                             <p><b>Total Users</b></p>
-                            <p style={{marginTop:'1px'}}><b>10</b></p>
+                            <p style={{marginTop:'1px'}}><b>{userNo}</b></p>
                         </div>
                         
                     </div>
@@ -61,7 +109,7 @@ const AdminDashboard = () => {
                         
                         <div className="db-tatalsale-text">
                             <p><b>Current month Sale</b></p>
-                            <p style={{marginTop:'1px'}}><b>$1500.50</b></p>
+                            <p style={{marginTop:'1px'}}><b>$637.99</b></p>
                         </div>
                     </div>
                     <div className="db-totalsale">
@@ -71,7 +119,7 @@ const AdminDashboard = () => {
                         
                         <div className="db-tatalsale-text">
                             <p><b>Auction time</b></p>
-                            <p style={{marginTop:'1px', color:'red'}}><b>01:03:29</b></p>
+                            <p style={{marginTop:'1px', color:'red'}}><b>{formatTime()}</b></p>
                         </div>
                     </div>
                     <div className="db-totalsale">
@@ -81,7 +129,7 @@ const AdminDashboard = () => {
                         
                         <div className="db-tatalsale-text">
                             <p><b>Active orders</b></p>
-                            <p style={{marginTop:'1px'}}><b>15</b></p>
+                            <p style={{marginTop:'1px'}}><b>{orders.length}</b></p>
                         </div>
                     </div>
 
@@ -108,8 +156,16 @@ const AdminDashboard = () => {
 
                 <div className="db-lastpart">
                     <div className="db-orders">
-
+                        <div className="db-bestsellers-title">
+                            <p style={{fontSize:'25px', marginLeft:'22px', color:'rgb(52, 57, 83)' }}><b>Active orders</b></p>
+                        </div>
+                        <div className="db-order">
+                            {orders.map((item,i)=>{
+                                return <AdDashOrderItem key={i} id={item.id} status={item.status} amount={item.amount} userId={item.user}/>
+                            })}
+                        </div>
                     </div>
+                   
                     <div className="db-calender">
                         <Calendar/>
                     </div>

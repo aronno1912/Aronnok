@@ -500,3 +500,28 @@ exports.category_stock = async (req, res) => {
   }
 };
 
+exports.getBestSellers = (req, res) => {
+  // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
+  let sortBy = req.query.sort ? req.query.sort : "sold";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
+  Product.find()
+    .populate("category")
+    .sort([[sortBy, "desc"]])
+    .limit(limit)
+    .exec()
+    .then((products) => {
+      if (!products) {
+        return res.status(400).json({
+          error: "No products found",
+        });
+      }
+      res.json(products);
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+};

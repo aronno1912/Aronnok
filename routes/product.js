@@ -22,6 +22,7 @@ const {
   getPlantaByTag,
   getPlantByName,
   getPlantByCategory,
+  getBestSellers,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -91,5 +92,7 @@ trending,
 router.get('/category_stock',
 category_stock,
 );
+
+router.get("/products/get/bestSellers", getBestSellers);
 
 module.exports = router;

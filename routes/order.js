@@ -16,6 +16,7 @@ const {
     getReceivedOrders,
     getParticularOrder,
     getParticularUserHistory,
+    getActiveOrders
 } = require("../controller/order");
 const {
     getCartById,
@@ -54,6 +55,14 @@ router.get(
     //   isAuthenticated,
     //   isAdmin,
     getAllOrders
+);
+
+router.get(
+    "/order/activeOrders",
+    //   isSignedIn,
+    //   isAuthenticated,
+    //   isAdmin,
+    getActiveOrders
 );
 
 // // status of order, for user

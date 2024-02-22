@@ -208,3 +208,17 @@ exports.getParticularUserHistory = (req, res, next) => {
     });
 
 };
+
+exports.getActiveOrders = async(req, res, next) => {
+  try {
+    let orders = await Order.find({
+      status: { $in: ["Processing", "Shipped", "On Transit"] }
+    });
+    res.json(orders);
+    // Now you can work with the orders that match the specified statuses
+    console.log("Matching Orders:", orders);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+  }  
+
+};
