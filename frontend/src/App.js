@@ -42,6 +42,7 @@ import AuctionWinProducts from './Pages/AuctionWinProducts';
 import AdminDashboard from './Pages/AdminDashboard';
 import Wishlist from './Pages/Wishlist';
 import ViewSellRequestPage from './Pages/ViewSellRequestPage';
+import ReviewAddProductPage from './Pages/ReviewAddProductPage';
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
         <Route path='/admin/viewauctions/ongoing/:auctionId' element={<OngoingAucAdmin/>}/>
 
         <Route path='/admin/viewsellrequests' element={<ViewSellRequestPage/>}/>
+        <Route path='/admin/viewsellrequests/review' element={<ReviewAddProductPage/>}/>
         
         <Route path='/auction/:auctionId/:productId/bids' element={<AdAuctionProductBids/>}/>
         <Route path='/admin/dashboard' element={<AdminDashboard/>}/>

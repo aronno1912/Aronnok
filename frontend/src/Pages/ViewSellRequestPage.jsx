@@ -46,6 +46,7 @@ const ViewSellRequestPage = () => {
                         productPhoto={product.photo}
                         description={product.description}
                         reqId={product._id}
+                        userId={product.user}
                     />
                 ))}
             </div>

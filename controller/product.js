@@ -125,7 +125,7 @@ exports.addPlant = async (req, res, next) => {
   }
   try {
     //destructure the fields
-    const { name, description, price, category, stock } = req.body;
+    const { name, description, price, category, stock,photo } = req.body;
     // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
@@ -145,7 +145,7 @@ exports.addPlant = async (req, res, next) => {
     // console.log("vallage na")
     // console.log(plant);
     plant.category = catg._id;
-    plant.photo = '/default.png';
+    plant.photo = photo;
 
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });

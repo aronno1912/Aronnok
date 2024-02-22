@@ -2,6 +2,7 @@ const Product = require('../models/product');
 const SellProduct=require('../models/sell');
 const { validationResult } = require('express-validator');
 const User = require("../models/user");
+const Notification = require("../models/notification");
 
 exports.sellRequest = async(req, res) => {
     const errors = validationResult(req);
@@ -74,27 +75,53 @@ exports.sellRequest = async(req, res) => {
   }
   try{
     const requestId = req.params.reqId;
+    const userId = req.params.userId;
+    //const userId = await SellProduct.findById(requestId).user;
     const requestedProduct = await SellProduct.findById(requestId);
     if (!requestedProduct) {
         return res.status(404).json({ error: 'Requested product not found' });
       }
-      console.log(requestedProduct.name);
-      console.log(requestedProduct.description);
-      console.log(requestedProduct.photo);
-      console.log(requestedProduct.askingPrice);
+      // console.log(requestedProduct.name);
+      // console.log(requestedProduct.description);
+      // console.log(requestedProduct.photo);
+      // console.log(requestedProduct.askingPrice);
 
-      //create a new product
-        const newProduct = new Product({
-            name: requestedProduct.name,
-            description: requestedProduct.description,
-            photo: requestedProduct.photo,
-            price: requestedProduct.askingPrice,
-            catagory: "65b1d595d4aee77e1db2307b",          //?????????????????????????????/
+      // //create a new product
+      //   const newProduct = new Product({
+      //       name: requestedProduct.name,
+      //       description: requestedProduct.description,
+      //       photo: requestedProduct.photo,
+      //       price: requestedProduct.askingPrice,
+      //       category: "65b1d595d4aee77e1db2307b",          //?????????????????????????????/
             
-        });
-        await newProduct.save();
-        await requestedProduct.remove();
+      //   });
+      //   await newProduct.save();
+        await SellProduct.findByIdAndDelete(requestId);
         res.status(201).json({ message: 'Request approved successfully!'});
+        //notify that user that his request has been approved
+        let notification = await Notification.findOne({ user: userId }).sort({ createdAt: -1 });
+
+        if (!notification) {
+          // If no notification exists for the user, create a new one
+          notification = new Notification({ user: userId, messages: [] });
+        }
+  
+        // Add the new message to the notification
+        notification.messages.push({
+          message: "Your request for selling "+requestedProduct.name+" has been approved by admin",
+          type: "sellrequest",
+          
+          // Add link if needed
+        });
+  
+        // Save the notification
+        await notification.save();
+        //find that user in notifications table and push message and type of notification
+
+     
+
+
+       
 
 
   }
