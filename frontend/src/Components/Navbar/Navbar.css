@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 50px;
+    gap: 30px;
     color:black;
     font-size: 20px;
     font-weight: 500;
@@ -60,11 +60,12 @@
 .nav-login-cart{
     display: flex;
     align-items: center;
-    gap: 45px;
+    gap: 25px;
 }
 .nav-login-cart img{
     width: 50px;
     height: 50px;
+    padding-right: 12px;
 }
 /* .nav-login-cart button{
     width: 157px;
@@ -84,8 +85,8 @@
     font-size: 20px;
 }
 .nav-cart-count{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -100,11 +101,12 @@
 
 .notification-icon{
     display: flex;
+    color: rgb(0, 100, 0);
 }
 
 .notification-count{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -137,3 +139,19 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
     z-index: 1000; 
   } */
+
+  .usersearch-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .usersearch-bar input[type="text"] {
+    width: 150px; /* Adjust the width as needed */
+    padding: 8px; /* Add padding for better appearance */
+  }
+  
+  .usersearch-bar button {
+    width: 80px; /* Adjust the width as needed */
+    padding: 8px; /* Add padding for better appearance */
+  }
