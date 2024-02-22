@@ -13,7 +13,7 @@ const notificationSchema = new mongoose.Schema({
     },
     type: {
       type: String,
-      enum: ['order', 'auction', 'promotion', 'reminder', 'other'],
+      enum: ['order', 'auction', 'promotion', 'reminder', 'other','sellrequest'],
       default: 'other',
     },
     link: {//the url

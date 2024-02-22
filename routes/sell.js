@@ -6,9 +6,12 @@ const{
     requestApproval,
     getAllSellRequest,
 }= require('../controller/sell');
+const { paymentSell } = require('../controller/payment');
 const { getUserById } = require("../controller/user");
 router.param("userId", getUserById);
 router.post('/sellRequest/:userId',sellRequest);
-router.post('/requestApproval/:reqId',requestApproval);
+router.post('/requestApproval/:userId/:reqId',requestApproval);
 router.get('/sellRequest/getAll',getAllSellRequest);
+router.post('/sellRequest/:reqProductId/payment', 
+paymentSell);
 module.exports = router;

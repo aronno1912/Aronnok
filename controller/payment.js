@@ -1,6 +1,7 @@
 // const axios = require('axios');
 const User = require("../models/user");
 const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
+const { SellProduct } = require('../models/sell');
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const SSLCommerzPayment = require('sslcommerz-lts');
@@ -97,6 +98,52 @@ exports.paymentAuction = async (req, res) => {
     ship_name: bidder.username,
     ship_add1: bidder.present_addr,
     ship_add2: bidder.present_addr,
+    ship_city: 'Dhaka',
+    ship_state: 'Dhaka',
+    ship_postcode: 1000,
+    ship_country: 'Bangladesh',
+  };
+  const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
+  sslcz.init(data).then(apiResponse => {
+    // Redirect the user to payment gateway
+    let GatewayPageURL = apiResponse.GatewayPageURL
+    // console.log(GatewayPageURL)
+    // res.redirect(GatewayPageURL)
+    res.status(200).json({ "url": GatewayPageURL })
+    // console.log('Redirecting to: ', GatewayPageURL)
+  });
+};
+
+exports.paymentSell = async (req, res) => {
+  const sellProductId = req.params.reqProductId;
+  const sellProduct = await SellProduct.findById(sellProductId);
+  const userId = sellProduct.user;
+  const user = await User.findById(userId);
+  const data = {
+    total_amount: sellProduct.askingPrice,
+    currency: 'BDT',
+    tran_id: tran_id, // use unique tran_id for each api call
+    success_url: `http://localhost:8000/api/payment/success/${tran_id}`,
+    fail_url: `http://localhost:8000/api/payment/fail/${tran_id}`,
+    cancel_url: 'http://localhost:8000/cancel',
+    ipn_url: 'http://localhost:8000/ipn',
+    shipping_method: 'Courier',
+    product_name: 'Computer.',
+    product_category: 'Electronic',
+    product_profile: 'general',
+    cus_name: user.username,
+    cus_email: user.email,
+    cus_add1: user.present_addr,
+    cus_add2: user.present_addr,
+    cus_city: 'Dhaka',
+    cus_state: 'Dhaka',
+    cus_postcode: '1000',
+    cus_country: 'Bangladesh',
+    cus_phone: '07198847873',
+    cus_fax: '01711111111',
+    ship_name: user.username,
+    ship_add1: user.present_addr,
+    ship_add2: user.present_addr,
     ship_city: 'Dhaka',
     ship_state: 'Dhaka',
     ship_postcode: 1000,

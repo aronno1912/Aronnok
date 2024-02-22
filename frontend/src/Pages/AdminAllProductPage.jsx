@@ -16,6 +16,7 @@ const AdminAllProductPage = () => {
       <div className="adminallproduct-body">
         <Sidebar/>
         <AdminProductPanel catagory=""/>
+       
       </div>
       
       <Footer/>

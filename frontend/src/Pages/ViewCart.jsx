@@ -73,7 +73,7 @@ const ViewCart = (prod) => {
       const textUrl=response.data.url;
       
       console.log('product added to cart');
-      alert('Your Order is placed successfully!');
+      //alert('Your Order is placed successfully!');
       // windows.location.replace(response.data.url)
       window.location.href = textUrl;
     } catch (error) {
