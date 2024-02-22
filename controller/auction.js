@@ -370,6 +370,33 @@ exports.remainingTime = async (req, res) => {
   }
 };
 
+exports.currentRemainingTime = async (req, res) => {
+  try {
+    let auction = await Auction.find({
+      startTime: { $lte: new Date() },
+      endTime: { $gt: new Date() },
+    })
+      .populate('auctionProducts')
+      .sort({startTime:-1})
+      .exec();
+    //res.json(ongoingAuctions);
+    const currentTime = moment(); // Current time
+    const endTime = moment(auction.endTime); // End time of the auction
+
+    // Calculate the time difference
+    const duration = moment.duration(endTime.diff(currentTime));
+
+    // Get remaining time in hours, minutes, and seconds
+    const hours = Math.floor(duration.asHours());
+    const minutes = Math.floor(duration.minutes());
+    const seconds = Math.floor(duration.seconds());
+    res.status(201).json({ "hour": `${hours}`, "min": `${minutes}`, "sec": `${seconds}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 exports.getIndividualProductInOneAuction = async (req, res) => {
   try {
     const auction = req.auction;

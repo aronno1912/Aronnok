@@ -6,6 +6,7 @@ const {
   getUser,
   updateUser,
   userPurchaseList,
+  getAllUser,
 } = require("../controller/user");
 const { isSignedIn, isAuthenticated } = require("../controller/auth");
 
@@ -15,6 +16,8 @@ router.get("/user/:userId",
 // isSignedIn, 
 // isAuthenticated, 
 getUser);
+
+router.get("/getAllUser", getAllUser);
 
 router.put("/user/:userId", 
 // isSignedIn, 

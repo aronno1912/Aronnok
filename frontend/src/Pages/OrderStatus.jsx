@@ -90,12 +90,12 @@ const OrderStatus = () => {
             </div>
             <div className="delivery-and-summary">
                 <div className="delivery-left">
-                    <p>Address: {order.address}</p>
-                    <p>Payment: cash on delivery</p>
+                    <p><b>Address: {order.address}</b></p>
+                    <p><b>Payment: cash on delivery</b></p>
                 </div>
                 <div className="summary-right">
-                    <p>Total-amount: ${order.amount}</p>
-                    <p>Total-quantity: {totalOrderQuantity}</p>
+                    <p><b>Total-amount: ${order.amount}</b></p>
+                    <p><b>Total-quantity: {totalOrderQuantity}</b></p>
                 </div>
             </div>
         </div>

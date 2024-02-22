@@ -55,6 +55,30 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+exports.getAllUser = (req, res, next) => {
+  console.log("mor")
+  User.find()
+  .exec()
+  .then((users) => {
+    if (!users) {
+      return res.status(400).json({
+        error: "No user was found in DB",
+      });
+    }
+    res.json(users);
+    // pass control to the next middleware or route handler in the sequence
+    next();
+  })
+  .catch((err) => {
+    // Handle errors here
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  });
+
+};
+
 
 // exports.userPurchaseList = (req, res) => {
 //   Order.find({ user: req.profile._id })
