@@ -23,6 +23,8 @@ const {
   getPlantByName,
   getPlantByCategory,
   getBestSellers,
+  giveRating,
+  getRating,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -92,6 +94,9 @@ trending,
 router.get('/category_stock',
 category_stock,
 );
+//user will give rating here
+ router.post('/anyproduct/giverating/:productId', giveRating);
+ router.get('/anyproduct/getrating/:productId', getRating);
 
 router.get("/products/get/bestSellers", getBestSellers);
 
