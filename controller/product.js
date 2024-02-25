@@ -328,7 +328,7 @@ exports.updateStock = async (req, res, next) => {
 
 exports.getPlantaByTag = async (req, res, next) => {
   try {
-    const searchTerm = req.body.query;
+    const searchTerm = req.query.query;
     console.log(searchTerm)
     const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
@@ -342,7 +342,7 @@ exports.getPlantaByTag = async (req, res, next) => {
 
 exports.getPlantByName = async (req, res, next) => {
   try {
-    const searchTerm = req.body.query;
+    const searchTerm = req.query.query;
     const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
     res.name_plants=products;
@@ -355,7 +355,7 @@ exports.getPlantByName = async (req, res, next) => {
 
 exports.getPlantByCategory = async (req, res, next) => {
   try {
-    const searchTerm = req.body.query;
+    const searchTerm = req.query.query;
     const category= await Category.find({ name: { $regex: searchTerm, $options: 'i' } });
     const products = await Product.find({ category: category });
     // res.json(products);
@@ -524,4 +524,45 @@ exports.getBestSellers = (req, res) => {
         error: "Internal Server Error",
       });
     });
+};
+
+//get rating
+exports.getRating = async (req, res) => {
+  console.log("getting rating!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    res.json(product);
+    //res.json(product.ratedBy);
+    console.log("getting rating");
+    console.log(product.rating);
+    //res.json(product.ratedBy);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.giveRating = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const { rating } = req.body;
+    const { ratedBy } = req.body;
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    product.rating = rating;
+    product.ratedBy= ratedBy;
+    await product.save();
+    res.json(product);
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };

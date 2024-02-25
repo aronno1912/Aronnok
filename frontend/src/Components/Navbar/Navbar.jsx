@@ -23,7 +23,21 @@ const Navbar = ({ userId }) => {
     setPopupOpen(false);
   };
 
- 
+//   const handleChange =  async(event) => {
+//     const { value } = event.target;
+//     setQuery(value);
+
+//     try {
+//       const response = await axios.get(`http://localhost:8000/api/search?query=${query}`);
+//       console.log()
+//       console.log("bef")
+//       setSuggestions(response.data);
+//       console.log("aft")
+//       console.log(suggestions)
+//     } catch (error) {
+//       console.error('Error fetching suggestions:', error);
+//     }
+//   };
 
   useEffect(() => {
     const fetchData = async () => {
