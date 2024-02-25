@@ -40,6 +40,7 @@ const OrderItem = (prod) => {
 
             //a pop up to give rating
             setPopupVisible(true);
+            //console.log("status",status);
 
         }
         const closePopup = () => {
@@ -61,7 +62,9 @@ const OrderItem = (prod) => {
         </div>
         <div className="order-item-right">
             <p><b>${prod.quantity*product.price}</b></p>
-            <button className="order-item-rating-button" onClick={giveRating}>Rate</button>
+            
+            {prod.status==="Delivered" && <button className="order-item-rating-button" onClick={giveRating}>Rate</button>}
+            {/* <button className="order-item-rating-button" onClick={giveRating}>Rate</button> */}
         </div>
        
           
