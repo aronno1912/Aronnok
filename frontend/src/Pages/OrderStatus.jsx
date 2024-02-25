@@ -85,7 +85,7 @@ const OrderStatus = () => {
             </div>
             <div className="orderstatus-orderitems">
             {orderItems.map((item,i)=>{
-            return <OrderItem key={i} id={item.product} quantity={item.quantity}/>
+            return <OrderItem  key={i} id={item.product} quantity={item.quantity} status={order.status}/>
             })}
             </div>
             <div className="delivery-and-summary">
