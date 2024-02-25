@@ -68,7 +68,7 @@ const OrderItem = (prod) => {
    </div>
    {isPopupVisible && (
         <RatingPopUp
-          productName={product._id}
+          productId={product._id}
           closePopup={closePopup}
         />
       )}
