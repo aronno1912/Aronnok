@@ -1,0 +1,107 @@
+
+
+/* .rating-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rating-popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .rating-popup h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+
+  .rating-popup button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .rating-popup button:hover {
+    background-color: #45a049;
+  }
+   */
+
+
+
+   /* RatingPopup.css */
+
+.rating-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rating-popup-content {
+    background: linear-gradient(135deg, #3498db, #8e44ad); /* Gradient background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: #fff; /* Text color */
+  }
+  
+  .rating-popup h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .rating-radio-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .rating-radio-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .rating-radio-label input {
+    margin-bottom: 5px;
+  }
+  
+  .rating-popup button {
+    padding: 12px 24px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #f39c12; /* Orange button color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .rating-popup button:hover {
+    background-color: #e67e22; /* Darker orange on hover */
+  }
+  

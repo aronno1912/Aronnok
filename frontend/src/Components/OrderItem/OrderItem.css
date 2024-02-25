@@ -45,3 +45,13 @@
     margin-right: 20px;
     color: rgb(17, 74, 32);
 }
+
+.order-item-rating-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 80px;
+    background-color: rgb(183, 21, 220);
+}
