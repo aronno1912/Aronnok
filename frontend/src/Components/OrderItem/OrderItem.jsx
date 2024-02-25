@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./OrderItem.css"
+import RatingPopUp from '../RatingPopUp/RatingPopUp';
 const OrderItem = (prod) => {
 
     const [product, setProduct] = useState([]);
+    const [isPopupVisible, setPopupVisible] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -17,6 +19,32 @@ const OrderItem = (prod) => {
     
          fetchProduct();
       }, []);
+     
+        const giveRating = async () => {
+            // try {
+            //     const response = await fetch(`http://localhost:8000/api/product/rating/${prod.id}`, {
+            //         method: 'PUT',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Authorization': `Bearer ${localStorage.getItem('token')}`
+            //         },
+            //         body: JSON.stringify({
+            //             rating: 5
+            //         })
+            //     });
+            //     const data = await response.json();
+            //     console.log(data);
+            // } catch (error) {
+            //     console.error('Error giving rating:', error);
+            // }
+
+            //a pop up to give rating
+            setPopupVisible(true);
+
+        }
+        const closePopup = () => {
+            setPopupVisible(false);
+          };
 
 
   return (
@@ -33,9 +61,17 @@ const OrderItem = (prod) => {
         </div>
         <div className="order-item-right">
             <p><b>${prod.quantity*product.price}</b></p>
+            <button className="order-item-rating-button" onClick={giveRating}>Rate</button>
         </div>
-    
+       
+          
    </div>
+   {isPopupVisible && (
+        <RatingPopUp
+          productName={product._id}
+          closePopup={closePopup}
+        />
+      )}
     </div>
   )
 }
