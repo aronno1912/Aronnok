@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const SellProduct=require('../models/sell');
+const {SellProduct,ComingSoonProduct}=require('../models/sell');
 const { validationResult } = require('express-validator');
 const User = require("../models/user");
 const Notification = require("../models/notification");
@@ -81,21 +81,15 @@ exports.sellRequest = async(req, res) => {
     if (!requestedProduct) {
         return res.status(404).json({ error: 'Requested product not found' });
       }
-      // console.log(requestedProduct.name);
-      // console.log(requestedProduct.description);
-      // console.log(requestedProduct.photo);
-      // console.log(requestedProduct.askingPrice);
+      const newComingSoonProduct = new ComingSoonProduct({
+        name: requestedProduct.name,
+        description: requestedProduct.description,
+        photo: requestedProduct.photo,
+        askingPrice: requestedProduct.askingPrice,
+        category: requestedProduct.category // You may need to adjust this based on your schema
+    });
+    await newComingSoonProduct.save();
 
-      // //create a new product
-      //   const newProduct = new Product({
-      //       name: requestedProduct.name,
-      //       description: requestedProduct.description,
-      //       photo: requestedProduct.photo,
-      //       price: requestedProduct.askingPrice,
-      //       category: "65b1d595d4aee77e1db2307b",          //?????????????????????????????/
-            
-      //   });
-      //   await newProduct.save();
         await SellProduct.findByIdAndDelete(requestId);
         res.status(201).json({ message: 'Request approved successfully!'});
         //notify that user that his request has been approved

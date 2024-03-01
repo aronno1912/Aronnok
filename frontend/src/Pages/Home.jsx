@@ -36,7 +36,7 @@ const Home = () => {
       <Trending catagory="Trending" mypath="http://localhost:8000/api/trending" userId={userId}/>
       <Trending catagory="New Arrivals" mypath="http://localhost:8000/api/product/newarrival"  userId={userId}/>
       <Trending catagory="Recommended for you" mypath={`http://localhost:8000/api/recommend/${userId}`}  userId={userId} />
-      
+      <Trending catagory="Coming Soon" mypath={`http://localhost:8000/api/product/comingsoon`}  userId={userId} />
       <Footer />
     </div>
   );
