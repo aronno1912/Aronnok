@@ -9,7 +9,9 @@ import { API } from "../../backend";
 import { useParams } from 'react-router-dom';
 import { ProjectContext } from '../../Context/ProjectContext';
 
+import star_dull from '../Assets/star_dull_icon.png'
 
+import star from '../Assets/star_icon.png'
 
 
 // const OneProduct = () => {
@@ -81,6 +83,16 @@ const OneProduct = () => {
     }
     updateTotalQuantity();
   };
+  const ratingStars = () => {
+    const result = [];
+    for (let i = 0; i < product.rating; i++) {
+      result.push(<img src={star} alt=""/>);
+    }
+    for (let i = product.rating; i < 5; i++) {
+      result.push(<img src={star_dull} alt=""/>);
+    }
+    return result;
+  };
   const isInStock = product.stock > 0;
   const imageUrl = product.photo || ''; // Default to an empty string if product.photo is undefined
 
@@ -94,15 +106,18 @@ const OneProduct = () => {
         <img className='main-img' src={product.photo} alt={product.name} />
       )}
         </div>
+        <div className="oneproduct-careinfo" style={{padding: '50px'}}>
+            <div className="oneproduct-hardcode">
+                <p><i class="bi bi-calendar-fill"  style={{ color: 'rgb(236, 166, 82)', fontSize: '25px', paddingRight:'25px'}}></i>9 years</p>
+                <p><i class="bi bi-thermometer"  style={{ color: 'rgb(236, 166, 82)', fontSize: '25px' , paddingRight:'25px'}}></i>80% humidity</p>
+                <p><i class="bi bi-rulers"  style={{ color: 'rgb(236, 166, 82)', fontSize: '25px', paddingRight:'25px' }}></i>5.2 inch</p>
+            </div>
+        </div>
       </div>
       <div className="oneproduct__right">
         <h1>{product.name}</h1>
         <div className="oneproduct__right__rating">
-          <img src={star_icon}alt="" />
-          <img src={star_icon}alt="" />
-          <img src={star_icon}alt="" />
-          <img src={star_icon}alt="" />
-          <img src="/star_dull_icon.png" alt="" />
+        {ratingStars()}
           <p>(122)</p>
           </div>
 

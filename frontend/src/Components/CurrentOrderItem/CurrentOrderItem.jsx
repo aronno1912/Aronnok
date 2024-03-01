@@ -56,7 +56,7 @@ const CurrentOrderItem = (prod) => {
             <p style={{fontSize:'12px', color:'rgb(2, 75, 33)'}}>Status: {order.status}</p>
         </div>
         <div className="curorderitem-right">
-            <p><b>${order.amount}</b></p>
+            <p><b>${Math.round(order.amount)}</b></p>
         </div>
         </div>
         </Link>

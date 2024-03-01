@@ -17,6 +17,7 @@ const {
   getAllProducts,
   recommendations,
   trending,
+  getComingSoon,
   category_stock,
   getNewArrivals,
   getPlantaByTag,
@@ -71,6 +72,7 @@ router.put(
 // listing route for user
 router.get("/products/:userId", getAllProducts);
 router.get("/product/newarrival", getNewArrivals);
+router.get("/product/comingsoon", getComingSoon);
 
 // router.get("/products/categories", getAllUniqueCategories);
 

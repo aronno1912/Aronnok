@@ -9,6 +9,7 @@ const User = require('../models/user');
 const Cart = require('../models/cart');
 const Favourites = require('../models/favourites');
 const Order = require('../models/order');
+const {SellProduct,ComingSoonProduct}=require('../models/sell');
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
@@ -267,7 +268,29 @@ exports.getNewArrivals = (req, res) => {
       });
     });
 };
-
+exports.getComingSoon = (req, res) => {
+  // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
+  let sortBy = req.query.sort ? req.query.sort : "_id";
+  ComingSoonProduct.find()
+    .sort([[sortBy, "asc"]])
+    // .limit(limit)
+    .exec()
+    .then((products) => {
+      if (!products) {
+        return res.status(400).json({
+          error: "No products found",
+        });
+      }
+      res.json(products);
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+};
 // exports.getAllUniqueCategories = (req, res) => {
 //   Product.distinct("category", {}, (err, category) => {
 //     if (err) {
