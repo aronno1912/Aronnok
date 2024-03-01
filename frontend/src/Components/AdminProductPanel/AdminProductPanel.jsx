@@ -65,7 +65,6 @@ const AdminProductPanel = ({ catagory }) => {
   return (
     <div className='atrending'>
       <h1>{catagory}</h1>
-    
       <div className='atr-products'>
         {all_plants.map((item, i) => (
           <AdminProduct

@@ -75,10 +75,10 @@ router.get("/product/newarrival", getNewArrivals);
 // router.get("/products/categories", getAllUniqueCategories);
 
 // Search route
-router.get('/search',
-  getPlantaByTag,
+router.post('/search',
+  // getPlantaByTag,
   getPlantByName,
-  getPlantByCategory,
+  // getPlantByCategory,
 );
 //recommended for you
 router.get('/recommend/:userId',

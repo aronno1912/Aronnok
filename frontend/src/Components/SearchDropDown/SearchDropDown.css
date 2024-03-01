@@ -1,5 +1,40 @@
 .search-container{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    /* gap: 2px; */
+}
+
+
+.search-without-btn{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.searchallitems{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    z-index: 1;
+    list-style: none;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    height: 300px;
+    width: 250px;
+    background-color: white;
+}
+
+.usersearchbutton{
+    margin-left: 10px;
+}
+
+.search-textbox{
+    width: 500px; /* Adjust this value as needed */
+  padding: 10px; /* Optional: Add padding for better aesthetics */
+  box-sizing: border-box; 
 }

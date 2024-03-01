@@ -11,7 +11,7 @@ import { useParams ,useLocation} from 'react-router-dom';
 
 const ReviewAddProductPage = () => {
   const location = useLocation();
-  const { pname, pdescription, pprice, pphoto } = location.state;
+  const { pname, pdescription, pprice, pphoto} = location.state;
  // const { pname, pdescription, pprice, pphoto } = useParams();
   return (
     <div>
