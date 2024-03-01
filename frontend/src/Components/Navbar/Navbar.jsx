@@ -6,13 +6,12 @@ import { Link } from 'react-router-dom'
 import { CartContext } from '../../Context/CartContext'
 import axios from 'axios';
 import UserNotification from '../UserNotification/UserNotification'
+import SearchDropDown from '../SearchDropDown/SearchDropDown'
 
 const Navbar = ({ userId }) => {
   const [menu, setMenu] = useState("home");
   const [cartTotalQuantity, setQuantity] = useState(0);
   const [notis, setNotis] = useState([]);
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
 
   const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -23,6 +22,7 @@ const Navbar = ({ userId }) => {
   const closePopup = () => {
     setPopupOpen(false);
   };
+
 
   const handleChange = async (event) => {
     const { value } = event.target;
@@ -82,6 +82,7 @@ const Navbar = ({ userId }) => {
         <li onClick={() => { setMenu("wishlist") }}><Link to={`/wishlist/${userId}`} style={{ textDecoration: 'none' }}> Wishlist </Link>  {menu === "wishlist" ? <hr /> : <></>}</li>
         <li onClick={() => { setMenu("orders") }}><Link to={`/orderlist/${userId}`} style={{ textDecoration: 'none' }}>Order </Link> {menu === "orders" ? <hr /> : <></>}</li>
       </ul>
+
       <div className="usersearch-bar">
         <input type="text" placeholder="Search" value={query} onChange={handleChange} required />
         <div className="navbarscrollable-box">
@@ -93,6 +94,7 @@ const Navbar = ({ userId }) => {
         </div>
         <button className="usersearchbutton" type="button">Search</button>
       </div>
+
       <div className="nav-login-cart">
         <div className="notification-icon"><button style={{ backgroundColor: "white", fontSize: '30px' }} onClick={openPopup}><i class="bi bi-bell-fill" style={{ color: 'rgb(0, 100, 0)', fontSize: '25px' }}></i></button>
           <div className="notification-count" style={{ fontSize: '10px' }}>{notis.length}</div>
