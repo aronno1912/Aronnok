@@ -587,7 +587,7 @@ exports.getProductsByHighestBidder = async (req, res) => {
 // Function to update auction status based on current time
 const updateAuctionStatus = async function () {
   const currentTime = new Date();
-  console.log(currentTime);
+  // console.log(currentTime);
   try {
     // Move auctions from 'upcoming' to 'ongoing'
     const upcomingAuctionsToOngoing = await Auction.find({
