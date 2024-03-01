@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import './ReviewAdd.css';
 import axios from 'axios';
 
-const ReviewAdd = ({pname,pdescription,pprice,pphoto}) => {
+const ReviewAdd = ({pname,pdescription,pprice,pphoto,plifespan}) => {
   // const [url, setUrl] = useState("");
   // const [photo, setFile] = useState (null);
   console.log("pname: "+pname)
@@ -23,7 +23,6 @@ const ReviewAdd = ({pname,pdescription,pprice,pphoto}) => {
     tag: '',
     price: pprice,
     photo: pphoto,
-    
   });
 
   const handleChange = (e) => {

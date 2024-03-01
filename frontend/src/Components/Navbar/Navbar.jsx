@@ -25,18 +25,18 @@ const Navbar = ({ userId }) => {
   };
 
 
-  const handleChange = async (event) => {
-    const { value } = event.target;
-    setQuery(value);
+  // const handleChange = async (event) => {
+  //   const { value } = event.target;
+  //   setQuery(value);
 
-    try {
-      const response = await fetch(`http://localhost:8000/api/search?query=${query}`);
-      const data = await response.json();
-      setSuggestions(data);
-    } catch (error) {
-      console.error('Error fetching suggestions:', error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(`http://localhost:8000/api/search?query=${query}`);
+  //     const data = await response.json();
+  //     setSuggestions(data);
+  //   } catch (error) {
+  //     console.error('Error fetching suggestions:', error);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,7 +85,7 @@ const Navbar = ({ userId }) => {
       </ul>
 
       <div className="usersearch-bar">
-        <input type="text" placeholder="Search" value={query} onChange={handleChange} required />
+        {/* <input type="text" placeholder="Search" value={query} onChange={handleChange} required />
         <div className="navbarscrollable-box">
           <ul>
             {suggestions.map((suggestion, index) => (
@@ -93,7 +93,8 @@ const Navbar = ({ userId }) => {
             ))}
           </ul>
         </div>
-        <button className="usersearchbutton" type="button">Search</button>
+        <button className="usersearchbutton" type="button">Search</button> */}
+        <SearchDropDown userId={userId}/>
       </div>
 
       <div className="nav-login-cart">

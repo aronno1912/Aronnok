@@ -11,7 +11,7 @@ exports.sellRequest = async(req, res) => {
     }
     try {
         // console.log(req.body)
-        const { name, description, photoName, ap } = req.body;
+        const { name, description, photoName, ap} = req.body;
         // console.log(initialbid)
         const askingPrice = ap;
         // console.log(currentBid)

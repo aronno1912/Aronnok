@@ -71,7 +71,7 @@ import axios from 'axios';
 import ReviewAdd from '../AdminNewProductAdd/ReviewAdd';
 import ReviewAddProductPage from '../../Pages/ReviewAddProductPage';
 
-const ViewSellRequest = ({ productName, askingPrice, userWhoBid, productPhoto, description, reqId,userId }) => {
+const ViewSellRequest = ({ productName, askingPrice, userWhoBid, productPhoto, description, reqId,userId, lifespan }) => {
   const [isFormVisible, setFormVisible] = useState(false);
   const navigate = useNavigate();
 

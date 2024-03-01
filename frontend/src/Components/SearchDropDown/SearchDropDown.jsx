@@ -3,7 +3,7 @@ import './SearchDropDown.css'
 import React, { useState } from 'react'
 import SearchItem from '../SearchItem/SearchItem';
 
-const SearchDropDown = () => {
+const SearchDropDown = (prod) => {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -34,7 +34,7 @@ const SearchDropDown = () => {
         setQuery(value);
     
         try {
-          const response = await axios.get(`http://localhost:8000/api/search`, { "query": value });
+          const response = await axios.post(`http://localhost:8000/api/search`, { "query": value });
           setSuggestions(response.data);
           //console.log(suggestions)
         } catch (error) {
@@ -44,17 +44,18 @@ const SearchDropDown = () => {
 
   return (
     <div className="search-container">
-       <input type="text" placeholder="Search" value={query} onChange={handleChange} required/>
+      <div className="search-without-btn">
+        <input type="text" style={{width:'250px'}} className='search-textbox' placeholder="Search" value={query} onChange={handleChange} required/>
 
-       {suggestions.length > 0 && (
-        
-            <div className="searchallitems">
-                {suggestions.map((item,i)=>{
-                    return <SearchItem id={item._id} name={item.name}/>
-                })}
-            </div>
-        
-      )}
+          {suggestions.length > 0 && (
+              <div className="searchallitems">
+                  {suggestions.map((item,i)=>{
+                      return <SearchItem id={item._id} name={item.name} photo={item.photo} userId={prod.userId}/>
+                  })}
+              </div>
+
+          )}
+      </div>
 
         <button className="usersearchbutton" style={{backgroundColor:'transparent', width:'10px'}}><i class="bi bi-search" style={{color:'black'}}></i></button>
     </div>

@@ -126,7 +126,7 @@ exports.addPlant = async (req, res, next) => {
   }
   try {
     //destructure the fields
-    const { name, description, price, category, stock,photo } = req.body;
+    const { name, description, price, category, stock, photo} = req.body;
     // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
@@ -351,7 +351,8 @@ exports.updateStock = async (req, res, next) => {
 
 exports.getPlantaByTag = async (req, res, next) => {
   try {
-    const searchTerm = req.query.query;
+    //const searchTerm = req.query.query;
+    const searchTerm = req.body.query;
     console.log(searchTerm)
     const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
@@ -365,10 +366,11 @@ exports.getPlantaByTag = async (req, res, next) => {
 
 exports.getPlantByName = async (req, res, next) => {
   try {
-    const searchTerm = req.query.query;
-    const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
+    const searchTerm = req.body.query;
+    const products = await Product.find({ name: { $regex: `^${searchTerm}`, $options: 'i' } });
     // res.json(products);
     res.name_plants=products;
+    res.json([...res.name_plants]);
     next();
   } catch (error) {
     console.error(error);
@@ -378,7 +380,7 @@ exports.getPlantByName = async (req, res, next) => {
 
 exports.getPlantByCategory = async (req, res, next) => {
   try {
-    const searchTerm = req.query.query;
+    const searchTerm = req.body.query;
     const category= await Category.find({ name: { $regex: searchTerm, $options: 'i' } });
     const products = await Product.find({ category: category });
     // res.json(products);

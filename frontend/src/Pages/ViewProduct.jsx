@@ -23,19 +23,7 @@ import Footer from '../Components/Footer/Footer';
 import { useParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar/Navbar';
 
-// const ViewProduct = () => {
-  
-//     return (
-//         <div>
-          
-//            <OneProduct />
-//               <Footer />
 
-//         </div>
-//     )
-// }
-
-// export default ViewProduct;
 
 
 const ViewProduct = () => {
