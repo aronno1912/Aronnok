@@ -13,4 +13,6 @@ router.get('/notification/:userId', getUserNotifications);
 // Route for marking a notification as read
 router.put('/notification/:notificationId/read', markNotificationAsRead);
 router.post('/notification/:userId', postUserNotifications);
+router.post('/:userId/notification/delete/:notificationId', postUserNotifications);
+
 module.exports = router;

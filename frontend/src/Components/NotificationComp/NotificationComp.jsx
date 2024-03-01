@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './NotificationComp.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const NotificationComp = (prod) => {
     const [isAction,setAction]=useState(false);
@@ -17,12 +18,13 @@ const NotificationComp = (prod) => {
         fetchData();
       }, []);
 
-    const openPopup = () => {
-        setAction(true);
-      };
     
-      const closePopup = () => {
-        setAction(false);
+      const onClose = async () => {
+        try {
+          await axios.post(`http://localhost:8000/api/${prod.userId}/notification/delete/${prod.id}`, {});
+        } catch (error) {
+          console.error('Error bidding', error);
+        }
       };
     const placePay = async () => {
        
@@ -31,6 +33,7 @@ const NotificationComp = (prod) => {
     
   return (
       <div className="noticomp-container">
+        <span className="popupu-close-btn" onClick={onClose}>&times;</span>
         <div className="noticomp-left">
             <p>{prod.message}</p>
         </div>

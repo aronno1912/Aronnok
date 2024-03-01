@@ -34,7 +34,7 @@ const UserNotification = ({ userId, onClose }) => {
       <span className="unot-close-btn" onClick={onClose}>&times;</span>
       <div className='all-notifications'>
         {notis.map((item, i) => (
-          <NotificationComp key={i} userId={userId} message={item.message} type={item.type} auctionId={item.link} read={item.read} />
+          <NotificationComp key={i} id={item._id} userId={userId} message={item.message} type={item.type} auctionId={item.link} read={item.read} />
         ))}
       </div>
     </div>
