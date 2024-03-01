@@ -64,7 +64,7 @@ router.put(
   "/product/:productId/:userId",
   // isSignedIn,
   // isAuthenticated,
-  isAdmin,
+  // isAdmin,
   updateProduct
 );
 
