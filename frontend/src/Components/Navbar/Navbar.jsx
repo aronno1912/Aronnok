@@ -24,17 +24,14 @@ const Navbar = ({ userId }) => {
     setPopupOpen(false);
   };
 
-  const handleChange =  async(event) => {
+  const handleChange = async (event) => {
     const { value } = event.target;
     setQuery(value);
 
     try {
-      const response = await axios.get(`http://localhost:8000/api/search?query=${query}`);
-      console.log()
-      console.log("bef")
-      setSuggestions(response.data);
-      console.log("aft")
-      console.log(suggestions)
+      const response = await fetch(`http://localhost:8000/api/search?query=${query}`);
+      const data = await response.json();
+      setSuggestions(data);
     } catch (error) {
       console.error('Error fetching suggestions:', error);
     }
@@ -86,12 +83,14 @@ const Navbar = ({ userId }) => {
         <li onClick={() => { setMenu("orders") }}><Link to={`/orderlist/${userId}`} style={{ textDecoration: 'none' }}>Order </Link> {menu === "orders" ? <hr /> : <></>}</li>
       </ul>
       <div className="usersearch-bar">
-        <input type="text" placeholder="Search" value={query} onChange={handleChange} required/>
-        <ul>
-          {suggestions.map((suggestion, index) => (
-            <li key={index}>{suggestion}</li>
-          ))}
-        </ul>
+        <input type="text" placeholder="Search" value={query} onChange={handleChange} required />
+        <div className="navbarscrollable-box">
+          <ul>
+            {suggestions.map((suggestion, index) => (
+              <li key={index}>{suggestion.name}</li>
+            ))}
+          </ul>
+        </div>
         <button className="usersearchbutton" type="button">Search</button>
       </div>
       <div className="nav-login-cart">

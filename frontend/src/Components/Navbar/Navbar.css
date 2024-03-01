@@ -144,6 +144,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    
   }
   
   .usersearch-bar input[type="text"] {
@@ -154,4 +155,15 @@
   .usersearch-bar button {
     width: 80px; /* Adjust the width as needed */
     padding: 8px; /* Add padding for better appearance */
+  }
+  
+  .navbarscrollable-box {
+    max-height: 200px; /* Set the maximum height of the scrollable box */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .navbarscrollable-box ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
   }
