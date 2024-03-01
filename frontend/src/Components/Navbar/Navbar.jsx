@@ -12,7 +12,8 @@ const Navbar = ({ userId }) => {
   const [menu, setMenu] = useState("home");
   const [cartTotalQuantity, setQuantity] = useState(0);
   const [notis, setNotis] = useState([]);
-
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const openPopup = () => {

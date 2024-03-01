@@ -55,5 +55,3 @@ const ViewSellRequestPage = () => {
 };
 
 export default ViewSellRequestPage;
-
-

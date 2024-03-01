@@ -43,6 +43,7 @@ import AdminDashboard from './Pages/AdminDashboard';
 import Wishlist from './Pages/Wishlist';
 import ViewSellRequestPage from './Pages/ViewSellRequestPage';
 import ReviewAddProductPage from './Pages/ReviewAddProductPage';
+import EditProductPageAd from './Pages/EditProductPageAd';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         
         <Route path='/viewcart/:userId' element={<ViewCart/>}/>
         <Route path='/product/:userId/:productId' element={<ViewProduct />} />
+        
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
         <Route path='/orderstatus/:userId/:orderId' element={<OrderStatus/>}/>
@@ -91,6 +93,7 @@ function App() {
         <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
         <Route path='/wishlist/:userId' element={<Wishlist/>}/>
         <Route path='/favourites/:userId' element={<Favourites/>}/>
+        <Route path='/editproduct/:productId' element={<EditProductPageAd />} />
       </Routes>
       </BrowserRouter>
     </div>

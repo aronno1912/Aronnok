@@ -22,7 +22,6 @@ const sellProductSchema = new mongoose.Schema(
         type: Number,
         default: 0,
         },
-        
         user: {
         type: ObjectId,
         ref: "User", // Adjust based on your user schema
