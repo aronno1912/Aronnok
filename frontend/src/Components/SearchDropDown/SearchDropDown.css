@@ -14,7 +14,6 @@
 .searchallitems{
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     position: absolute;
     top: 100%; 
     left: 0;
@@ -24,7 +23,7 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    height: 300px;
+    height: auto;
     width: 250px;
     background-color: white;
 }

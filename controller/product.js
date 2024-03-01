@@ -367,6 +367,9 @@ exports.getPlantaByTag = async (req, res, next) => {
 exports.getPlantByName = async (req, res, next) => {
   try {
     const searchTerm = req.body.query;
+    if(searchTerm===''){
+      return res.json([])
+    }
     const products = await Product.find({ name: { $regex: `^${searchTerm}`, $options: 'i' } });
     // res.json(products);
     res.name_plants=products;
