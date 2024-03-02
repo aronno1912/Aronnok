@@ -6,14 +6,14 @@ import React, { useState } from 'react';
 import './ReviewAdd.css';
 import axios from 'axios';
 
-const ReviewAdd = ({pname,pdescription,pprice,pphoto,plifespan}) => {
+const ReviewAdd = ({pname,pdescription,pprice,pphoto,reqId}) => {
   // const [url, setUrl] = useState("");
   // const [photo, setFile] = useState (null);
   console.log("pname: "+pname)
   console.log("pdescription: "+pdescription)
     console.log("pprice: "+pprice)
     console.log("pphoto: "+pphoto)
-  
+  console.log(reqId)
   const [productInfo, setProductInfo] = useState({
     name: pname,
     description: pdescription,
@@ -53,7 +53,7 @@ const ReviewAdd = ({pname,pdescription,pprice,pphoto,plifespan}) => {
       console.log(formData)
       
     
-      await axios.post('http://localhost:8000/api/product/create/65a294c44865e9f4138c7281', formData, {
+      await axios.post(`http://localhost:8000/api/requestApproval/65a294c44865e9f4138c7281/${reqId}`, formData, {
       headers: {
       'Content-Type': 'multipart/form-data',
       },

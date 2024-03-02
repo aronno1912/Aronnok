@@ -69,7 +69,7 @@ const AdminNewProductAdd = () => {
       }
       // formData.append('photo', photo);
 
-      console.log(formData)
+      // console.log(formData)
       // // Iterate over FormData entries and log key-value pairs
       // for (const pair of formData.entries()) {
       //   console.log(pair[0], pair[1]);

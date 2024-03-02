@@ -10,9 +10,21 @@ import ReviewAdd from '../Components/AdminNewProductAdd/ReviewAdd';
 import { useParams ,useLocation} from 'react-router-dom';
 
 const ReviewAddProductPage = () => {
-  const location = useLocation();
-  const { pname, pdescription, pprice, pphoto} = location.state;
+  // const location = useLocation();
+  // const { pname, pdescription, pprice, pphoto} = location.state;
  // const { pname, pdescription, pprice, pphoto } = useParams();
+
+ const location = useLocation();
+  const { search } = location;
+  const params = new URLSearchParams(search);
+
+  const pname = params.get('pname');
+  const pdescription = params.get('pdescription');
+  const pprice = params.get('pprice');
+  const pphoto = params.get('pphoto');
+  const reqId=params.get('reqId');
+  console.log("kahaiouboaiu")
+  console.log(reqId);
   return (
     <div>
      
@@ -20,7 +32,7 @@ const ReviewAddProductPage = () => {
       <Sidebar/>
       {/* <AdminProductPanel catagory="" /> */}
       {/* //////???????????????????????????????????????????????????????????????????/ */}
-      <ReviewAdd pname={pname} pdescription={pdescription} pprice={pprice} pphoto={pphoto}/>
+      <ReviewAdd pname={pname} pdescription={pdescription} pprice={pprice} pphoto={pphoto} reqId={reqId}/>
       <Footer/>
     </div>
   )

@@ -78,18 +78,25 @@ const ViewSellRequest = ({ productName, askingPrice, userWhoBid, productPhoto, d
   const handleAccept = async () => {
     setFormVisible(true);
     console.log(reqId);
-     await axios.post(`http://localhost:8000/api/requestApproval/${userId}/${reqId}`);
+    const requestData = {
+      pname: productName,
+      pdescription: description,
+      pprice: askingPrice,
+      pphoto: productPhoto,
+      
+    };
+     const response=await axios.post(`http://localhost:8000/api/sellRequest/${reqId}/payment`,requestData);
     console.log("Accepted");
-
+    window.location.href=response.data.url
     // Navigate to ReviewAddProductPage with parameters
-    navigate(`/admin/viewsellrequests/review`, {
-      state: {
-        pname: productName,
-        pdescription: description,
-        pprice: askingPrice,
-        pphoto: productPhoto,
-      },
-    });
+    // navigate(`/admin/viewsellrequests/review`, {
+    //   state: {
+    //     pname: productName,
+    //     pdescription: description,
+    //     pprice: askingPrice,
+    //     pphoto: productPhoto,
+    //   },
+    // });
   };
 
   return (

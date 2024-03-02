@@ -216,7 +216,7 @@ exports.getActiveOrders = async(req, res, next) => {
     });
     res.json(orders);
     // Now you can work with the orders that match the specified statuses
-    console.log("Matching Orders:", orders);
+    // console.log("Matching Orders:", orders);
   } catch (error) {
     console.error("Error fetching orders:", error);
   }  
