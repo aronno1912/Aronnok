@@ -141,7 +141,7 @@ const Calendar = () => {
       rows.push(
         <tr key={i / 7}>
           {row.map((day, index) => (
-            <td key={index} className={day === currentDay && currentMonth === date.getMonth() ? 'current-day' : ''}>
+            <td key={index} style={{ backgroundColor: day === currentDay && currentMonth === date.getMonth() ? '#3d66b7' : ''}}>
               {day !== null ? day : ''}
             </td>
           ))}

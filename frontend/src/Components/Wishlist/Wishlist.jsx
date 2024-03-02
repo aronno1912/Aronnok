@@ -50,7 +50,7 @@ const Wishlist = ({ category, mypath, userId, wishlistPlantId }) => {
             <Card.Body style={{ paddingLeft: '10px' ,paddingBottom:'10px'}}>
               <Card.Title>{item.productName}</Card.Title>
               <Card.Text>{item.productPrice}</Card.Text>
-              <Button variant="primary" onClick={() => deleteFromWishlist(item.product)}>Delete from {category}</Button>
+              <Button variant="primary" onClick={() => deleteFromWishlist(item.product)}>Remove from {category}</Button>
             </Card.Body>
             </div>
           </Card>
