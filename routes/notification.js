@@ -5,6 +5,7 @@ const {
     // getAuctionMessages,
     markNotificationAsRead,
     postUserNotifications,
+    deleteUserNotifications,
 } = require('../controller/notification');
 
 // Route for getting all notifications for a user
@@ -13,6 +14,6 @@ router.get('/notification/:userId', getUserNotifications);
 // Route for marking a notification as read
 router.put('/notification/:notificationId/read', markNotificationAsRead);
 router.post('/notification/:userId', postUserNotifications);
-router.post('/:userId/notification/delete/:notificationId', postUserNotifications);
+router.delete('/:userId/notification/delete/:notificationId', deleteUserNotifications);
 
 module.exports = router;
