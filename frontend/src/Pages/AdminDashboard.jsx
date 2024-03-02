@@ -4,7 +4,7 @@ import AdminNavbar from '../Components/AdminNavbar/AdminNavbar'
 import Sidebar from '../Components/Sidebar/Sidebar'
 import Footer from '../Components/Footer/Footer'
 import LineChart from '../Components/LineChart/LineChart';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import BestSellerItem from '../Components/BestSellerItem/BestSellerItem'
 import Calendar from '../Components/Calender/Calendar'
 import AdDashOrderItem from '../Components/AdDashOrderItem/AdDashOrderItem'
@@ -91,17 +91,18 @@ const AdminDashboard = () => {
                     {/* <hr style={{width:"150px", margin:"0", border:"2px solid", borderRadius:"10px"}}/> */}
                 </div>
                 <div className="dashboard-cards">
+                    <Link to={`/allusers`}>
                     <div className="db-totalsale">
-                        <div className="db-graphIcon">
-                            <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
-                        </div>
-                        
-                        <div className="db-tatalsale-text">
-                            <p><b>Total Users</b></p>
-                            <p style={{marginTop:'1px'}}><b>{userNo}</b></p>
-                        </div>
-                        
+                            <div className="db-graphIcon">
+                                <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
+                            </div>
+                            
+                            <div className="db-tatalsale-text">
+                                <p style={{textDecoration: 'none'}}><b>Total Users</b></p>
+                                <p style={{marginTop:'1px'}}><b>{userNo}</b></p>
+                            </div>
                     </div>
+                    </Link>
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
                             <i class="bi bi-currency-dollar" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
