@@ -1,3 +1,6 @@
+const { AuctionProduct, Auction } = require("../models/auction");
+const { SellProduct } = require("../models/sell");
+const Order = require("../models/order");
 const User = require("../models/user");
 // const Order = require("../models/order");
 
@@ -122,3 +125,40 @@ exports.getAllUser = (req, res, next) => {
 //     }
 //   );
 // };
+
+exports.userInfoForAdmin = async (req, res, next) => {
+  const userId = req.params.userId;
+  req.profile.salt = undefined;
+  req.profile.encry_password = undefined;
+
+  try {
+    const orders = await Order.find({ user: userId }).sort({ createdAt: -1 }).exec();
+    const sellProducts = await SellProduct.find({ user: userId }).sort({ createdAt: -1 }).exec();
+    const auctionProducts = await AuctionProduct.find({ highestBidder: userId }).sort({ createdAt: -1 }).exec();
+    const updatedAuctionProducts = await Promise.all(auctionProducts.map(async (auctionProduct) => {
+      const auction = await Auction.findById(auctionProduct.auction);
+      if (auction) {
+        auctionName = auction.name;
+
+        return {
+          ...auctionProduct.toObject(),
+          auctionName: auctionName,
+        };
+        // console.log(bid);
+      }
+    }));
+    const userInfo = {
+      user: req.profile,
+      orders: orders,
+      sellProducts: sellProducts,
+      auctionProducts: updatedAuctionProducts,
+    };
+
+    res.json(userInfo);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
+};

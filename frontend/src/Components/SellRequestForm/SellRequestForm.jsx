@@ -9,6 +9,7 @@ import axios from 'axios';
 const SellRequestForm = ({ userId,onClose}) => {
   const [productInfo, setProductInfo] = useState({
     name: '',
+    sciname:'',
     description: '',
     ap: 0,
     photo: null,
@@ -58,6 +59,7 @@ const SellRequestForm = ({ userId,onClose}) => {
       alert('Your request is sent to Admin successfully!');
       setProductInfo({
         name: '',
+        sciname:'',
         description: '',
         ap: 0,
         photo: null,
@@ -79,7 +81,8 @@ const SellRequestForm = ({ userId,onClose}) => {
         <div className="form-left">
           <label htmlFor="name">Product Name</label>
           <input type="text" id="name" name="name" value={productInfo.name} onChange={handleChange} required />
-
+          <label htmlFor="sciname">Scientific Name</label>
+          <input type="text" id="sciname" name="sciname" value={productInfo.sciname} onChange={handleChange} required />
           <label htmlFor="description">Description</label>
           <input type="text" id="description" name="description" value={productInfo.description} onChange={handleChange} required />
         </div>
