@@ -64,4 +64,18 @@
     top:0;
     right: 0;
     justify-content: center;
+    
+    /* max-width: 10px;
+    max-height: 10px; */
+}
+.remove-btn:hover{
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    right: 0;
+    justify-content: center;
+ 
 }

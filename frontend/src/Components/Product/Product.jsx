@@ -44,7 +44,7 @@ const Product = (prod) => {
         <div className="product-footer">
           <button className='love-icon-btn'>  <i
             className={`bi bi-heart ${isClicked ? 'clicked' : ''}`}
-            style={{ fontSize: '20px' }}
+            style={{ fontSize: '20px',  border:'black', color: isClicked ? 'red' : 'black'}}
             onClick={addToFavourites}
           ></i></button>
           <button className="buy-btn">Buy</button>    
