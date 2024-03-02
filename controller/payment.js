@@ -62,7 +62,7 @@ exports.success = async (req, res) => {
 };
 exports.successSell = async (req, res) => {
   const { pname, pdescription, pprice, pphoto,reqId } = req.query;
-  console.log(reqId);
+  // console.log(reqId);
   // res.status(200).json({"message": `${req.params.transId} is successful`});
   // console.log(`${req.params.transId} is successful`);
   res.redirect(`http://localhost:3000/admin/viewsellrequests/review?pname=${encodeURIComponent(pname)}&pdescription=${encodeURIComponent(pdescription)}&pprice=${encodeURIComponent(pprice)}&pphoto=${encodeURIComponent(pphoto)}&reqId=${encodeURIComponent(reqId)}`);
@@ -121,8 +121,8 @@ exports.paymentAuction = async (req, res) => {
 };
 
 exports.paymentSell = async (req, res,next) => {
-  console.log("kjbkaj")
-  console.log(req.body.pname);
+  // console.log("kjbkaj")
+  // console.log(req.body.pname);
   const sellProductId = req.params.reqProductId;
   const sellProduct = await SellProduct.findById(sellProductId);
   const userId = sellProduct.user;

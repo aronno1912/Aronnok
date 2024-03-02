@@ -154,6 +154,7 @@ exports.getParticularOrder = async (req, res, next) => {
     const username=user.username;
     const email=user.email;
     const mobile=user.mobile;
+    const address=user.present_addr;
     const updatedProducts = await Promise.all(order.products.map(async (item) => {
       const productDetails = await Product.findById(item.product);
       
@@ -178,6 +179,7 @@ exports.getParticularOrder = async (req, res, next) => {
       username,
       email,
       mobile,
+      address,
       products: updatedProducts,
     };
     

@@ -8,6 +8,7 @@ const upload = multer({ storage: storage });
 
 const {
   getProductById,
+  getcsProductById,
   imageHelper,
   addPlant,
   getProduct,
@@ -26,6 +27,7 @@ const {
   getBestSellers,
   giveRating,
   getRating,
+  getComingSoonProduct,
   //   getAllUniqueCategories,
 } = require("../controller/product");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
@@ -34,6 +36,7 @@ const { getUserById } = require("../controller/user");
 //all of params
 router.param("userId", getUserById);
 router.param("productId", getProductById);
+router.param("csProductId", getcsProductById);
 // router.param("keyword",getPlantaByTag,getPlantByName,getPlantByCategory);
 //all of actual routes
 // /admin/:userId/addPlant
@@ -49,6 +52,7 @@ router.post(
 
 // // read routes
 router.get("/product/:userId/:productId", getProduct);
+router.get("/comingsoon/:userId/:csProductId", getComingSoonProduct);
 router.get("/product/photo/:productId", photo);
 
 // delete route

@@ -8,6 +8,8 @@ import star from '../Assets/star_icon.png'
 import { CartContext } from '../../Context/CartContext'
 
 const Product = (prod) => {
+  console.log('wyhkjabgij')
+  console.log(prod.category)
     const ratingStars = () => {
         const result = [];
         for (let i = 0; i < prod.rating; i++) {
@@ -26,7 +28,7 @@ const Product = (prod) => {
       };
 
   return (
-    <Link to={`/product/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+    <Link to={`/${prod.category}/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='product-container'> 
 
     <div className='container'> 

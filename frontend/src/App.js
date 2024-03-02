@@ -61,8 +61,8 @@ function App() {
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
         
         <Route path='/viewcart/:userId' element={<ViewCart/>}/>
-        <Route path='/product/:userId/:productId' element={<ViewProduct />} />
-        
+        <Route path='/:category/:userId/:productId' element={<ViewProduct />} />
+        {/* <Route path='/comingsoon/product/:userId/:productId' element={<ViewComingSoonProduct />} /> */}
         <Route path='/login' element={<Login/>}/>
         <Route path='/orderlist/:userId' element={<OrderList/>}/>
         <Route path='/orderstatus/:userId/:orderId' element={<OrderStatus/>}/>
