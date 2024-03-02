@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const UserProfile = ({ userId }) => {
   const defaultUserPhoto =
-    '/us.png'; // Replace with actual user photo URL or use a placeholder image
+    '/userP2.jpg'; // Replace with actual user photo URL or use a placeholder image
     console.log("userId in profile ", userId);
 
   const [userInfo, setUserInfo] = useState({
@@ -202,7 +202,7 @@ const styles =
     padding: '40px',
     backgroundColor: '#ffffff',
     borderRadius: '12px',
-    boxShadow: '0 0 20px rgba(50, 240, 50, 0.5)',
+    boxShadow: '0 0 20px rgba(10, 10, 10, 0.5)',
     top: '20px',
     display: 'grid',
     gridTemplateColumns: '1fr auto 2fr', // Changed grid template columns

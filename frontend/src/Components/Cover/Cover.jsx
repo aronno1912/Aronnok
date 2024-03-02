@@ -12,18 +12,62 @@ import { useEffect } from 'react';
 // import auction_photo from 'img7.png'
 import AuctionAddPlant from '../AuctionAddPlant/AuctionAddPlant';
 import SellRequestForm from '../SellRequestForm/SellRequestForm';
+import AuctionWinitem from '../AuctionWinitem/AuctionWinitem';
 
 const Cover = ({userId}) => {
 
     const sliderRef = useRef(null);
   
     const [touchStartX, setTouchStartX] = useState(null);
+    const [time,setTime]=useState();
+    const [hours,setHours]=useState();
+    const [minutes,setMinutes]=useState();
+    const [seconds,setSeconds]=useState();
+    
+
+    useEffect(() => {
+      const fetchTime = async ()=>{
+        try {
+          const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
+          const data = await response.json();
+          setTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+       }
+       fetchTime();
+
+      }, []);
+      
+      useEffect(() => {
+
+       const formatTime = () => {
+        setHours(Math.floor(time / 3600));
+        setMinutes(Math.floor((time % 3600) / 60));
+        setSeconds(time % 60);
+      };
+
+       const intervalId = setInterval(() => {
+    
+        setTime((prevTime) =>{
+          if(prevTime>0) return prevTime-1;
+          else { return 0;}
+        });
+        formatTime();
+        
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+  
+    }, []);
+   
 
     const handleTouchStart = (e) => {
       setTouchStartX(e.touches[0].clientX);
     };
 
- 
+    const padZero = (value) => (value < 10 ? `0${value}` : value);
+
     const [isFormVisible, setFormVisible] = useState(false);
     const showFormHandler = () => {
       setFormVisible(true);
@@ -60,6 +104,22 @@ const Cover = ({userId}) => {
     slidesToScroll: 1,
   };
 
+  const coverTime = {
+   display:'flex',
+   gap: '4px',
+   marginTop:'100px'
+  };
+
+  const coverTimeText = {
+    backgroundColor: 'rgb(190, 96, 38)',
+    color: 'white',
+    height: '40px',
+    width: '40px',
+    fontSize: '25px',
+    marginTop:'25px'
+   };
+
+
   return (
    <div>
     <Slider 
@@ -81,6 +141,17 @@ const Cover = ({userId}) => {
           <div className="cover-text2">
               <p>Check our auctions</p>
               <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
+
+              <div classname='cover-Auction-time' style={coverTime}>
+                  <p style={{fontSize: '25px'}}>Auction ending in : </p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px'}}>{padZero(hours)}</p></div>
+                  <p style={{fontSize: '25px'}}>:</p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px'}}>{padZero(hours)}</p></div>
+                  <p style={{fontSize: '25px'}}>:</p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px'}}>{padZero(hours)}</p></div>
+              </div>
+            
+
           </div>
 
           

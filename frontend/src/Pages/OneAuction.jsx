@@ -83,6 +83,7 @@ const OneAuction = () => {
         else {setIsOver(true); return 0;}
       });
       // checkTimeEnd();
+      
     }, 1000);
 
     // Clear the interval when the component unmounts

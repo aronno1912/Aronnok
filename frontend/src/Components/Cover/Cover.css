@@ -81,3 +81,18 @@
     border-radius: 15px;
    
 }
+
+.cover-Auction-time{
+   display: flex;
+   flex-direction: row;
+   gap: 2px;
+}
+
+.cover-time-text{
+   background-color: rgb(190, 96, 38);
+   color: white;
+   height: 20px;
+   width: 20px;
+   font-size: 25px;
+   
+}

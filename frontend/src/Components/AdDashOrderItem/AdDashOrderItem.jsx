@@ -39,7 +39,7 @@ const AdDashOrderItem = (prod) => {
                     <p>{Math.round(prod.amount)}</p>
                 </div>
                 <div className="dashorder-id">
-                    <p>{prod.status}</p>
+                    <p style={{color:"rgb(205, 9, 173)"}}>{prod.status}</p>
                 </div>
             </div>   
         </div>
