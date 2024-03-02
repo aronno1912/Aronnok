@@ -9,10 +9,13 @@
    
   
   }
-  .add-product-buttoninauction{
-    right:380px;
-    
-  
+  .add-product-buttoninauction-right{
+    right:10px;
+    margin-top: -100px;
+  }
+  .listAll{
+    display: flex;
+
   }
 
 

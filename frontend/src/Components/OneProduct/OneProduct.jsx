@@ -128,6 +128,8 @@ const OneProduct = ({ mypath, productId, userId, whattype }) => {
       </div>
       <div className="oneproduct__right">
         <h1>{product.name}</h1>
+        
+        <p ><i >(Nepenthes tenax)</i></p> 
         <div className="oneproduct__right__rating">
           {ratingStars()}
           {flag?(<p></p>):(<p>(122)</p>)}

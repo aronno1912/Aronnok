@@ -42,7 +42,15 @@ const Product = (prod) => {
         <div className="star-img">
             {ratingStars()}
         </div>
-        <p className='product-price'><b>${prod.price}</b></p>
+        {/* <p className='product-price'><b>${prod.price}</b></p> */}
+       <p>
+       <b>${prod.price}</b>
+       {'  '}
+ 
+  <del style={{ color: 'gray' ,size:'10px' }}>${2 * prod.price}</del>
+ 
+ 
+</p>
         <div className="product-footer">
           <button className='love-icon-btn'>  <i
             className={`bi bi-heart ${isClicked ? 'clicked' : ''}`}

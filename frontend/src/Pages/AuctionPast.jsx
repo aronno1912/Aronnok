@@ -72,10 +72,7 @@ const AuctionPast = () => {
         />
       ))}
     </div>
-{/* 
-        <button className="add-product-buttoninauction" onClick={handleAddProductClick2} style={buttonStyle}>
-          put up for auction
-        </button> */}
+
 
 {showAddProductPopup && (
         <div className="popup-overlay">
