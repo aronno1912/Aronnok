@@ -168,3 +168,23 @@
     padding: 0; /* Remove default padding */
     margin: 0; /* Remove default margin */
   }
+
+  .usericon-expand{
+    position: relative;
+  }
+  .navbar-user-expanded{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    z-index: 1;
+    list-style: none;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    height: auto;
+    width: 250px;
+    background-color: white;
+  }

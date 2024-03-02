@@ -47,7 +47,7 @@ const OrderList = () => {
 
           const intervalId = setInterval(() => {
             fetchOrders();
-          }, 3000);
+          }, 1000);
       
           return () => clearInterval(intervalId);
          

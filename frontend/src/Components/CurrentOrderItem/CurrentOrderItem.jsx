@@ -116,13 +116,13 @@ const CurrentOrderItem = (prod) => {
       <div className="curorderitem-container">
         <div className="curorderitem-left">
           <p className="order-id">
-            <i className="bi bi-box"></i><b> Order Id:</b> {` ${order._id}`}
+            <i className="bi bi-box" style={{color:"rgb(240, 153, 13)"}}></i><b> Order Id:</b> {` ${order._id}`}
           </p>
           <p className="products-list">
-            <i className="bi bi-basket"></i><b>  Products:</b> {` ${namelist.join(', ')}`}
+            <i className="bi bi-basket" style={{color:"rgb(240, 153, 13)"}}></i><b>  Products:</b> {` ${namelist.join(', ')}`}
           </p>
           <p className="order-status">
-            <i className="bi bi-clock"></i><b>  Status:</b> {` ${order.status}`}
+            <i className="bi bi-clock" style={{color:"rgb(240, 153, 13)"}}></i><b>  Status:</b>{` ${order.status}`}
           </p>
         </div>
         <div className="curorderitem-right">

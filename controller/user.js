@@ -1,3 +1,6 @@
+const { AuctionProduct, Auction } = require("../models/auction");
+const { SellProduct } = require("../models/sell");
+const Order = require("../models/order");
 const User = require("../models/user");
 const Order = require("../models/order");
 const { AuctionProduct, Auction } = require("../models/auction");
@@ -123,11 +126,12 @@ exports.getAllUser = (req, res, next) => {
 //     }
 //   );
 // };
+
 exports.userInfoForAdmin = async (req, res, next) => {
   const userId = req.params.userId;
   req.profile.salt = undefined;
   req.profile.encry_password = undefined;
- 
+
   try {
     const orders = await Order.find({ user: userId }).sort({ createdAt: -1 }).exec();
     const sellProducts = await SellProduct.find({ user: userId }).sort({ createdAt: -1 }).exec();
@@ -136,7 +140,7 @@ exports.userInfoForAdmin = async (req, res, next) => {
       const auction = await Auction.findById(auctionProduct.auction);
       if (auction) {
         auctionName = auction.name;
- 
+
         return {
           ...auctionProduct.toObject(),
           auctionName: auctionName,

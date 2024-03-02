@@ -147,7 +147,7 @@ exports.addPlant = async (req, res, next) => {
   }
   try {
     //destructure the fields
-    const { name, description, price, category, stock, photo} = req.body;
+    const { name,sciname, description, price, category, stock, photo} = req.body;
     // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
@@ -392,19 +392,24 @@ exports.getPlantaByTag = async (req, res, next) => {
 exports.getPlantByName = async (req, res, next) => {
   try {
     const searchTerm = req.body.query;
-    if(searchTerm===''){
-      return res.json([])
+    
+    if (searchTerm === '') {
+      return res.json([]);
     }
+
     const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
-    // res.json(products);
-    res.name_plants=products;
-    res.json([...res.name_plants]);
+    res.name_plants = products;
+    
+    // Return the products only if there are matching results, otherwise, return an empty array
+    res.json(res.name_plants ? [...res.name_plants] : []);
+
     next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 exports.getPlantByCategory = async (req, res, next) => {
   try {
@@ -480,6 +485,7 @@ exports.trending = async (req, res) => {
         $project: {
           _id: '$productDetails._id',
           name: '$productDetails.name',
+          sciname:'$productDetails.sciname',
           description: '$productDetails.description',
           price: '$productDetails.price',
           category: '$productDetails.category',

@@ -58,22 +58,36 @@ const RatingPopUp = ({ productId, closePopup }) => {
     closePopup();
   };
 
+  const  rateit= (rating) => {
+    setSelectedRating(rating);
+  };
+
+  const ratingColor = {
+    color:"gold",
+   };
+
   return (
     <div className="rating-popup">
       <div className="rating-popup-content">
         <h2>How was Your Experience with this Plant? </h2>
         <div className="rating-radio-group">
           {[1, 2, 3, 4, 5].map((rating) => (
-            <label key={rating} className="rating-radio-label">
-              <input
-                type="radio"
-                name="rating"
-                value={rating}
-                checked={selectedRating === rating}
-                onChange={() => handleRatingChange(rating)}
-              />
-              {rating}
-            </label>
+            // <label key={rating} className="rating-radio-label">
+            //   <input
+            //     type="radio"
+            //     name="rating"
+            //     value={rating}
+            //     checked={selectedRating === rating}
+            //     onChange={() => handleRatingChange(rating)}
+            //   />
+            //   {rating}
+            // </label>
+            <button key={rating} 
+            className={rating <= selectedRating ? 'star-selected' : ''} 
+            style={{background:"transparent"}} 
+            onClick={() => rateit(rating)}>
+              <i class="bi bi-star-fill" style={{ color: rating <= selectedRating ? 'gold' : 'white' }}></i>
+              </button>
           ))}
         </div>
         <button onClick={handleRatingSubmit}>Submit Rating</button>
