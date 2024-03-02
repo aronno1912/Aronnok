@@ -56,7 +56,7 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.getAllUser = (req, res, next) => {
-  console.log("mor")
+  // console.log("mor")
   User.find()
   .exec()
   .then((users) => {

@@ -6,6 +6,7 @@ const { getUserById } = require('../controller/user');
 const {
     success,
     fail,
+    successSell,
 } = require('../controller/payment');
 // const { getBkashToken, processBkashPayment, handleBkashCallback } = require('../controller/payment');
 
@@ -27,6 +28,7 @@ const {
 // // Route to handle Bkash callback
 // router.get('/payment/bkash-callback', handleBkashCallback);
 router.post('/payment/success/:transId', success);
+router.post('/payment/success/sell/:transId', successSell);
 router.post('/payment/fail/:transId', fail);
 
 module.exports = router;

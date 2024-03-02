@@ -353,7 +353,7 @@ exports.getPlantaByTag = async (req, res, next) => {
   try {
     //const searchTerm = req.query.query;
     const searchTerm = req.body.query;
-    console.log(searchTerm)
+    // console.log(searchTerm)
     const products = await Product.find({ tags: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
     res.tag_plants=products;
@@ -556,7 +556,7 @@ exports.getBestSellers = (req, res) => {
 
 //get rating
 exports.getRating = async (req, res) => {
-  console.log("getting rating!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  // console.log("getting rating!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
   try {
     const productId = req.params.productId;
@@ -566,8 +566,8 @@ exports.getRating = async (req, res) => {
     }
     res.json(product);
     //res.json(product.ratedBy);
-    console.log("getting rating");
-    console.log(product.rating);
+    // console.log("getting rating");
+    // console.log(product.rating);
     //res.json(product.ratedBy);
   } catch (error) {
     console.error(error);

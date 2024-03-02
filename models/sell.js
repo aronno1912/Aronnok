@@ -46,7 +46,7 @@ const sellProductSchema = new mongoose.Schema(
             photo: {
             type: String,
             },
-            askingPrice: {
+            price: {
             type: Number,
             default: 0,
             },

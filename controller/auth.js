@@ -60,7 +60,7 @@ exports.signin = (req, res) => {
             // console.log(token);
             // res.headers.Cook=token;
             res.cookie("token", token);
-            console.log(res.cookie)
+            // console.log(res.cookie)
             res.json({ token, user });
             // console.log(res.cookies.token);
         })
@@ -83,7 +83,7 @@ exports.signout = (req, res) => {
 exports.isSignedIn = (req, res, next) => {
     // Check if the token is present in the request headers
     const token = req.cookies.token;
-    console.log(req.cookies)
+    // console.log(req.cookies)
     // const token = res.headers.authorization;
     // console.log("token: "+token)
     if (!token) {

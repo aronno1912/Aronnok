@@ -60,7 +60,13 @@ exports.success = async (req, res) => {
   // console.log(`${req.params.transId} is successful`);
   res.redirect(`http://localhost:3000/payment/success/${req.params.transId}`);
 };
-
+exports.successSell = async (req, res) => {
+  const { pname, pdescription, pprice, pphoto,reqId } = req.query;
+  console.log(reqId);
+  // res.status(200).json({"message": `${req.params.transId} is successful`});
+  // console.log(`${req.params.transId} is successful`);
+  res.redirect(`http://localhost:3000/admin/viewsellrequests/review?pname=${encodeURIComponent(pname)}&pdescription=${encodeURIComponent(pdescription)}&pprice=${encodeURIComponent(pprice)}&pphoto=${encodeURIComponent(pphoto)}&reqId=${encodeURIComponent(reqId)}`);
+};
 exports.fail = async (req, res) => {
   // res.status(400).json({"message": `${req.params.transId} has failed`});
   // console.log(`${req.params.transId} has failed`)
@@ -70,7 +76,7 @@ exports.fail = async (req, res) => {
 exports.paymentAuction = async (req, res) => {
   const auctionProductId = req.params.productId;
   const auctionProduct = await AuctionProduct.findById(auctionProductId);
-  console.log(auctionProduct);
+  // console.log(auctionProduct);
   const bidderId = auctionProduct.highestBidder;
   const bidder = await User.findById(bidderId);
   const data = {
@@ -114,7 +120,9 @@ exports.paymentAuction = async (req, res) => {
   });
 };
 
-exports.paymentSell = async (req, res) => {
+exports.paymentSell = async (req, res,next) => {
+  console.log("kjbkaj")
+  console.log(req.body.pname);
   const sellProductId = req.params.reqProductId;
   const sellProduct = await SellProduct.findById(sellProductId);
   const userId = sellProduct.user;
@@ -123,7 +131,7 @@ exports.paymentSell = async (req, res) => {
     total_amount: sellProduct.askingPrice,
     currency: 'BDT',
     tran_id: tran_id, // use unique tran_id for each api call
-    success_url: `http://localhost:8000/api/payment/success/${tran_id}`,
+    success_url: `http://localhost:8000/api/payment/success/sell/${tran_id}?pname=${req.body.pname}&pdescription=${req.body.pdescription}&pprice=${req.body.pprice}&pphoto=${req.body.pphoto}&reqId=${req.params.reqProductId}`,
     fail_url: `http://localhost:8000/api/payment/fail/${tran_id}`,
     cancel_url: 'http://localhost:8000/cancel',
     ipn_url: 'http://localhost:8000/ipn',
@@ -156,6 +164,7 @@ exports.paymentSell = async (req, res) => {
     // console.log(GatewayPageURL)
     // res.redirect(GatewayPageURL)
     res.status(200).json({ "url": GatewayPageURL })
+    next();
     // console.log('Redirecting to: ', GatewayPageURL)
   });
 };

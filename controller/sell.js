@@ -1,4 +1,4 @@
-const Product = require('../models/product');
+// const Product = require('../models/product');
 const {SellProduct,ComingSoonProduct}=require('../models/sell');
 const { validationResult } = require('express-validator');
 const User = require("../models/user");
@@ -30,7 +30,7 @@ exports.sellRequest = async(req, res) => {
         // req.auction.auctionProducts.push(auctionProduct._id);
         // await req.auction.save();
     
-        res.status(201).json({ message: 'Request added to auction successfully!' });
+        res.status(201).json({ message: 'Request sent to admin successfully!' });
       } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -39,7 +39,7 @@ exports.sellRequest = async(req, res) => {
   };
 
   exports.getAllSellRequest = async(req, res) => {
-    console.log("here I come1");
+    // console.log("here I come1");
     const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
@@ -50,7 +50,7 @@ exports.sellRequest = async(req, res) => {
     const updatedRequests = await Promise.all(sellRequests.map(async (req) => {
     const userDetails = await User.findById(req.user);
     if (userDetails) {
-        console.log("here I come");
+        // console.log("here I come");
         username = userDetails.username;
 
         return {
@@ -85,7 +85,7 @@ exports.sellRequest = async(req, res) => {
         name: requestedProduct.name,
         description: requestedProduct.description,
         photo: requestedProduct.photo,
-        askingPrice: requestedProduct.askingPrice,
+        price: requestedProduct.askingPrice,
         category: requestedProduct.category // You may need to adjust this based on your schema
     });
     await newComingSoonProduct.save();
@@ -111,13 +111,6 @@ exports.sellRequest = async(req, res) => {
         // Save the notification
         await notification.save();
         //find that user in notifications table and push message and type of notification
-
-     
-
-
-       
-
-
   }
     catch (error) {
         console.error(error);
