@@ -1,0 +1,52 @@
+/* WinnedProductsList.css */
+
+.winned-products-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 290px;
+  }
+  
+  .winned-product-item {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    height: 120px;
+    width: 20%;
+  }
+  
+  .winproduct-photo {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .winproduct-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .winproduct-details {
+    flex-grow: 1;
+  }
+  
+  .winproduct-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .winauction-name {
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  .winbid-amount {
+    font-size: 14px;
+    color: #4caf50;
+  }
+  

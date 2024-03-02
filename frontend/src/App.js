@@ -45,6 +45,7 @@ import ViewSellRequestPage from './Pages/ViewSellRequestPage';
 import ReviewAddProductPage from './Pages/ReviewAddProductPage';
 import AllUsers from './Pages/AllUsers';
 import EditProductPageAd from './Pages/EditProductPageAd';
+import UserProfilePageAdmin from './Pages/UserProfilePageAdmin';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/admin/createauction' element={<AdminCreateAuction/>}/>
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
+        <Route path='/admin/viewprofile/:userId' element={<UserProfilePageAdmin/>}/>
         
         <Route path='/viewcart/:userId' element={<ViewCart/>}/>
         <Route path='/:category/:userId/:productId' element={<ViewProduct />} />

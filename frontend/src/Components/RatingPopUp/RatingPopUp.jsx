@@ -1,30 +1,4 @@
-// import React from 'react';
-// import './RatingPopUp.css'; // Create a CSS file for styling the popup
 
-// const RatingPopUp = ({ productName, closePopup }) => {
-//   const handleRatingSubmit = () => {
-//     // Handle rating submission logic here
-//     // You can make API calls or perform other actions
-//     // Close the popup when done
-//     closePopup();
-//   };
-
-//   return (
-//     <div className="rating-popup">
-//       <div className="rating-popup-content">
-//         <h2>Give Rating for {productName}</h2>
-//         {/* Add rating input, submit button, etc. */}
-//         <button onClick={handleRatingSubmit}>Submit Rating</button>
-//         <button onClick={closePopup}>Cancel</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RatingPopUp;
-
-
-// RatingPopUp.jsx
 
 import React, { useState } from 'react';
 import './RatingPopUp.css';

@@ -7,6 +7,8 @@ const {
   updateUser,
   userPurchaseList,
   getAllUser,
+  userInfoForAdmin,
+  userAuctionInfoForAdmin
 } = require("../controller/user");
 const { isSignedIn, isAuthenticated } = require("../controller/auth");
 
@@ -30,5 +32,6 @@ updateUser);
 //   isAuthenticated,
 //   userPurchaseList
 // );
-
+router.get("/userinfoforadmin/:userId", userInfoForAdmin);
+router.get("/userauctioninfoforadmin/:userId", userAuctionInfoForAdmin);
 module.exports = router;

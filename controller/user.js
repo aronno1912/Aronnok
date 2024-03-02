@@ -1,6 +1,7 @@
 const User = require("../models/user");
-// const Order = require("../models/order");
-
+const Order = require("../models/order");
+const { AuctionProduct, Auction } = require("../models/auction");
+const { SellProduct } = require("../models/sell");
 exports.getUserById = (req, res, next, id) => {
   User.findById(id)
   .exec()
@@ -122,3 +123,76 @@ exports.getAllUser = (req, res, next) => {
 //     }
 //   );
 // };
+exports.userInfoForAdmin = async (req, res, next) => {
+  const userId = req.params.userId;
+  req.profile.salt = undefined;
+  req.profile.encry_password = undefined;
+ 
+  try {
+    const orders = await Order.find({ user: userId }).sort({ createdAt: -1 }).exec();
+    const sellProducts = await SellProduct.find({ user: userId }).sort({ createdAt: -1 }).exec();
+    const auctionProducts = await AuctionProduct.find({ highestBidder: userId }).sort({ createdAt: -1 }).exec();
+    const updatedAuctionProducts = await Promise.all(auctionProducts.map(async (auctionProduct) => {
+      const auction = await Auction.findById(auctionProduct.auction);
+      if (auction) {
+        auctionName = auction.name;
+ 
+        return {
+          ...auctionProduct.toObject(),
+          auctionName: auctionName,
+        };
+        // console.log(bid);
+      }
+    }));
+    const userInfo = {
+      user: req.profile,
+      orders: orders,
+      sellProducts: sellProducts,
+      auctionProducts: updatedAuctionProducts,
+    };
+ 
+    res.json(userInfo);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
+};
+ 
+exports.userAuctionInfoForAdmin = async (req, res, next) => {
+  const userId = req.params.userId;
+  req.profile.salt = undefined;
+  req.profile.encry_password = undefined;
+
+  try {
+    const auctionProducts = await AuctionProduct.find({ highestBidder: userId }).sort({ createdAt: -1 }).exec();
+    const updatedAuctionProducts = await Promise.all(auctionProducts.map(async (auctionProduct) => {
+      const auction = await Auction.findOne({
+        _id: auctionProduct.auction,
+        status: "completed"
+      });
+
+      if (auction) {
+        const auctionName = auction.name;
+
+        return {
+          ...auctionProduct.toObject(),
+          auctionName: auctionName,
+        };
+      }
+      // Return null for filtering out later
+      return null;
+    }));
+
+    // Filter out null values
+    const filteredAuctionProducts = updatedAuctionProducts.filter(product => product !== null);
+
+    res.json(filteredAuctionProducts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
+};
