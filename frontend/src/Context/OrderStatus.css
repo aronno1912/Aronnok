@@ -44,16 +44,24 @@
     flex-direction: row;
     margin: 40px;
     gap: 50px;
+    
 }
 
 .delivery-left{
     text-align: center;
     width: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color:rgb(234, 140, 46);
+    color:white;
+    border-radius: 10px;
 }
 
 .summary-right{
     width: 400px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color:rgb(234, 140, 46);
+    /* background-color: rgb(47, 151, 196); */
+    color:white;
+    border-radius: 10px;
 }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const AdminUserSmall = (prod) => {
   return (
     <div>
-       <Link to={`/profile/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
+       <Link to={`/admin/viewprofile/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
     <div className='usersmall-container'> 
       <img src={prod.photo} alt=""/>
 

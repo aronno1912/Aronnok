@@ -8,6 +8,7 @@ import star from '../Assets/star_icon.png'
 import { CartContext } from '../../Context/CartContext'
 
 const Product = (prod) => {
+  let flag = false;
   console.log('wyhkjabgij')
   console.log(prod.category)
     const ratingStars = () => {
@@ -26,6 +27,12 @@ const Product = (prod) => {
       const addToFavourites = () => {
         setIsClicked(!isClicked);
       };
+
+      if (prod.category == "comingsoon") {
+        flag = true;
+      } else {
+        flag = false;
+      }
 
   return (
     <Link to={`/${prod.category}/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
@@ -46,8 +53,9 @@ const Product = (prod) => {
        <p>
        <b>${prod.price}</b>
        {'  '}
+       {flag?(''):(<del style={{ color: 'gray' ,size:'10px' }}>${2 * prod.price}</del>  )}
  
-  <del style={{ color: 'gray' ,size:'10px' }}>${2 * prod.price}</del>
+  {/* <del style={{ color: 'gray' ,size:'10px' }}>${2 * prod.price}</del> */}
  
  
 </p>

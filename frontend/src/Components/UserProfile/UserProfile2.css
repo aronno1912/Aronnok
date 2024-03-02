@@ -1,0 +1,62 @@
+.user-profile {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+.userh2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .user-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    row-gap: 10px;
+    column-gap: 20px;
+  }
+  
+  .ufield {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .uslabel,alabel,elabel,llabel,dlabel,rlabel,flabel,mlabel {
+    width: 120px;
+    font-weight: bold;
+  }
+  
+  span,
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .usave,.uedit {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .uedit:hover,.usave:hover {
+    background-color: #45a049;
+  }
+  
