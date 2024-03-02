@@ -37,7 +37,9 @@ const AuctionUpcoming = () => {
 
     const buttonStyle = {
         position: 'fixed',
-        top: '100px',
+      //   marginTop: '-870px', // Add margin at the top
+      //  marginLeft: '300px', // Add margin at the right
+      top: '100px',
         right: '80px',
         fontSize: '18px', // Adjust the font size
         padding: '10px 20px', // Adjust the padding
@@ -50,6 +52,8 @@ const AuctionUpcoming = () => {
         justifyContent: 'center', // Center the content horizontally
         alignItems: 'center',
             marginTop: '70px',
+          
+         
         };
 
 
@@ -71,10 +75,10 @@ const AuctionUpcoming = () => {
           catagory={"upcoming"}
         />
       ))}
-    </div>
+      </div>
 
         <button className="add-product-buttoninauction" onClick={handleAddProductClick2} style={buttonStyle}>
-          put up for auction
+        Sell at Auction
         </button>
 
 {showAddProductPopup && (

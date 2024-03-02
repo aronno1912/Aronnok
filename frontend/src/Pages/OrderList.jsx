@@ -73,10 +73,13 @@ const OrderList = () => {
         <Navbar userId={userId}/>
         <div className="orderlist-alltotals">
             <div className="orderlist-currentorders">
+             
+            <i className="bi bi-file-earmark-bar-graph" style={{ fontSize: '30px', color: 'rgb(255, 255, 255)', marginTop:'20px'}}></i>
                 <p>Current orders: {curorders.length}</p>
-                <p>Total Price: {totalCurPrice}</p>
+                {/* <p>Total Price: {totalCurPrice}</p> */}
             </div>
             <div className="orderlist-totalorders">
+            <i className="bi bi-bag-check" style={{ fontSize: '30px', color: 'rgb(255, 255, 255)' }}></i>
                 <p>Total Orders: {curorders.length+prevorders.length}</p>
             </div>
         </div>
@@ -89,7 +92,8 @@ const OrderList = () => {
             return <CurrentOrderItem key={i} id={item._id} userId={userId}/>
             })}
         </div>
-
+         <br/>
+         <br/>
         <div className="orderlist-more">
             {(curdisplayItems < curorders.length && curorders.length>4) && (
                 <button className="orderlist-more-btn" onClick={moreCurItems}>Show more...</button>
@@ -102,6 +106,9 @@ const OrderList = () => {
       
 
         <div className="orderlist-recent-title">
+        
+            
+
             <p style={{fontSize:'25px', color:"rgb(17, 77, 44)"}}><b>Previous Orders</b></p>
             <hr style={{width:"150px", margin:"0", border:"2px solid", borderRadius:"10px"}}/>
         </div>

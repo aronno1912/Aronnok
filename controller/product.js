@@ -98,6 +98,27 @@ exports.getProductById = (req, res, next, id) => {
       });
     });
 };
+exports.getcsProductById = (req, res, next, id) => {
+  ComingSoonProduct.findById(id)
+    .exec()
+    .then((product) => {
+      if (!product) {
+        return res.status(400).json({
+          error: "Product not found",
+        });
+      }
+      req.product = product;
+      // pass control to the next middleware or route handler in the sequence
+      next();
+    })
+    .catch((err) => {
+      // Handle errors here
+      console.error(err);
+      res.status(500).json({
+        error: "Internal Server Error",
+      });
+    });
+};
 exports.imageHelper = multer.single("file"), async (req, res, next) => {
   try {
     // console.log("nope");
@@ -162,7 +183,11 @@ exports.getProduct = (req, res) => {
   // req.product.photo = undefined;
   return res.json(req.product);
 };
-
+exports.getComingSoonProduct = (req, res) => {
+  // req.product.photo = undefined;
+  // console.log(req.product)
+  return res.json(req.product);
+};
 // middleware
 exports.photo = (req, res, next) => {
   if (req.product.photo.data) {

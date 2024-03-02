@@ -156,7 +156,7 @@ const AdAuctionProductList = ({ auctionId, catagory }) => {
 
       {catagory === 'upcoming' && (
         <>
-          <button className="add-product-buttoninauction" onClick={handleAddProductClick} style={buttonStyle}>
+          <button className="add-product-buttoninauction-right" onClick={handleAddProductClick} style={buttonStyle}>
             Add Product
           </button>
 

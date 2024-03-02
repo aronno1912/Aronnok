@@ -16,7 +16,8 @@ import AuctionWinitem from '../AuctionWinitem/AuctionWinitem';
 
 const Cover = ({userId}) => {
 
-    const sliderRef = useRef(null);
+    // const sliderRef = useRef(null);
+    const sliderRef = React.createRef();
   
     const [touchStartX, setTouchStartX] = useState(null);
     const [time,setTime]=useState();
@@ -102,6 +103,8 @@ const Cover = ({userId}) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+   autoplaySpeed: 3000,
   };
 
   const coverTime = {
@@ -157,10 +160,10 @@ const Cover = ({userId}) => {
           
       </div>  
       <div className='cover'>
-          <img src="/cov3.jpg" alt="" />
+          <img src="/cov12.jpg" alt="" />
        </div>
        <div className='cover'>
-          <img src="/cov4.jpg" alt="" />
+          <img src="/cov11.jpg" alt="" />
        </div>
     </Slider>
     {isFormVisible && (

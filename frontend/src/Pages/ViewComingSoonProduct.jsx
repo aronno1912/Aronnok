@@ -29,23 +29,14 @@ import Navbar from '../Components/Navbar/Navbar';
 const ViewProduct = () => {
     // Get the product ID from the URL parameters
     const { category,userId,productId} = useParams();
-    // console.log(productId);
+    console.log(productId);
     console.log("helloooooooooooooooooooooooooooo we got the product id", {productId});
-    console.log(category);
-    console.log("category in view product")
-    let path=''
-    if (category === 'comingsoon') {
-      path=`http://localhost:8000/api/comingsoon/${userId}/${productId}`;
-  } else {
-      path=`http://localhost:8000/api/product/${userId}/${productId}`;
-  }
-  console.log(path);
   
     return (
       <div>
         <Navbar userId={userId}/>
         {/* Pass the product ID to the OneProduct component */}
-        <OneProduct mypath={path} productId={productId} userId={userId} whattype={category} />
+        <OneProduct productId={productId} userId={userId} mypath={category === 'comingsoon' ? 'product' : 'comingsoon'}/>
         <Footer />
       </div>
     );
