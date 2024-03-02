@@ -10,11 +10,11 @@ const LineChart = () => {
 
     // Example data
     const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'june', 'july', 'august'],
+      labels: ['August', 'September', 'October', 'November', 'December','January', 'February', 'March'],
       datasets: [
         {
           label: 'Sale graph',
-          data: [10, 16, 3, 5, 2, 4, 8, 7],
+          data: [1000, 1600, 300, 500, 200, 400, 800, 934],
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgb(11, 23, 133)',
           borderWidth: 1,

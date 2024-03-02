@@ -15,6 +15,7 @@ const AdminDashboard = () => {
     const [userNo, setUserNo] = useState();
     const [aucTime, setAucTime] = useState();
     const [orders, setOrders] = useState([]);
+    const [auctionId, setAuctionId] = useState([]);
 
     useEffect(() => {
         const fetchTime = async ()=>{
@@ -22,7 +23,7 @@ const AdminDashboard = () => {
               const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
               const data = await response.json();
               setAucTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-              console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+              setAuctionId(data.auctionId)
             } catch (error) {
               console.error('Error fetching product data:', error);
             }
@@ -118,9 +119,11 @@ const AdminDashboard = () => {
                         
                         <div className="db-tatalsale-text">
                             <p><b>Current month Sale</b></p>
-                            <p style={{marginTop:'1px'}}><b>$637.99</b></p>
+                            <p style={{marginTop:'1px'}}><b>$934.99</b></p>
                         </div>
                     </div>
+
+                    <Link to={`/admin/viewauctions/ongoing/${auctionId}`} style={{textDecoration: 'none'}}>
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
                             <i class="bi bi-clock-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
@@ -131,6 +134,8 @@ const AdminDashboard = () => {
                             <p style={{marginTop:'1px', color:'red'}}><b>{formatTime()}</b></p>
                         </div>
                     </div>
+                    </Link>
+                    
                     <div className="db-totalsale">
                         <div className="db-graphIcon">
                             <i class="bi bi-bag-check-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>

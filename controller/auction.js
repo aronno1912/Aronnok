@@ -386,7 +386,7 @@ exports.currentRemainingTime = async (req, res) => {
 
     // Select the latest ongoing auction
     const latestAuction = ongoingAuctions[0];
-
+    const auctionId=latestAuction._id;
     // Calculate remaining time for the latest ongoing auction
     const currentTime = moment();
     const endTime = moment(latestAuction.endTime);
@@ -396,7 +396,7 @@ exports.currentRemainingTime = async (req, res) => {
     const hours = Math.floor(duration.asHours());
     const minutes = Math.floor(duration.minutes());
     const seconds = Math.floor(duration.seconds());
-    res.status(201).json({ "hour": `${hours}`, "min": `${minutes}`, "sec": `${seconds}` });
+    res.status(201).json({ "hour": `${hours}`, "min": `${minutes}`, "sec": `${seconds}`,"auctionId":auctionId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
