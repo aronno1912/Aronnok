@@ -66,7 +66,7 @@ exports.getwishlistPlant = async (req, res) => {
     }
     const productDetails = await Product.findById(product.product);
     product = {
-      ...product.toObject(), // Convert Mongoose document to plain JavaScript object
+      ...product.toObject(),
       productName: productDetails.name,
       productPrice: productDetails.price,
       productPhoto: productDetails.photo,
@@ -104,10 +104,10 @@ exports.getAllwishlistPlants = async (req, res) => {
           return item;
       }));
       wishlistPlant = {
-        ...wishlistPlant.toObject(), // Convert Mongoose document to plain JavaScript object
+        // ...wishlistPlant.toObject(), // Convert Mongoose document to plain JavaScript object
         product: updatedProducts,
       };
-    res.json(wishlistPlant);
+    res.json(updatedProducts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

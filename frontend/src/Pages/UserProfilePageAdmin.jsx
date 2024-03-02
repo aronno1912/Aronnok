@@ -8,6 +8,7 @@ import Sidebar from '../Components/Sidebar/Sidebar';
 import CurrentOrderItem from '../Components/CurrentOrderItem/CurrentOrderItem';
 import OrderList2 from './OrderList2';
 import WinnedProductsList from '../Components/WinnedProductList/WinnedProductList';
+import WishlistPlantsList from '../Components/WishListPlantsList/WishlistPlantsList';
 
 const UserProfilePageAdmin = () => {
     const { userId } = useParams();
@@ -31,6 +32,12 @@ const UserProfilePageAdmin = () => {
                     <p style={{fontSize:30,color:'green'}}>Won Products</p>
                 </div>
                 <WinnedProductsList userId={userId}/>
+
+                <div style={{marginLeft:"300px", marginTop:"100px"}}>
+                    <p style={{fontSize:40}}>WishLists</p>
+                    
+                </div>
+                <WishlistPlantsList userId={userId}/>
 
                 
 
