@@ -48,6 +48,7 @@ exports.addToCart = async (req, res) => {
             if (existingItem) {
                 // If the product is already in the cart, update the quantity
                 existingItem.quantity += 1;
+                cart.total = cart.total + product.price;
             } else {
                 // If the product is not in the cart, add a new item
                 cart.items.push({
