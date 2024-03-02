@@ -2,9 +2,9 @@ const { AuctionProduct, Auction } = require("../models/auction");
 const { SellProduct } = require("../models/sell");
 const Order = require("../models/order");
 const User = require("../models/user");
-const Order = require("../models/order");
-const { AuctionProduct, Auction } = require("../models/auction");
-const { SellProduct } = require("../models/sell");
+
+
+
 exports.getUserById = (req, res, next, id) => {
   User.findById(id)
   .exec()
