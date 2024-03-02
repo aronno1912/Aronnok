@@ -43,6 +43,7 @@ import AdminDashboard from './Pages/AdminDashboard';
 import Wishlist from './Pages/Wishlist';
 import ViewSellRequestPage from './Pages/ViewSellRequestPage';
 import ReviewAddProductPage from './Pages/ReviewAddProductPage';
+import AllUsers from './Pages/AllUsers';
 
 
 function App() {
@@ -91,6 +92,7 @@ function App() {
         <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
         <Route path='/wishlist/:userId' element={<Wishlist/>}/>
         <Route path='/favourites/:userId' element={<Favourites/>}/>
+        <Route path='/allusers' element={<AllUsers/>}/>
       </Routes>
       </BrowserRouter>
     </div>

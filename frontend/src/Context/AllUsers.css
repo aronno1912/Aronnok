@@ -1,0 +1,17 @@
+.allusers-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.allusers-mainbody{
+    margin-left: 200px;
+}
+
+.allusers-allitems{
+    display:grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 40px;
+    justify-content: space-around;
+    margin-top: 40px;
+}

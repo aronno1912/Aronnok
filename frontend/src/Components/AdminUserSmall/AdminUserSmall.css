@@ -1,0 +1,23 @@
+.usersmall-container{
+    margin-top: 10px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    width:250px;
+    
+    box-shadow: 0 4px 8px rgba(0.9, 0.9, 0.9, 0.9);
+    border-radius: 10px;
+}
+
+.usersmall-container img{
+    width: 100%;
+    height: 200px;
+}
+.usersmall-details{
+    position: relative;
+    display: flex;
+    height: 120px;
+    flex-direction: column;
+    background-color: rgb(224, 227, 226);
+    color: black;
+}
