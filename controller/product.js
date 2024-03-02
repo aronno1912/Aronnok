@@ -370,7 +370,7 @@ exports.getPlantByName = async (req, res, next) => {
     if(searchTerm===''){
       return res.json([])
     }
-    const products = await Product.find({ name: { $regex: `^${searchTerm}`, $options: 'i' } });
+    const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
     // res.json(products);
     res.name_plants=products;
     res.json([...res.name_plants]);
