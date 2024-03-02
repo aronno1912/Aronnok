@@ -21,7 +21,8 @@ const NotificationComp = (prod) => {
     
       const onClose = async () => {
         try {
-          await axios.post(`http://localhost:8000/api/${prod.userId}/notification/delete/${prod.id}`, {});
+          await axios.delete(`http://localhost:8000/api/${prod.userId}/notification/delete/${prod.id}`, {});
+          // /:userId/notification/delete/:notificationId
         } catch (error) {
           console.error('Error bidding', error);
         }
@@ -34,14 +35,16 @@ const NotificationComp = (prod) => {
   return (
       <div className="noticomp-container">
         <span className="popupu-close-btn" onClick={onClose}>&times;</span>
-        <div className="noticomp-left">
-            <p>{prod.message}</p>
+        <div className="noticomp-body">
+          <div className="noticomp-left">
+              <p>{prod.message}</p>
+          </div>
+          {isAction && (
+              <div className="noticomp-right">
+                  <Link to={`/auction/payProducts/${prod.userId}/${prod.auctionId}`}><button>Pay now</button></Link>
+              </div>
+          )}
         </div>
-        {isAction && (
-            <div className="noticomp-right">
-                <Link to={`/auction/payProducts/${prod.userId}/${prod.auctionId}`}><button>Pay now</button></Link>
-            </div>
-        )}
         
       </div>
   )

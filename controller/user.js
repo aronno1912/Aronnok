@@ -1,6 +1,3 @@
-const { AuctionProduct, Auction } = require("../models/auction");
-const { SellProduct } = require("../models/sell");
-const Order = require("../models/order");
 const User = require("../models/user");
 
 

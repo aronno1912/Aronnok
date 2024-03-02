@@ -58,7 +58,7 @@ exports.success = async (req, res) => {
 
   // res.status(200).json({"message": `${req.params.transId} is successful`});
   // console.log(`${req.params.transId} is successful`);
-  res.redirect(`http://localhost:3000/payment/success/${req.params.transId}`);
+  res.redirect(`http://localhost:3000/home/659ef1753bec420af571c082`);
 };
 exports.successSell = async (req, res) => {
   const { pname, pdescription, pprice, pphoto,reqId } = req.query;
