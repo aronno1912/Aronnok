@@ -40,8 +40,18 @@
 .cart-item-right{
     position: relative;
 }
+
+.order-item-right{
+    width: 130px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
 .order-item-right p{
-    margin-top: 30px;
+    /* margin-top: 30px; */
     margin-right: 20px;
     color: rgb(17, 74, 32);
 }
@@ -51,7 +61,8 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-right: 20px;
-    margin-bottom: 80px;
+    /* margin-right: 20px;
+    margin-bottom: 80px; */
     background-color: rgb(183, 21, 220);
+    height: 30px;
 }

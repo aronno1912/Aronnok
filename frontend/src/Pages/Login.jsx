@@ -24,7 +24,7 @@ const Login = () => {
 
   const styles = {
     container: {
-      fontSize: '62.5%',
+       fontSize: '62.5%',
     }
   };
 

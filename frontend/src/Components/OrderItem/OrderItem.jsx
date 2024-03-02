@@ -64,16 +64,17 @@ const OrderItem = (prod) => {
             <p><b>${Math.round(prod.quantity*product.price)}</b></p>
             
             {prod.status==="Delivered" && <button className="order-item-rating-button" onClick={giveRating}>Rate</button>}
-            {/* <button className="order-item-rating-button" onClick={giveRating}>Rate</button> */}
+           
         </div>
-       
-          
-   </div>
-   {isPopupVisible && (
-        <RatingPopUp
+
+ 
+      </div>
+      {isPopupVisible && (
+      <RatingPopUp
           productId={product._id}
           closePopup={closePopup}
         />
+        
       )}
     </div>
   )

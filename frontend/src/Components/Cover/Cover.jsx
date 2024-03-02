@@ -20,7 +20,7 @@ const Cover = ({userId}) => {
     const sliderRef = React.createRef();
   
     const [touchStartX, setTouchStartX] = useState(null);
-    const [time,setTime]=useState();
+    const [time,setTime]=useState({});
     const [hours,setHours]=useState();
     const [minutes,setMinutes]=useState();
     const [seconds,setSeconds]=useState();
@@ -32,42 +32,57 @@ const Cover = ({userId}) => {
           const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
           const data = await response.json();
           setTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+          console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
         } catch (error) {
           console.error('Error fetching product data:', error);
         }
-       }
+      }
        fetchTime();
 
       }, []);
       
       useEffect(() => {
 
-       const formatTime = () => {
-        setHours(Math.floor(time / 3600));
-        setMinutes(Math.floor((time % 3600) / 60));
-        setSeconds(time % 60);
-      };
 
        const intervalId = setInterval(() => {
     
         setTime((prevTime) =>{
-          if(prevTime>0) return prevTime-1;
+          if(prevTime>0)
+          {
+            setHours(Math.floor(prevTime / 3600));
+            setMinutes(Math.floor((prevTime % 3600) / 60));
+            setSeconds(prevTime % 60);
+            return prevTime-1;
+          }
           else { return 0;}
         });
-        formatTime();
         
       }, 1000);
 
       return () => clearInterval(intervalId);
   
     }, []);
-   
+
+
+
+    const padZero = (value) => (value < 10 ? `0${value}` : value);
+
+    // const formatTime = () => {
+    //   setHours(Math.floor(time / 3600));
+    //     setMinutes(Math.floor((time % 3600) / 60));
+    //     setSeconds(time % 60);
+
+    //   let result=[];
+    //   result.push(
+        
+    //   );
+    //   return result;
+    // }
 
     const handleTouchStart = (e) => {
       setTouchStartX(e.touches[0].clientX);
     };
 
-    const padZero = (value) => (value < 10 ? `0${value}` : value);
 
     const [isFormVisible, setFormVisible] = useState(false);
     const showFormHandler = () => {
@@ -114,7 +129,7 @@ const Cover = ({userId}) => {
   };
 
   const coverTimeText = {
-    backgroundColor: 'rgb(190, 96, 38)',
+    backgroundColor: 'rgb(252, 135, 62)',
     color: 'rgb(84, 53, 9)',
     height: '40px',
     width: '40px',
@@ -144,14 +159,13 @@ const Cover = ({userId}) => {
           <div className="cover-text2">
               <p>Check our auctions</p>
               <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
-
               <div classname='cover-Auction-time' style={coverTime}>
-                  <p style={{fontSize: '25px',color: 'white'}}>Auction ending in : </p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px' ,color: 'white'}}>{padZero(hours)}</p></div>
-                  <p style={{fontSize: '25px',color: 'white'}}>:</p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(minutes)}</p></div>
-                  <p style={{fontSize: '25px',color: 'white'}}>:</p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(seconds)}</p></div>
+                <p style={{fontSize: '25px',color: 'white'}}>Auction ending in : </p>
+                <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px' ,color: 'white'}}>{padZero(hours)}</p></div>
+                <p style={{fontSize: '25px',color: 'white'}}>:</p>
+                <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(minutes)}</p></div>
+                <p style={{fontSize: '25px',color: 'white'}}>:</p>
+                <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(seconds)}</p></div>
               </div>
             
 

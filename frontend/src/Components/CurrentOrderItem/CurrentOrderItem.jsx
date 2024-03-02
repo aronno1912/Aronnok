@@ -115,17 +115,14 @@ const CurrentOrderItem = (prod) => {
     <Link to={`/orderstatus/${prod.userId}/${prod.id}`} className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
       <div className="curorderitem-container">
         <div className="curorderitem-left">
-            <p style={{fontSize:'18px', color:'rgb(2, 75, 33)'}}>Order ID: {order._id}</p>
-            <p style={{fontSize:'12px', color:'rgb(2, 75, 33)'}}>Products: {namelist.join(', ')}</p>
-            <p style={{fontSize:'12px', color:'rgb(68, 188, 24)' }}>Status: <b>{order.status}</b></p>
           <p className="order-id">
-            <i className="bi bi-box"></i><b> Order Id:</b> {` ${order._id}`}
+            <i className="bi bi-box" style={{color:"rgb(240, 153, 13)"}}></i><b> Order Id:</b> {` ${order._id}`}
           </p>
           <p className="products-list">
-            <i className="bi bi-basket"></i><b>  Products:</b> {` ${namelist.join(', ')}`}
+            <i className="bi bi-basket" style={{color:"rgb(240, 153, 13)"}}></i><b>  Products:</b> {` ${namelist.join(', ')}`}
           </p>
           <p className="order-status">
-            <i className="bi bi-clock"></i><b>  Status:</b> {` ${order.status}`}
+            <i className="bi bi-clock" style={{color:"rgb(240, 153, 13)"}}></i><b>  Status:</b>{` ${order.status}`}
           </p>
         </div>
         <div className="curorderitem-right">
