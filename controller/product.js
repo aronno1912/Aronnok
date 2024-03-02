@@ -392,19 +392,24 @@ exports.getPlantaByTag = async (req, res, next) => {
 exports.getPlantByName = async (req, res, next) => {
   try {
     const searchTerm = req.body.query;
-    if(searchTerm===''){
-      return res.json([])
+    
+    if (searchTerm === '') {
+      return res.json([]);
     }
+
     const products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
-    // res.json(products);
-    res.name_plants=products;
-    res.json([...res.name_plants]);
+    res.name_plants = products;
+    
+    // Return the products only if there are matching results, otherwise, return an empty array
+    res.json(res.name_plants ? [...res.name_plants] : []);
+
     next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 exports.getPlantByCategory = async (req, res, next) => {
   try {

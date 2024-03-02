@@ -105,3 +105,9 @@
     background-color: #e67e22; /* Darker orange on hover */
   }
   
+  .star-selected {
+    background-color: gold; /* Change the color for selected stars */
+  }
+  .star-unselected {
+    background-color: white; /* Change the color for selected stars */
+  }

@@ -62,6 +62,10 @@ const CartItem = (prod) => {
       setPrice(Math.round(totalPrice+ product.price));
       updateCart(newQuantity);
     }
+    else if(quantity===1)
+    {
+      removeItem();
+    }
   };
 
   const removeItem = async () => {

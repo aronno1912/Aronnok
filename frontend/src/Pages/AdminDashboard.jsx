@@ -99,14 +99,14 @@ const AdminDashboard = () => {
                     {/* <hr style={{width:"150px", margin:"0", border:"2px solid", borderRadius:"10px"}}/> */}
                 </div>
                 <div className="dashboard-cards">
-                    <Link to={`/allusers`}>
+                    <Link to={`/allusers`} style={{textDecoration: 'none'}}>
                     <div className="db-totalsale">
                             <div className="db-graphIcon">
                                 <i class="bi bi-bar-chart-fill" style={{fontSize:'35px' , color:'rgb(67, 80, 198)'}}></i>
                             </div>
                             
                             <div className="db-tatalsale-text">
-                                <p style={{textDecoration: 'none'}}><b>Total Users</b></p>
+                                <p><b>Total Users</b></p>
                                 <p style={{marginTop:'1px'}}><b>{userNo}</b></p>
                             </div>
                     </div>

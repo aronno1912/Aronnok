@@ -90,7 +90,7 @@ const OrderStatus = () => {
                 <div className="order-items-header">
                     <div className="order-items-header-p">
                         <p><b>Products</b></p>
-                        <p><b>Sub Total</b></p>
+                        <p style={{marginRight:"70px"}}><b>Sub Total</b></p>
                     </div>
                     <hr style={{ position: "absolute", top: "40px", width: "700px" }} />
                 </div>

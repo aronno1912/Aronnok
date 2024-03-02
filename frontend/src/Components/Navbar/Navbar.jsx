@@ -15,6 +15,7 @@ const Navbar = ({ userId }) => {
   const [query,setQuery]=useState('');
   const [suggestions,setSuggestions]=useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isUserExpanded, setUserExpanded] = useState(false);
 
   const openPopup = () => {
     setPopupOpen(true);
@@ -71,6 +72,10 @@ const Navbar = ({ userId }) => {
 
   }, []);
 
+  const changeUserExpanded = async () => {
+    setUserExpanded((stat)=>{return !stat})
+  };
+
   return (
     <div className='navbar'>
       <div className='nav-logo'>
@@ -107,8 +112,17 @@ const Navbar = ({ userId }) => {
         <div className="nav-cart-count" style={{ fontSize: '10px' }}>
           {cartTotalQuantity}
         </div>
-        <Link to={`/profile/${userId}`}>
-          <img src="/us.png" alt="" style={{ width: '30px', height: '30px' }} /> </Link>
+
+        <div className="usericon-expand">
+          <button onClick={changeUserExpanded} style={{backgroundColor:"transparent"}}><img src="/us.png" alt="" style={{ width: '30px', height: '30px'}} /></button>
+            {isUserExpanded && (
+              <div className="navbar-user-expanded">
+                <Link to={`/profile/${userId}`} style={{ textDecoration: 'none' }}><p style={{ marginLeft:"10px"}}>Profile</p></Link>
+                <Link to={`/`} style={{ textDecoration: 'none' }}><p style={{ marginLeft:"10px"}}>Log out</p></Link>
+              </div>
+            )}
+        </div>
+        
       </div>
       {isPopupOpen && (
         <div className="notification-overlay">
