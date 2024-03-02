@@ -53,7 +53,7 @@ const CurrentOrderItem = (prod) => {
         <div className="curorderitem-left">
             <p style={{fontSize:'18px', color:'rgb(2, 75, 33)'}}>Order ID: {order._id}</p>
             <p style={{fontSize:'12px', color:'rgb(2, 75, 33)'}}>Products: {namelist.join(', ')}</p>
-            <p style={{fontSize:'12px', color:'rgb(2, 75, 33)'}}>Status: {order.status}</p>
+            <p style={{fontSize:'12px', color:'rgb(68, 188, 24)' }}>Status: <b>{order.status}</b></p>
         </div>
         <div className="curorderitem-right">
             <p><b>${Math.round(order.amount)}</b></p>
