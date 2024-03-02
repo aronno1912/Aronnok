@@ -90,7 +90,7 @@ const CartItem = (prod) => {
         <p>${product.price}</p>
       </div>
       <div className="cart-item-right">
-        <button className='remove-btn' onClick={removeItem}><i class="bi bi-x" style={{ fontSize: '20px' }}></i></button>
+        <button className='remove-btn' onClick={removeItem}><i class="bi bi-x" style={{ fontSize: '15px' }}></i></button>
         <p><b>${product.price*prod.quantity}</b></p>
       </div>
 

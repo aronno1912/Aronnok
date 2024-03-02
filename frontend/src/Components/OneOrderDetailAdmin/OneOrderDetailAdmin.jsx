@@ -34,6 +34,7 @@ const OneOrderDetailAdmin = ({ orderId }) => {
       await axios.put(`http://localhost:8000/api/order/${orderId}`, { status: newStatus });
       // Update the local state or fetch the order details again if needed
       console.log('Order status updated successfully', newStatus);
+      window.location.reload();
     } catch (error) {
       console.error('Error updating order status:', error);
       console.log('Order status update failed', newStatus);
@@ -93,6 +94,7 @@ const OneOrderDetailAdmin = ({ orderId }) => {
             <option value="Canceled">Canceled</option>
           </select>
           <button onClick={handleStatusChange}>Update Status</button>
+          
         </p>
       </div>
 

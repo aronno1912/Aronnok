@@ -57,3 +57,43 @@ exports.postUserNotifications = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+exports.deleteUserNotifications = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    // let allnotification = await Notification.findOne({ user: userId }).sort({ createdAt: -1 });
+    
+    // if (!notification) {
+      // If no notification exists for the user, create a new one
+      // notification = new Notification({ user: userId, messages: [] });
+    // }
+
+    // Add the new message to the notification
+    Notification.findOneAndUpdate(
+      { user: userId },
+      { $pull: { messages: { _id: req.params.notificationId } } },
+      { new: true }
+    )
+      .then((notification) => {
+        if (!notification) {
+          return res.status(404).json({
+            error: 'Wishlist not found for the user',
+          });
+        }
+        res.json(notification);
+      })
+      .catch((err) => {
+        res.status(400).json({
+          error: 'Error adding wishlist product',
+        });
+      });
+
+    // Save the notification
+    // await allnotification.save();
+
+    // res.status(200).json(notification);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

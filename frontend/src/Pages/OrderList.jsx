@@ -25,10 +25,11 @@ const OrderList = () => {
             for (const order of orders) {
               if(order.status==="Delivered"){
                 setPrevOrder((prevOrders) => [...prevOrders, order]);
-                // setTotalCurPrice(totalCurPrice+order.amount);
+                
               }
               else{
                 setCurOrder((prevOrders) => [...prevOrders, order]);
+                setTotalCurPrice(Math.round(totalCurPrice+order.amount));
               }
             }
             
