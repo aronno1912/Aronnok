@@ -147,7 +147,7 @@ exports.addPlant = async (req, res, next) => {
   }
   try {
     //destructure the fields
-    const { name, description, price, category, stock, photo} = req.body;
+    const { name,sciname, description, price, category, stock, photo} = req.body;
     // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
@@ -480,6 +480,7 @@ exports.trending = async (req, res) => {
         $project: {
           _id: '$productDetails._id',
           name: '$productDetails.name',
+          sciname:'$productDetails.sciname',
           description: '$productDetails.description',
           price: '$productDetails.price',
           category: '$productDetails.category',

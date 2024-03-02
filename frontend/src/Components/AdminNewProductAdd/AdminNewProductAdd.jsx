@@ -11,6 +11,7 @@ const AdminNewProductAdd = () => {
   // const [photo, setFile] = useState (null);
   const [productInfo, setProductInfo] = useState({
     name: '',
+    sciname:'',
     description: '',
     category: '',
     stock: 0,
@@ -87,6 +88,7 @@ const AdminNewProductAdd = () => {
       alert('New product added successfully!');
       setProductInfo({
         name: '',
+        sciname:'',
         description: '',
         category: '',
         stock: 0,
@@ -112,7 +114,8 @@ const AdminNewProductAdd = () => {
         <div className="form-left">
           <label htmlFor="name">Product Name</label>
           <input type="text" id="name" name="name" value={productInfo.name} onChange={handleChange} required />
-
+          <label htmlFor="sciname">Scientific Name</label>
+          <input type="text" id="sciname" name="sciname" value={productInfo.sciname} onChange={handleChange} required />
           <label htmlFor="category">Category</label>
           <select className='ab' id="category" name="category" value={productInfo.category} onChange={handleChange} required>
             <option value="">Select Category</option>

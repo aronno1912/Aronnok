@@ -9,6 +9,9 @@ const productSchema = new mongoose.Schema(
       required: true,
       maxlength: 32
     },
+    sciname:{
+      type: String,
+    },
     description: {
       type: String,
       trim: true,
