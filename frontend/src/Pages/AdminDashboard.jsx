@@ -16,7 +16,20 @@ const AdminDashboard = () => {
     const [aucTime, setAucTime] = useState();
     const [orders, setOrders] = useState([]);
 
-      
+    useEffect(() => {
+        const fetchTime = async ()=>{
+            try {
+              const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
+              const data = await response.json();
+              setAucTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+              console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+            } catch (error) {
+              console.error('Error fetching product data:', error);
+            }
+           }
+           fetchTime();
+    }, []);
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -38,17 +51,7 @@ const AdminDashboard = () => {
             }
           };
           
-          const fetchTime = async ()=>{
-            try {
-              const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
-              const data = await response.json();
-              setAucTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-              console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
-            } catch (error) {
-              console.error('Error fetching product data:', error);
-            }
-           }
-
+        
           const fetchAllOrders = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/api/order/activeOrders`);
@@ -62,7 +65,10 @@ const AdminDashboard = () => {
           const intervalId = setInterval(() => {
             fetchProduct();
             fetchUsers();
-            fetchTime();
+            setAucTime((prevTime) =>{
+                if(prevTime>0) return prevTime-1;
+                else { return 0;}
+              });
             fetchAllOrders();
             // checkTimeEnd();
           }, 1000);

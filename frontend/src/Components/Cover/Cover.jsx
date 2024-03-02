@@ -115,11 +115,11 @@ const Cover = ({userId}) => {
 
   const coverTimeText = {
     backgroundColor: 'rgb(190, 96, 38)',
-    color: 'white',
+    color: 'rgb(84, 53, 9)',
     height: '40px',
     width: '40px',
     fontSize: '25px',
-    marginTop:'25px'
+    marginTop:'25px',
    };
 
 
@@ -146,12 +146,12 @@ const Cover = ({userId}) => {
               <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
 
               <div classname='cover-Auction-time' style={coverTime}>
-                  <p style={{fontSize: '25px'}}>Auction ending in : </p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px'}}>{padZero(hours)}</p></div>
-                  <p style={{fontSize: '25px'}}>:</p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px'}}>{padZero(hours)}</p></div>
-                  <p style={{fontSize: '25px'}}>:</p>
-                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px'}}>{padZero(hours)}</p></div>
+                  <p style={{fontSize: '25px',color: 'white'}}>Auction ending in : </p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px' ,color: 'white'}}>{padZero(hours)}</p></div>
+                  <p style={{fontSize: '25px',color: 'white'}}>:</p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(minutes)}</p></div>
+                  <p style={{fontSize: '25px',color: 'white'}}>:</p>
+                  <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(seconds)}</p></div>
               </div>
             
 
