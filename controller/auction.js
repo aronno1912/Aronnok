@@ -372,18 +372,24 @@ exports.remainingTime = async (req, res) => {
 
 exports.currentRemainingTime = async (req, res) => {
   try {
-    let auction = await Auction.find({
+    // Find ongoing auctions
+    const ongoingAuctions = await Auction.find({
       startTime: { $lte: new Date() },
       endTime: { $gt: new Date() },
     })
-      .populate('auctionProducts')
-      .sort({startTime:-1})
-      .exec();
-    //res.json(ongoingAuctions);
-    const currentTime = moment(); // Current time
-    const endTime = moment(auction.endTime); // End time of the auction
+    .populate('auctionProducts');
 
-    // Calculate the time difference
+    if (ongoingAuctions.length === 0) {
+      // No ongoing auctions found
+      return res.status(404).json({ message: 'No ongoing auctions found' });
+    }
+
+    // Select the latest ongoing auction
+    const latestAuction = ongoingAuctions[0];
+
+    // Calculate remaining time for the latest ongoing auction
+    const currentTime = moment();
+    const endTime = moment(latestAuction.endTime);
     const duration = moment.duration(endTime.diff(currentTime));
 
     // Get remaining time in hours, minutes, and seconds

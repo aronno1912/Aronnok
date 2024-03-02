@@ -61,7 +61,7 @@ const OrderItem = (prod) => {
             </div>
         </div>
         <div className="order-item-right">
-            <p><b>${prod.quantity*product.price}</b></p>
+            <p><b>${Math.round(prod.quantity*product.price)}</b></p>
             
             {prod.status==="Delivered" && <button className="order-item-rating-button" onClick={giveRating}>Rate</button>}
             {/* <button className="order-item-rating-button" onClick={giveRating}>Rate</button> */}

@@ -8,7 +8,7 @@ import { CartContext } from '../../Context/CartContext';
 
 const Trending = ({catagory,mypath,userId}) => {
   const [all_plants, setProducts] = useState([]);
- 
+  console.log("cat in trending: "+catagory)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,8 +28,9 @@ const Trending = ({catagory,mypath,userId}) => {
       <h1>{catagory}</h1>
     
       <div className= 'tr-products'>
+        
         {all_plants.map((item,i)=>{
-             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price}/>
+             return <Product label='product'key={i} id={item._id} userId={userId} name={item.name} description={item.description} photo={item.photo} rating={item.rating} price={item.price} category={catagory === 'Coming Soon' ? 'comingsoon' :'product' }/>
         })}
       </div>
     </div>
