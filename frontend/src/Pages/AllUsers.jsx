@@ -29,8 +29,8 @@ const AllUsers = () => {
 
             <div className="allusers-mainbody">
                 <div className="allusers-allitems">
-                    {users.map((item,i)=>{
-                    return <AdminUserSmall id={item._id} name={item.username} photo={"/us.png"}/>
+                    {users.filter(item => item.role !== 1).map((item,i)=>{
+                    return <AdminUserSmall id={item._id} firstname={item.firstname} lastname={item.lastname} username={item.username} photo={"/userP2.jpg"}/>
                     })}
                 </div>
             </div>

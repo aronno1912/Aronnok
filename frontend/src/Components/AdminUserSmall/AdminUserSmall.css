@@ -18,6 +18,7 @@
     display: flex;
     height: 120px;
     flex-direction: column;
-    background-color: rgb(224, 227, 226);
+    background-color: rgb(255, 255, 255);
     color: black;
+    margin-left: 20px;
 }

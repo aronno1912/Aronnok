@@ -16,6 +16,7 @@ const AdminDashboard = () => {
     const [aucTime, setAucTime] = useState();
     const [orders, setOrders] = useState([]);
 
+      
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -36,16 +37,17 @@ const AdminDashboard = () => {
               console.error('Error fetching product data:', error);
             }
           };
-
-          const fetchTime = async () => {
+          
+          const fetchTime = async ()=>{
             try {
-                const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
-                const data = await response.json();
-                setAucTime(data.length);
+              const response = await fetch(`http://localhost:8000/api/auction/remainingTime`);
+              const data = await response.json();
+              setAucTime(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
+              console.log(Number(Number(data.hour)*3600+Number(data.min)*60+Number(data.sec)));
             } catch (error) {
               console.error('Error fetching product data:', error);
             }
-          };
+           }
 
           const fetchAllOrders = async () => {
             try {
@@ -63,7 +65,7 @@ const AdminDashboard = () => {
             fetchTime();
             fetchAllOrders();
             // checkTimeEnd();
-          }, 5000);
+          }, 1000);
       
           // Clear the interval when the component unmounts
           return () => clearInterval(intervalId);
@@ -162,7 +164,7 @@ const AdminDashboard = () => {
                         </div>
                         <div className="db-order">
                             {orders.map((item,i)=>{
-                                return <AdDashOrderItem key={i} id={item.id} status={item.status} amount={item.amount} userId={item.user}/>
+                                return <AdDashOrderItem key={i} id={item._id} status={item.status} amount={item.amount} userId={item.user}/>
                             })}
                         </div>
                     </div>
