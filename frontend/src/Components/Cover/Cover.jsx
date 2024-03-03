@@ -24,6 +24,7 @@ const Cover = ({userId}) => {
     const [hours,setHours]=useState();
     const [minutes,setMinutes]=useState();
     const [seconds,setSeconds]=useState();
+    const [isTimeZero,setTimeZero]=useState(false);
     
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const Cover = ({userId}) => {
             setSeconds(prevTime % 60);
             return prevTime-1;
           }
-          else { return 0;}
+          else { setTimeZero(true); return 0;}
         });
         
       }, 1000);
@@ -159,7 +160,8 @@ const Cover = ({userId}) => {
           <div className="cover-text2">
               <p>Check our auctions</p>
               <Link to={`/auctionsall/${userId}`}> <button className='cover2button'>check them out</button> </Link>
-              <div classname='cover-Auction-time' style={coverTime}>
+              {time!==0 && (
+                <div classname='cover-Auction-time' style={coverTime}>
                 <p style={{fontSize: '25px',color: 'white'}}>Auction ending in : </p>
                 <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px', marginTop:'0px' ,color: 'white'}}>{padZero(hours)}</p></div>
                 <p style={{fontSize: '25px',color: 'white'}}>:</p>
@@ -167,6 +169,8 @@ const Cover = ({userId}) => {
                 <p style={{fontSize: '25px',color: 'white'}}>:</p>
                 <div classname='cover-time-text' style={coverTimeText}><p style={{fontSize: '25px',marginTop:'0px',color: 'white'}}>{padZero(seconds)}</p></div>
               </div>
+          )}
+              
             
 
           </div>
