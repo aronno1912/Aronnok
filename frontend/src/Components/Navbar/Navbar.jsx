@@ -8,8 +8,8 @@ import axios from 'axios';
 import UserNotification from '../UserNotification/UserNotification'
 import SearchDropDown from '../SearchDropDown/SearchDropDown'
 
-const Navbar = ({ userId }) => {
-  const [menu, setMenu] = useState("home");
+const Navbar = ({ userId,menuPassed="default" }) => {
+  const [menu, setMenu] = useState(menuPassed);
   const [cartTotalQuantity, setQuantity] = useState(0);
   const [notis, setNotis] = useState([]);
   const [query,setQuery]=useState('');

@@ -132,3 +132,32 @@ exports.removeFavourite = (req, res) => {
     });
 
 };
+
+exports.getIsFavourite = async(req, res) => {
+  const userId = req.params.userId;
+  const productId = req.params.productId;
+  
+  try {
+    const favourites = await Favourites.find({ user: userId });
+  let flag=false;
+    const updated = await Promise.all(favourites.map(async (favorite) => {
+      if(String(favorite.product) === productId)
+      {
+
+        flag=true;
+      }
+  
+      // You might want to do something else if the flag is false,
+      // for example, return a different response or continue processing.
+  
+    }));
+
+    return res.json({ "flag": flag });
+    // Do something with the 'updated' array if needed
+  
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
+};

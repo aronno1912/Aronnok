@@ -8,7 +8,7 @@ import { CartContext } from '../../Context/CartContext';
 
 const Trending = ({catagory,mypath,userId}) => {
   const [all_plants, setProducts] = useState([]);
-  console.log("cat in trending: "+catagory)
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

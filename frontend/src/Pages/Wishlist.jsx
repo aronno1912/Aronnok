@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
    <div>
-      <Navbar userId={userId}/>
+      <Navbar userId={userId} menu={"wishlist"}/>
       <Wishlist category="Wishlist" mypath={`http://localhost:8000/api/wishlist/${userId}`} userId={userId} wishlistPlantId={wishlistPlantId}/>
       <Footer/>
     </div>

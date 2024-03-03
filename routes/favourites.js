@@ -6,6 +6,7 @@ const {
     getFavourite,
     getAllFavourites,
     removeFavourite,
+    getIsFavourite,
 } = require("../controller/favourites");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controller/auth");
 const { getUserById } = require("../controller/user");
@@ -24,6 +25,7 @@ router.post(
 
 router.get("/favourites/:userId/:favouritePlantId", getFavourite);
 router.get("/favourites/:userId", getAllFavourites);
+router.get("/favourites/:userId/isFavourite/:productId", getIsFavourite);
 
 //delete
 

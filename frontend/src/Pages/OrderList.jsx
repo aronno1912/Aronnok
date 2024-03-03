@@ -70,7 +70,7 @@ const OrderList = () => {
       }
   return (
     <div>
-        <Navbar userId={userId}/>
+        <Navbar userId={userId} menu={"orders"}/>
         <div className="orderlist-alltotals">
             <div className="orderlist-currentorders">
              
