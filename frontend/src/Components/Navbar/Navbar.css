@@ -45,7 +45,7 @@
     gap: 3px;
     cursor: pointer;
 }
-.nav-menu li:hover hr {
+.nav-menu li hr {
     display: block;
   }
   

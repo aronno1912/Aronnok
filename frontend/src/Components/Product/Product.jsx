@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Product.css'
 import plant_img from '../Assets/bansai.jpg'
 import { Link } from 'react-router-dom';
@@ -6,11 +6,31 @@ import star_dull from '../Assets/star_dull_icon.png'
 
 import star from '../Assets/star_icon.png'
 import { CartContext } from '../../Context/CartContext'
+import axios from 'axios';
 
 const Product = (prod) => {
   let flag = false;
   console.log('wyhkjabgij')
   console.log(prod.category)
+
+
+  const [isFav, setIsFav] = useState();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/favourites/${prod.userId}/isFavourite/${prod.id}`);
+        const data = await response.json();
+        setIsFav(data.flag);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+
     const ratingStars = () => {
         const result = [];
         for (let i = 0; i < prod.rating; i++) {
@@ -24,8 +44,14 @@ const Product = (prod) => {
 
       const [isClicked, setIsClicked] = useState(false);
 
-      const addToFavourites = () => {
+      const addToFavourites = async() => {
         setIsClicked(!isClicked);
+        try {
+          await axios.post(`http://localhost:8000/api/favourites/create/${prod.userId}`, { "plantId": prod.id });
+        } catch (error) {
+          console.error('Error adding', error);
+        }
+        
       };
 
       if (prod.category == "comingsoon") {
@@ -35,18 +61,19 @@ const Product = (prod) => {
       }
 
   return (
-    <Link to={`/${prod.category}/${prod.userId}/${prod.id}`}className='container-link' style={{ textDecoration: 'none', color: 'black' }}>
-    <div className='product-container'> 
+    <div className='product-container2'> 
 
-    <div className='container'> 
-      <img src={prod.photo} alt="" style={{ width: '280px', height: '200px' }} />
-
-      <div className="plant-details">
-        <p className='plant-name'>{prod.name}</p>
-        <div className="product-description">
+    <div className='container2'> 
+    <Link to={`/${prod.category}/${prod.userId}/${prod.id}`} style={{ textDecoration: 'none'}}>
+      <img src={prod.photo} alt=""  style={{ width: '280px', height: '200px' }} />
+      </Link>
+      <div className="plant-details2">
+        <Link to={`/${prod.category}/${prod.userId}/${prod.id}`} style={{ textDecoration: 'none', color:'black'}}>
+        <p className='plant-name2'>{prod.name}</p>
+        <div className="product-description2">
             <p>{prod.description}</p>
         </div>
-        <div className="star-img">
+        <div className="star-img2">
             {ratingStars()}
         </div>
         {/* <p className='product-price'><b>${prod.price}</b></p> */}
@@ -59,19 +86,25 @@ const Product = (prod) => {
  
  
 </p>
+</Link>
         <div className="product-footer">
           <button className='love-icon-btn'>  <i
+            // className={`bi bi-heart ${isClicked ? 'clicked' : ''}`}
             className={`bi bi-heart ${isClicked ? 'clicked' : ''}`}
-            style={{ fontSize: '20px',  border:'black', color: isClicked ? 'red' : 'black'}}
+            style={{ fontSize: '20px',  border:'black', color: isFav||isClicked==="clicked" ? 'red' : 'black'}}
             onClick={addToFavourites}
           ></i></button>
+           
+
           <button className="buy-btn">Buy</button>    
           </div>
         </div>
       </div>
     </div>
-    </Link>
   )
 }
 
 export default Product
+
+// className='container-link' 
+// style={{ width: '280px', height: '200px' }}
