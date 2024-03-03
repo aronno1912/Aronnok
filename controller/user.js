@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const { Auction, AuctionProduct, RequestedAuctionProduct } = require('../models/auction');
 
 
 exports.getUserById = (req, res, next, id) => {

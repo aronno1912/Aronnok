@@ -166,25 +166,58 @@ exports.updateCartItem = async (req, res) => {
 exports.deleteCartItem = async (req, res) => {
     // Update cart item logic
     // ...
+    console.log("delete")
     const productId = req.params.productId;
-    Cart.findOneAndUpdate(
-        { user: req.params.userId },
-        { $pull: { items: { product: productId } } },
-        { new: true }
-    )
-        .then((cartItem) => {
-            if (!cartItem) {
+
+// Find the cart and retrieve its current total
+Cart.findOne({ user: req.params.userId })
+    .then(async (cart) => {
+        if (!cart) {
+            return res.status(404).json({
+                error: 'Cart not found for the user',
+            });
+        }
+        console.log(productId)
+        const currentItem = cart.items.find(item => String(item.product) === productId);
+        console.log(currentItem)
+        const product=await Product.findById(currentItem.product);
+        console.log(product)
+        if (!product) {
+            return res.status(404).json({
+                error: 'Product not found in the cart',
+            });
+        }
+
+        const productPrice = product.price;
+        console.log(productPrice*currentItem.quantity)
+        // Update cart to remove the item and subtract the product price from the total
+        Cart.findOneAndUpdate(
+            { user: req.params.userId },
+            { 
+                $pull: { items: { product: productId } },
+                $inc: { total: -productPrice*currentItem.quantity} // Subtract product price from total
+            },
+            { new: true }
+        )
+        .then((updatedCart) => {
+            if (!updatedCart) {
                 return res.status(404).json({
                     error: 'Cart item not found for the user',
                 });
             }
-            res.json(cartItem);
+            res.json(updatedCart);
         })
         .catch((err) => {
             res.status(400).json({
-                error: 'Error deleting cart product',
+                error: 'Error updating cart',
             });
         });
+    })
+    .catch((err) => {
+        res.status(400).json({
+            error: 'Error finding cart',
+        });
+    });
     // res.redirect('/cart/checkout');
 };
 exports.removeCart = async (req, res) => {
