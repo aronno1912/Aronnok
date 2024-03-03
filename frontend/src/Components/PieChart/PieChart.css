@@ -1,14 +1,24 @@
 /* PieChart.css */
 
 .pie-chart-container {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
     text-align: center;
+    background-color: rgb(247, 246, 246);
+    display: flex;
+    height: 100%;
+
+  }
+  .pieh2{
+    font-size: 20px;
+    margin-bottom: -20px;
   }
   
   canvas {
-    max-width: 100%;
+    /* max-width: 100%; */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
   }
+
   

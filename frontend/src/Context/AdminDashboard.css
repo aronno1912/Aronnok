@@ -116,3 +116,20 @@
     margin-top: -20px;
    
 }
+
+.db-middlepart2{
+    height: 400px;
+    width: 92%;
+    margin-top: 10px;
+    /* margin-left: 50px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: center;
+}
+.hisoh22{
+    margin-right: -20px;
+    right:150px;
+    align-self: left;
+
+}
