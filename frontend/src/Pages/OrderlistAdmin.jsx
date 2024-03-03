@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar/Navbar'
 import Table from '../Components/Table/Table'
 import  { useEffect, useState } from 'react';
 import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
+import '../Context/OrderListAdmin.css';
 
 // const OrderlistAdmin = () => {
 //   return (
@@ -38,9 +39,14 @@ const OrderlistAdmin = () => {
       <div>
         {/* <h1>Order History</h1> */}
         <AdminNavbar/>
-        <Sidebar />
-        {/* <p className='breadcrumbs'style={{ marginLeft: '220px' }} >Home>OrderList</p> */}
-        <Table data={orderHistory} />
+        <div className="orderlist-admin">
+          <Sidebar />
+          <div className="orderlist-table-admin">
+            <Table data={orderHistory} />
+          </div>
+          
+        </div>
+        
         
       </div>
     );

@@ -1,0 +1,16 @@
+.orderlist-admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.orderlist-table-admin{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* margin-left: 200px;
+    margin-top: 70px; */
+    width: 100%;
+    height: auto;
+    background-color: rgb(247, 246, 246);
+}

@@ -22,3 +22,20 @@
     text-align: center;
     margin-top: 20px;
   }
+
+  .heresidebar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .heresidebar-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0px;
+   
+    width: 100%;
+    height: auto;
+    background-color: rgb(247, 246, 246);
+  }

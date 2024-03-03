@@ -53,15 +53,15 @@ const AdminViewAuctionPage = () => {
     <div className='aauctionall'>
         <div className="heresidebar">
         <Sidebar/>
-        </div>
+        <div className="heresidebar-body">
         <AdminNavbar/>
         
         
         <div className="aauctionall-ongoing">
+            {/* <h1>     </h1>
             <h1>     </h1>
-            <h1>     </h1>
-            <h1>     </h1>
-            <h1> Ongoing</h1>
+            <h1>     </h1> */}
+            <h1 style={{marginLeft:'15px'}}> Ongoing</h1>
 
             <div className='atr-auctions'>
   {ongoing.length === 0 ? (
@@ -85,7 +85,7 @@ const AdminViewAuctionPage = () => {
 </div>
         </div>
         <div className="aauctionall-ongoing">
-            <h1>Upcoming</h1>
+            <h1 style={{marginLeft:'15px'}}>Upcoming</h1>
         
             <div className= 'atr-auctions'>
             {upcoming.map((item,i)=>{
@@ -94,7 +94,7 @@ const AdminViewAuctionPage = () => {
             </div>
         </div>
         <div className="aauctionall-ongoing">
-            <h1>Previous auctions</h1>
+            <h1 style={{marginLeft:'15px'}}>Previous auctions</h1>
         
             <div className= 'atr-auctions'>
             {completed.map((item,i)=>{
@@ -104,6 +104,8 @@ const AdminViewAuctionPage = () => {
         </div>
         
         
+    </div>
+    </div>
     </div>
     
   )
