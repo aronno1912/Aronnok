@@ -178,7 +178,7 @@ const Cover = ({userId}) => {
           
       </div>  
       <div className='cover'>
-          <img src="/cov12.jpg" alt="" />
+          <img src="/hellos.jpg" alt="" />
        </div>
        <div className='cover'>
           <img src="/cov11.jpg" alt="" />

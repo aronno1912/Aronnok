@@ -1,0 +1,14 @@
+/* PieChart.css */
+
+.pie-chart-container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  canvas {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
