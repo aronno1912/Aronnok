@@ -6,16 +6,23 @@ import AdminProductPanel from '../Components/AdminProductPanel/AdminProductPanel
 import AdminNavbar from '../Components/AdminNavbar/AdminNavbar';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import AdminNewProductAdd from '../Components/AdminNewProductAdd/AdminNewProductAdd';
+import '../Context/AdminAddProductPage.css';
 
 const AdminAddProductPage = () => {
   return (
     <div>
      
       <AdminNavbar/>
+      <div className="orderlist-admin">
       <Sidebar/>
-      {/* <AdminProductPanel catagory="" /> */}
+      <div className="orderlist-table-admin">
       <AdminNewProductAdd/>
       <Footer/>
+      </div>
+      
+     
+      </div>
+      
     </div>
   )
 }
