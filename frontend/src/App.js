@@ -56,7 +56,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login/>}/>
         <Route path='/abcd' element={<SignupPage2/>}/>
-        <Route path='/home/:userId' element={<Home/>}/>
+        <Route path='/home/:userId' element={<Home menu={"home"}/>}/>
         {/*========================just for test purpose i am linking favourites to view product page =================================================*/}
         <Route path='/admin/createauction' element={<AdminCreateAuction/>}/>
         <Route path='/profile/:userId' element={<UserProfilePage/>}/>
@@ -66,7 +66,7 @@ function App() {
         <Route path='/:category/:userId/:productId' element={<ViewProduct />} />
         {/* <Route path='/comingsoon/product/:userId/:productId' element={<ViewComingSoonProduct />} /> */}
         <Route path='/login' element={<Login/>}/>
-        <Route path='/orderlist/:userId' element={<OrderList/>}/>
+        <Route path='/orderlist/:userId' element={<OrderList menu={"home"}/>}/>
         <Route path='/orderstatus/:userId/:orderId' element={<OrderStatus/>}/>
         <Route path='/auction/upcoming/:userId/:auctionId' element={<AuctionUpcoming/>}/>
         <Route path='/auction/ongoing/:userId/:auctionId' element={<OneAuction/>}/>
@@ -94,8 +94,8 @@ function App() {
         
         <Route path='/auction/:auctionId/:productId/bids' element={<AdAuctionProductBids/>}/>
         <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
-        <Route path='/wishlist/:userId' element={<Wishlist/>}/>
-        <Route path='/favourites/:userId' element={<Favourites/>}/>
+        <Route path='/wishlist/:userId' element={<Wishlist menu={"home"}/>}/>
+        <Route path='/favourites/:userId' element={<Favourites menu={"home"}/>}/>
         <Route path='/allusers' element={<AllUsers/>}/>
         <Route path='/editproduct/:productId' element={<EditProductPageAd />} />
       </Routes>
