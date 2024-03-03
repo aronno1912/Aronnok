@@ -10,7 +10,7 @@ const AdminUserSmall = (prod) => {
       <img src={prod.photo} alt=""/>
 
       <div className="usersmall-details">
-        <p className='auction-name' style={{color:"black"}}>{prod.firstname} {prod.firstname}</p>
+        <p className='auction-name' style={{color:"black"}}>{prod.firstname} {prod.lastname}</p>
         <p className='auction-name' style={{color:"black"}}>Username: {prod.username}</p>
       </div>
 
