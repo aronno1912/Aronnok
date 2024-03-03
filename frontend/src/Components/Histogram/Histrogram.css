@@ -1,0 +1,20 @@
+/* Histogram.css */
+
+.histogram-container {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .histoh2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Adjust chart container size if needed */
+  canvas {
+    width: 100%;
+    height: auto;
+  }
+  

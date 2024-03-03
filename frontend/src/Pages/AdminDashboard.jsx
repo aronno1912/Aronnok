@@ -8,6 +8,8 @@ import { Link, useParams } from 'react-router-dom'
 import BestSellerItem from '../Components/BestSellerItem/BestSellerItem'
 import Calendar from '../Components/Calender/Calendar'
 import AdDashOrderItem from '../Components/AdDashOrderItem/AdDashOrderItem'
+import PieChart from '../Components/PieChart/PieChart'
+import Histogram from '../Components/Histogram/Histogram'
 
 const AdminDashboard = () => {
     
@@ -182,8 +184,26 @@ const AdminDashboard = () => {
                    
                     <div className="db-calender">
                         <Calendar/>
-                    </div>
+                       
+                    
                 </div>
+                </div>
+                {/* <p> <b>Plant Categories Distribution</b></p> */}
+                <h2 className='hisoh22'>Plants By Categrory</h2>
+                <div className='db-middlepart2'>
+                     
+                <div className='pie-chart-container'>
+                
+                   <PieChart/>
+                   <div className='histogram-container'>
+                   <Histogram/>
+                   </div>
+                   
+                   </div>
+                </div>
+                  
+
+
                 
             </div>
 
