@@ -102,19 +102,20 @@ const Navbar = ({ userId }) => {
         <SearchDropDown userId={userId}/>
       </div>
 
-      <div className="nav-login-cart">
+      <div className="nav-login-cart" style={{marginRight:'-40px'}}>
         <div className="notification-icon"><button style={{ backgroundColor: "white", fontSize: '30px' }} onClick={openPopup}><i class="bi bi-bell-fill" style={{ color: 'rgb(0, 100, 0)', fontSize: '25px' }}></i></button>
           <div className="notification-count" style={{ fontSize: '10px' }}>{notis.length}</div>
         </div>
 
-        <Link to={`/viewcart/${userId}`}> <img src={cart_icon} alt="" style={{ width: '40px', height: '40px' }} /></Link>
+        <Link to={`/viewcart/${userId}`}> <i class="bi bi-cart-fill" style={{ color: 'rgb(0, 100, 0)', fontSize: '28px' }}></i></Link>
         {/* <Link to='/' className='login-btn'>Logout</Link> */}
         <div className="nav-cart-count" style={{ fontSize: '10px' }}>
           {cartTotalQuantity}
         </div>
 
         <div className="usericon-expand">
-          <button onClick={changeUserExpanded} style={{backgroundColor:"transparent"}}><img src="/us.png" alt="" style={{ width: '30px', height: '30px'}} /></button>
+          <button onClick={changeUserExpanded} style={{backgroundColor:"transparent"}}><i class="bi bi-person-circle" style={{ color: 'rgb(0, 0, 0)', fontSize: '28px' }}></i></button>
+          {/* <button onClick={changeUserExpanded} style={{backgroundColor:"transparent"}}><img src="/us.png" alt="" style={{ width: '30px', height: '30px'}} /></button> */}
             {isUserExpanded && (
               <div className="navbar-user-expanded">
                 <Link to={`/profile/${userId}`} style={{ textDecoration: 'none' }}><p style={{ marginLeft:"10px"}}>Profile</p></Link>
