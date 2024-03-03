@@ -147,7 +147,7 @@ exports.addPlant = async (req, res, next) => {
   }
   try {
     //destructure the fields
-    const { name,sciname, description, price, category, stock, photo} = req.body;
+    const { name,sciname, description, price, category, stock, photoName} = req.body;
     // console.log(name);
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
@@ -167,7 +167,7 @@ exports.addPlant = async (req, res, next) => {
     // console.log("vallage na")
     // console.log(plant);
     plant.category = catg._id;
-    plant.photo = photo;
+    plant.photo = "/"+photoName;
 
     await plant.save();
     res.status(201).json({ message: 'Plant added successfully!' });
@@ -470,43 +470,68 @@ exports.recommendations = async (req, res, next) => {
 };
 
 exports.trending = async (req, res) => {
-  try {
-    let trendingProducts = await Order.aggregate([
-      { $unwind: '$products' }, // Split the array of products into separate documents
-      {
-        $group: {
-          _id: '$products.product', // Group by the product
-          count: { $sum: '$products.quantity' }, // Count occurrences of each product
-        },
-      },
-      { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
-      { $unwind: '$productDetails' }, // Unwind the productDetails array
-      {
-        $project: {
-          _id: '$productDetails._id',
-          name: '$productDetails.name',
-          sciname:'$productDetails.sciname',
-          description: '$productDetails.description',
-          price: '$productDetails.price',
-          category: '$productDetails.category',
-          stock: '$productDetails.stock',
-          sold: '$productDetails.sold',
-          rating: '$productDetails.rating',
-          photo: '$productDetails.photo',
-          tags: '$productDetails.tags',
-          createdAt: '$productDetails.createdAt',
-          updatedAt: '$productDetails.updatedAt',
-        },
-      },
-      { $sort: { count: -1 } }, // Sort in descending order based on count
-      { $limit: 10 }, // Take only the top 10
-    ]);
-    trendingProducts = trendingProducts.sort(() => Math.random() - 0.5);
-    res.json(trendingProducts);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  // try {
+  //   let trendingProducts = await Order.aggregate([
+  //     { $unwind: '$products' }, // Split the array of products into separate documents
+  //     {
+  //       $group: {
+  //         _id: '$products.product', // Group by the product
+  //         count: { $sum: '$products.quantity' }, // Count occurrences of each product
+  //       },
+  //     },
+  //     { $lookup: { from: 'products', localField: '_id', foreignField: '_id', as: 'productDetails' } },
+  //     { $unwind: '$productDetails' }, // Unwind the productDetails array
+  //     {
+  //       $project: {
+  //         _id: '$productDetails._id',
+  //         name: '$productDetails.name',
+  //         sciname:'$productDetails.sciname',
+  //         description: '$productDetails.description',
+  //         price: '$productDetails.price',
+  //         category: '$productDetails.category',
+  //         stock: '$productDetails.stock',
+  //         sold: '$productDetails.sold',
+  //         rating: '$productDetails.rating',
+  //         photo: '$productDetails.photo',
+  //         tags: '$productDetails.tags',
+  //         createdAt: '$productDetails.createdAt',
+  //         updatedAt: '$productDetails.updatedAt',
+  //       },
+  //     },
+  //     { $sort: { count: -1 } }, // Sort in descending order based on count
+  //     { $limit: 10 }, // Take only the top 10
+  //   ]);
+  //   trendingProducts = trendingProducts.sort(() => Math.random() - 0.5);
+  //   res.json(trendingProducts);
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
+
+
+   // let limit = req.query.limit ? parseInt(req.query.limit) : 9;
+   let sortBy = req.query.sort ? req.query.sort : "sold";
+   let limit = req.query.limit ? parseInt(req.query.limit) : 10;
+   Product.find()
+     .populate("category")
+     .sort([[sortBy, "desc"]])
+     .limit(limit)
+     .exec()
+     .then((products) => {
+       if (!products) {
+         return res.status(400).json({
+           error: "No products found",
+         });
+       }
+       res.json(products);
+     })
+     .catch((err) => {
+       // Handle errors here
+       console.error(err);
+       res.status(500).json({
+         error: "Internal Server Error",
+       });
+     });
 
 };
 
